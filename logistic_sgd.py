@@ -46,6 +46,9 @@ import numpy
 import theano
 import theano.tensor as T
 
+EPOCHS_FRAC = 10
+SAMPLE_FRAC = 100
+BATCH_FRAC = 10
 
 class LogisticRegression(object):
     """Multi-class Logistic Regression Class
@@ -176,7 +179,20 @@ def load_data(dataset):
     f = gzip.open(dataset, 'rb')
     train_set, valid_set, test_set = cPickle.load(f)
 
-    print numpy.shape(train_set), numpy.shape(valid_set), numpy.shape(test_set)
+    def sample(data):
+        import random
+        seq = random.sample(xrange(len(data[1])), len(data[1])/SAMPLE_FRAC)
+        data0 = [data[0][i] for i in seq]
+        data1 = [data[1][i] for i in seq]
+        return (data0,data1)
+
+    print numpy.shape(train_set)
+
+    train_set = sample(train_set)
+    valid_set = sample(valid_set)
+    test_set = sample(test_set)
+
+    print numpy.shape(train_set)
 
     f.close()
     #train_set, valid_set, test_set format: tuple(input, target)
@@ -220,9 +236,9 @@ def load_data(dataset):
     return rval
 
 
-def sgd_optimization_mnist(learning_rate=0.13, n_epochs=1000,
+def sgd_optimization_mnist(learning_rate=0.13, n_epochs=1000/EPOCHS_FRAC,
                            dataset='mnist.pkl.gz',
-                           batch_size=600):
+                           batch_size=600/BATCH_FRAC):
     """
     Demonstrate stochastic gradient descent optimization of a log-linear
     model
