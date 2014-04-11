@@ -1,0 +1,1319 @@
+Using gpu device 0: Tesla K20m
+... loading data
+... building the model
+... getting the pretraining functions
+... pre-training the model
+Pre-training layer 0, epoch 0, cost  -935.013
+Pre-training layer 0, epoch 1, cost  -900.516
+Pre-training layer 0, epoch 2, cost  -888.689
+Pre-training layer 0, epoch 3, cost  -881.117
+Pre-training layer 0, epoch 4, cost  -875.805
+Pre-training layer 0, epoch 5, cost  -871.667
+Pre-training layer 0, epoch 6, cost  -868.363
+Pre-training layer 0, epoch 7, cost  -865.43
+Pre-training layer 0, epoch 8, cost  -863.098
+Pre-training layer 0, epoch 9, cost  -860.847
+Pre-training layer 0, epoch 10, cost  -858.947
+Pre-training layer 0, epoch 11, cost  -857.215
+Pre-training layer 0, epoch 12, cost  -855.646
+Pre-training layer 0, epoch 13, cost  -854.179
+Pre-training layer 0, epoch 14, cost  -852.883
+Pre-training layer 0, epoch 15, cost  -851.602
+Pre-training layer 0, epoch 16, cost  -850.348
+Pre-training layer 0, epoch 17, cost  -849.294
+Pre-training layer 0, epoch 18, cost  -848.215
+Pre-training layer 0, epoch 19, cost  -847.179
+Pre-training layer 0, epoch 20, cost  -846.273
+Pre-training layer 0, epoch 21, cost  -845.337
+Pre-training layer 0, epoch 22, cost  -844.493
+Pre-training layer 0, epoch 23, cost  -843.713
+Pre-training layer 0, epoch 24, cost  -842.871
+Pre-training layer 0, epoch 25, cost  -842.136
+Pre-training layer 0, epoch 26, cost  -841.425
+Pre-training layer 0, epoch 27, cost  -840.714
+Pre-training layer 0, epoch 28, cost  -840.068
+Pre-training layer 0, epoch 29, cost  -839.395
+Pre-training layer 0, epoch 30, cost  -838.769
+Pre-training layer 0, epoch 31, cost  -838.221
+Pre-training layer 0, epoch 32, cost  -837.598
+Pre-training layer 0, epoch 33, cost  -837.039
+Pre-training layer 0, epoch 34, cost  -836.439
+Pre-training layer 0, epoch 35, cost  -835.897
+Pre-training layer 0, epoch 36, cost  -835.444
+Pre-training layer 0, epoch 37, cost  -834.98
+Pre-training layer 0, epoch 38, cost  -834.499
+Pre-training layer 0, epoch 39, cost  -834.105
+Pre-training layer 0, epoch 40, cost  -833.666
+Pre-training layer 0, epoch 41, cost  -833.145
+Pre-training layer 0, epoch 42, cost  -832.763
+Pre-training layer 0, epoch 43, cost  -832.443
+Pre-training layer 0, epoch 44, cost  -832.031
+Pre-training layer 0, epoch 45, cost  -831.639
+Pre-training layer 0, epoch 46, cost  -831.225
+Pre-training layer 0, epoch 47, cost  -830.9
+Pre-training layer 0, epoch 48, cost  -830.585
+Pre-training layer 0, epoch 49, cost  -830.173
+Pre-training layer 0, epoch 50, cost  -829.862
+Pre-training layer 0, epoch 51, cost  -829.567
+Pre-training layer 0, epoch 52, cost  -829.181
+Pre-training layer 0, epoch 53, cost  -828.905
+Pre-training layer 0, epoch 54, cost  -828.591
+Pre-training layer 0, epoch 55, cost  -828.403
+Pre-training layer 0, epoch 56, cost  -828.055
+Pre-training layer 0, epoch 57, cost  -827.807
+Pre-training layer 0, epoch 58, cost  -827.52
+Pre-training layer 0, epoch 59, cost  -827.214
+Pre-training layer 0, epoch 60, cost  -826.908
+Pre-training layer 0, epoch 61, cost  -826.665
+Pre-training layer 0, epoch 62, cost  -826.471
+Pre-training layer 0, epoch 63, cost  -826.179
+Pre-training layer 0, epoch 64, cost  -825.853
+Pre-training layer 0, epoch 65, cost  -825.623
+Pre-training layer 0, epoch 66, cost  -825.429
+Pre-training layer 0, epoch 67, cost  -825.158
+Pre-training layer 0, epoch 68, cost  -825.01
+Pre-training layer 0, epoch 69, cost  -824.687
+Pre-training layer 0, epoch 70, cost  -824.454
+Pre-training layer 0, epoch 71, cost  -824.262
+Pre-training layer 0, epoch 72, cost  -824.028
+Pre-training layer 0, epoch 73, cost  -823.845
+Pre-training layer 0, epoch 74, cost  -823.646
+Pre-training layer 0, epoch 75, cost  -823.353
+Pre-training layer 0, epoch 76, cost  -823.259
+Pre-training layer 0, epoch 77, cost  -822.961
+Pre-training layer 0, epoch 78, cost  -822.79
+Pre-training layer 0, epoch 79, cost  -822.598
+Pre-training layer 0, epoch 80, cost  -822.445
+Pre-training layer 0, epoch 81, cost  -822.233
+Pre-training layer 0, epoch 82, cost  -822.117
+Pre-training layer 0, epoch 83, cost  -821.912
+Pre-training layer 0, epoch 84, cost  -821.698
+Pre-training layer 0, epoch 85, cost  -821.518
+Pre-training layer 0, epoch 86, cost  -821.441
+Pre-training layer 0, epoch 87, cost  -821.247
+Pre-training layer 0, epoch 88, cost  -821.035
+Pre-training layer 0, epoch 89, cost  -820.977
+Pre-training layer 0, epoch 90, cost  -820.668
+Pre-training layer 0, epoch 91, cost  -820.523
+Pre-training layer 0, epoch 92, cost  -820.413
+Pre-training layer 0, epoch 93, cost  -820.225
+Pre-training layer 0, epoch 94, cost  -820.126
+Pre-training layer 0, epoch 95, cost  -820.014
+Pre-training layer 0, epoch 96, cost  -819.802
+Pre-training layer 0, epoch 97, cost  -819.652
+Pre-training layer 0, epoch 98, cost  -819.484
+Pre-training layer 0, epoch 99, cost  -819.364
+Pre-training layer 1, epoch 0, cost  -29.036
+Pre-training layer 1, epoch 1, cost  -19.117
+Pre-training layer 1, epoch 2, cost  -17.0028
+Pre-training layer 1, epoch 3, cost  -15.7502
+Pre-training layer 1, epoch 4, cost  -14.9316
+Pre-training layer 1, epoch 5, cost  -14.3131
+Pre-training layer 1, epoch 6, cost  -13.8069
+Pre-training layer 1, epoch 7, cost  -13.3596
+Pre-training layer 1, epoch 8, cost  -13.0549
+Pre-training layer 1, epoch 9, cost  -12.7391
+Pre-training layer 1, epoch 10, cost  -12.5146
+Pre-training layer 1, epoch 11, cost  -12.267
+Pre-training layer 1, epoch 12, cost  -12.034
+Pre-training layer 1, epoch 13, cost  -11.8616
+Pre-training layer 1, epoch 14, cost  -11.6929
+Pre-training layer 1, epoch 15, cost  -11.5812
+Pre-training layer 1, epoch 16, cost  -11.4126
+Pre-training layer 1, epoch 17, cost  -11.2453
+Pre-training layer 1, epoch 18, cost  -11.1709
+Pre-training layer 1, epoch 19, cost  -11.0387
+Pre-training layer 1, epoch 20, cost  -10.9061
+Pre-training layer 1, epoch 21, cost  -10.8465
+Pre-training layer 1, epoch 22, cost  -10.781
+Pre-training layer 1, epoch 23, cost  -10.6537
+Pre-training layer 1, epoch 24, cost  -10.5438
+Pre-training layer 1, epoch 25, cost  -10.4753
+Pre-training layer 1, epoch 26, cost  -10.4179
+Pre-training layer 1, epoch 27, cost  -10.3206
+Pre-training layer 1, epoch 28, cost  -10.2214
+Pre-training layer 1, epoch 29, cost  -10.2099
+Pre-training layer 1, epoch 30, cost  -10.0652
+Pre-training layer 1, epoch 31, cost  -10.0625
+Pre-training layer 1, epoch 32, cost  -9.98226
+Pre-training layer 1, epoch 33, cost  -9.94255
+Pre-training layer 1, epoch 34, cost  -9.89231
+Pre-training layer 1, epoch 35, cost  -9.8235
+Pre-training layer 1, epoch 36, cost  -9.79488
+Pre-training layer 1, epoch 37, cost  -9.72289
+Pre-training layer 1, epoch 38, cost  -9.64538
+Pre-training layer 1, epoch 39, cost  -9.62473
+Pre-training layer 1, epoch 40, cost  -9.53948
+Pre-training layer 1, epoch 41, cost  -9.53313
+Pre-training layer 1, epoch 42, cost  -9.52569
+Pre-training layer 1, epoch 43, cost  -9.43096
+Pre-training layer 1, epoch 44, cost  -9.39144
+Pre-training layer 1, epoch 45, cost  -9.33581
+Pre-training layer 1, epoch 46, cost  -9.33349
+Pre-training layer 1, epoch 47, cost  -9.26068
+Pre-training layer 1, epoch 48, cost  -9.22725
+Pre-training layer 1, epoch 49, cost  -9.22933
+Pre-training layer 1, epoch 50, cost  -9.18349
+Pre-training layer 1, epoch 51, cost  -9.14586
+Pre-training layer 1, epoch 52, cost  -9.09857
+Pre-training layer 1, epoch 53, cost  -9.13923
+Pre-training layer 1, epoch 54, cost  -9.06703
+Pre-training layer 1, epoch 55, cost  -8.98831
+Pre-training layer 1, epoch 56, cost  -8.997
+Pre-training layer 1, epoch 57, cost  -8.92266
+Pre-training layer 1, epoch 58, cost  -8.95086
+Pre-training layer 1, epoch 59, cost  -8.90872
+Pre-training layer 1, epoch 60, cost  -8.8394
+Pre-training layer 1, epoch 61, cost  -8.84981
+Pre-training layer 1, epoch 62, cost  -8.82295
+Pre-training layer 1, epoch 63, cost  -8.7812
+Pre-training layer 1, epoch 64, cost  -8.76984
+Pre-training layer 1, epoch 65, cost  -8.72696
+Pre-training layer 1, epoch 66, cost  -8.71615
+Pre-training layer 1, epoch 67, cost  -8.69843
+Pre-training layer 1, epoch 68, cost  -8.66304
+Pre-training layer 1, epoch 69, cost  -8.65804
+Pre-training layer 1, epoch 70, cost  -8.59565
+Pre-training layer 1, epoch 71, cost  -8.59035
+Pre-training layer 1, epoch 72, cost  -8.59583
+Pre-training layer 1, epoch 73, cost  -8.60444
+Pre-training layer 1, epoch 74, cost  -8.50553
+Pre-training layer 1, epoch 75, cost  -8.53937
+Pre-training layer 1, epoch 76, cost  -8.47795
+Pre-training layer 1, epoch 77, cost  -8.4601
+Pre-training layer 1, epoch 78, cost  -8.46442
+Pre-training layer 1, epoch 79, cost  -8.4149
+Pre-training layer 1, epoch 80, cost  -8.40283
+Pre-training layer 1, epoch 81, cost  -8.4171
+Pre-training layer 1, epoch 82, cost  -8.41734
+Pre-training layer 1, epoch 83, cost  -8.3269
+Pre-training layer 1, epoch 84, cost  -8.33799
+Pre-training layer 1, epoch 85, cost  -8.33983
+Pre-training layer 1, epoch 86, cost  -8.34797
+Pre-training layer 1, epoch 87, cost  -8.30135
+Pre-training layer 1, epoch 88, cost  -8.26236
+Pre-training layer 1, epoch 89, cost  -8.30189
+Pre-training layer 1, epoch 90, cost  -8.27375
+Pre-training layer 1, epoch 91, cost  -8.23825
+Pre-training layer 1, epoch 92, cost  -8.23282
+Pre-training layer 1, epoch 93, cost  -8.22519
+Pre-training layer 1, epoch 94, cost  -8.18055
+Pre-training layer 1, epoch 95, cost  -8.15802
+Pre-training layer 1, epoch 96, cost  -8.17505
+Pre-training layer 1, epoch 97, cost  -8.14379
+Pre-training layer 1, epoch 98, cost  -8.13685
+Pre-training layer 1, epoch 99, cost  -8.09788
+Pre-training layer 2, epoch 0, cost  -390.165
+Pre-training layer 2, epoch 1, cost  -368.651
+Pre-training layer 2, epoch 2, cost  -361.786
+Pre-training layer 2, epoch 3, cost  -357.229
+Pre-training layer 2, epoch 4, cost  -354.128
+Pre-training layer 2, epoch 5, cost  -351.627
+Pre-training layer 2, epoch 6, cost  -349.647
+Pre-training layer 2, epoch 7, cost  -348.054
+Pre-training layer 2, epoch 8, cost  -346.836
+Pre-training layer 2, epoch 9, cost  -345.838
+Pre-training layer 2, epoch 10, cost  -344.986
+Pre-training layer 2, epoch 11, cost  -344.221
+Pre-training layer 2, epoch 12, cost  -343.428
+Pre-training layer 2, epoch 13, cost  -342.891
+Pre-training layer 2, epoch 14, cost  -342.297
+Pre-training layer 2, epoch 15, cost  -341.797
+Pre-training layer 2, epoch 16, cost  -341.224
+Pre-training layer 2, epoch 17, cost  -340.825
+Pre-training layer 2, epoch 18, cost  -340.44
+Pre-training layer 2, epoch 19, cost  -340.02
+Pre-training layer 2, epoch 20, cost  -339.692
+Pre-training layer 2, epoch 21, cost  -339.36
+Pre-training layer 2, epoch 22, cost  -339.073
+Pre-training layer 2, epoch 23, cost  -338.947
+Pre-training layer 2, epoch 24, cost  -338.568
+Pre-training layer 2, epoch 25, cost  -338.177
+Pre-training layer 2, epoch 26, cost  -337.938
+Pre-training layer 2, epoch 27, cost  -337.727
+Pre-training layer 2, epoch 28, cost  -337.509
+Pre-training layer 2, epoch 29, cost  -337.188
+Pre-training layer 2, epoch 30, cost  -336.999
+Pre-training layer 2, epoch 31, cost  -336.746
+Pre-training layer 2, epoch 32, cost  -336.512
+Pre-training layer 2, epoch 33, cost  -336.377
+Pre-training layer 2, epoch 34, cost  -336.167
+Pre-training layer 2, epoch 35, cost  -335.981
+Pre-training layer 2, epoch 36, cost  -335.778
+Pre-training layer 2, epoch 37, cost  -335.66
+Pre-training layer 2, epoch 38, cost  -335.565
+Pre-training layer 2, epoch 39, cost  -335.42
+Pre-training layer 2, epoch 40, cost  -335.244
+Pre-training layer 2, epoch 41, cost  -335.059
+Pre-training layer 2, epoch 42, cost  -335.034
+Pre-training layer 2, epoch 43, cost  -334.912
+Pre-training layer 2, epoch 44, cost  -334.792
+Pre-training layer 2, epoch 45, cost  -334.701
+Pre-training layer 2, epoch 46, cost  -334.555
+Pre-training layer 2, epoch 47, cost  -334.455
+Pre-training layer 2, epoch 48, cost  -334.346
+Pre-training layer 2, epoch 49, cost  -334.223
+Pre-training layer 2, epoch 50, cost  -334.174
+Pre-training layer 2, epoch 51, cost  -334.116
+Pre-training layer 2, epoch 52, cost  -333.977
+Pre-training layer 2, epoch 53, cost  -334.012
+Pre-training layer 2, epoch 54, cost  -333.849
+Pre-training layer 2, epoch 55, cost  -333.844
+Pre-training layer 2, epoch 56, cost  -333.759
+Pre-training layer 2, epoch 57, cost  -333.583
+Pre-training layer 2, epoch 58, cost  -333.514
+Pre-training layer 2, epoch 59, cost  -333.518
+Pre-training layer 2, epoch 60, cost  -333.389
+Pre-training layer 2, epoch 61, cost  -333.362
+Pre-training layer 2, epoch 62, cost  -333.355
+Pre-training layer 2, epoch 63, cost  -333.277
+Pre-training layer 2, epoch 64, cost  -333.208
+Pre-training layer 2, epoch 65, cost  -333.181
+Pre-training layer 2, epoch 66, cost  -333.08
+Pre-training layer 2, epoch 67, cost  -332.97
+Pre-training layer 2, epoch 68, cost  -333.013
+Pre-training layer 2, epoch 69, cost  -332.853
+Pre-training layer 2, epoch 70, cost  -332.815
+Pre-training layer 2, epoch 71, cost  -332.749
+Pre-training layer 2, epoch 72, cost  -332.769
+Pre-training layer 2, epoch 73, cost  -332.651
+Pre-training layer 2, epoch 74, cost  -332.588
+Pre-training layer 2, epoch 75, cost  -332.567
+Pre-training layer 2, epoch 76, cost  -332.506
+Pre-training layer 2, epoch 77, cost  -332.413
+Pre-training layer 2, epoch 78, cost  -332.385
+Pre-training layer 2, epoch 79, cost  -332.402
+Pre-training layer 2, epoch 80, cost  -332.397
+Pre-training layer 2, epoch 81, cost  -332.334
+Pre-training layer 2, epoch 82, cost  -332.3
+Pre-training layer 2, epoch 83, cost  -332.225
+Pre-training layer 2, epoch 84, cost  -332.169
+Pre-training layer 2, epoch 85, cost  -332.156
+Pre-training layer 2, epoch 86, cost  -332.1
+Pre-training layer 2, epoch 87, cost  -332.128
+Pre-training layer 2, epoch 88, cost  -331.998
+Pre-training layer 2, epoch 89, cost  -332.037
+Pre-training layer 2, epoch 90, cost  -331.991
+Pre-training layer 2, epoch 91, cost  -331.968
+Pre-training layer 2, epoch 92, cost  -331.845
+Pre-training layer 2, epoch 93, cost  -331.816
+Pre-training layer 2, epoch 94, cost  -331.853
+Pre-training layer 2, epoch 95, cost  -331.768
+Pre-training layer 2, epoch 96, cost  -331.693
+Pre-training layer 2, epoch 97, cost  -331.671
+Pre-training layer 2, epoch 98, cost  -331.617
+Pre-training layer 2, epoch 99, cost  -331.62
+The pretraining code for file DBN.py ran for 21.81m
+... getting the finetuning functions
+... finetunning the model
+epoch 1, minibatch 833/833, validation error 49.759036 %
+     epoch 1, minibatch 833/833, test error of best model 50.000000 %
+epoch 2, minibatch 833/833, validation error 49.759036 %
+epoch 3, minibatch 833/833, validation error 49.759036 %
+epoch 4, minibatch 833/833, validation error 49.759036 %
+epoch 5, minibatch 833/833, validation error 49.759036 %
+epoch 6, minibatch 833/833, validation error 49.759036 %
+epoch 7, minibatch 833/833, validation error 26.927711 %
+     epoch 7, minibatch 833/833, test error of best model 24.700000 %
+epoch 8, minibatch 833/833, validation error 49.759036 %
+epoch 9, minibatch 833/833, validation error 49.759036 %
+epoch 10, minibatch 833/833, validation error 49.759036 %
+epoch 11, minibatch 833/833, validation error 49.759036 %
+epoch 12, minibatch 833/833, validation error 49.759036 %
+epoch 13, minibatch 833/833, validation error 26.385542 %
+     epoch 13, minibatch 833/833, test error of best model 24.430000 %
+epoch 14, minibatch 833/833, validation error 49.759036 %
+epoch 15, minibatch 833/833, validation error 49.759036 %
+epoch 16, minibatch 833/833, validation error 49.759036 %
+epoch 17, minibatch 833/833, validation error 49.759036 %
+epoch 18, minibatch 833/833, validation error 49.759036 %
+epoch 19, minibatch 833/833, validation error 49.759036 %
+epoch 20, minibatch 833/833, validation error 49.759036 %
+epoch 21, minibatch 833/833, validation error 49.759036 %
+epoch 22, minibatch 833/833, validation error 49.759036 %
+epoch 23, minibatch 833/833, validation error 49.759036 %
+epoch 24, minibatch 833/833, validation error 49.759036 %
+epoch 25, minibatch 833/833, validation error 49.759036 %
+epoch 26, minibatch 833/833, validation error 49.759036 %
+epoch 27, minibatch 833/833, validation error 49.759036 %
+epoch 28, minibatch 833/833, validation error 49.759036 %
+epoch 29, minibatch 833/833, validation error 49.759036 %
+epoch 30, minibatch 833/833, validation error 49.759036 %
+epoch 31, minibatch 833/833, validation error 49.759036 %
+epoch 32, minibatch 833/833, validation error 49.759036 %
+epoch 33, minibatch 833/833, validation error 49.759036 %
+epoch 34, minibatch 833/833, validation error 49.759036 %
+epoch 35, minibatch 833/833, validation error 49.759036 %
+epoch 36, minibatch 833/833, validation error 49.759036 %
+epoch 37, minibatch 833/833, validation error 49.759036 %
+epoch 38, minibatch 833/833, validation error 49.759036 %
+epoch 39, minibatch 833/833, validation error 49.759036 %
+epoch 40, minibatch 833/833, validation error 49.759036 %
+epoch 41, minibatch 833/833, validation error 49.759036 %
+epoch 42, minibatch 833/833, validation error 49.759036 %
+epoch 43, minibatch 833/833, validation error 49.759036 %
+epoch 44, minibatch 833/833, validation error 49.759036 %
+epoch 45, minibatch 833/833, validation error 49.759036 %
+epoch 46, minibatch 833/833, validation error 49.759036 %
+epoch 47, minibatch 833/833, validation error 49.759036 %
+epoch 48, minibatch 833/833, validation error 49.759036 %
+epoch 49, minibatch 833/833, validation error 49.759036 %
+epoch 50, minibatch 833/833, validation error 49.759036 %
+epoch 51, minibatch 833/833, validation error 49.759036 %
+epoch 52, minibatch 833/833, validation error 49.759036 %
+epoch 53, minibatch 833/833, validation error 49.759036 %
+epoch 54, minibatch 833/833, validation error 49.759036 %
+epoch 55, minibatch 833/833, validation error 49.759036 %
+epoch 56, minibatch 833/833, validation error 49.759036 %
+epoch 57, minibatch 833/833, validation error 49.759036 %
+epoch 58, minibatch 833/833, validation error 49.759036 %
+epoch 59, minibatch 833/833, validation error 49.759036 %
+epoch 60, minibatch 833/833, validation error 49.759036 %
+epoch 61, minibatch 833/833, validation error 49.759036 %
+epoch 62, minibatch 833/833, validation error 49.759036 %
+epoch 63, minibatch 833/833, validation error 49.759036 %
+epoch 64, minibatch 833/833, validation error 49.759036 %
+epoch 65, minibatch 833/833, validation error 49.759036 %
+epoch 66, minibatch 833/833, validation error 49.759036 %
+epoch 67, minibatch 833/833, validation error 49.759036 %
+epoch 68, minibatch 833/833, validation error 49.759036 %
+epoch 69, minibatch 833/833, validation error 49.759036 %
+epoch 70, minibatch 833/833, validation error 49.759036 %
+epoch 71, minibatch 833/833, validation error 49.759036 %
+epoch 72, minibatch 833/833, validation error 49.759036 %
+epoch 73, minibatch 833/833, validation error 49.759036 %
+epoch 74, minibatch 833/833, validation error 49.759036 %
+epoch 75, minibatch 833/833, validation error 49.759036 %
+epoch 76, minibatch 833/833, validation error 49.759036 %
+epoch 77, minibatch 833/833, validation error 49.216867 %
+epoch 78, minibatch 833/833, validation error 49.759036 %
+epoch 79, minibatch 833/833, validation error 45.963855 %
+epoch 80, minibatch 833/833, validation error 49.759036 %
+epoch 81, minibatch 833/833, validation error 49.759036 %
+epoch 82, minibatch 833/833, validation error 49.759036 %
+epoch 83, minibatch 833/833, validation error 49.759036 %
+epoch 84, minibatch 833/833, validation error 49.759036 %
+epoch 85, minibatch 833/833, validation error 49.759036 %
+epoch 86, minibatch 833/833, validation error 49.759036 %
+epoch 87, minibatch 833/833, validation error 49.759036 %
+epoch 88, minibatch 833/833, validation error 49.759036 %
+epoch 89, minibatch 833/833, validation error 49.759036 %
+epoch 90, minibatch 833/833, validation error 49.759036 %
+epoch 91, minibatch 833/833, validation error 49.759036 %
+epoch 92, minibatch 833/833, validation error 49.759036 %
+epoch 93, minibatch 833/833, validation error 49.759036 %
+epoch 94, minibatch 833/833, validation error 49.759036 %
+epoch 95, minibatch 833/833, validation error 49.759036 %
+epoch 96, minibatch 833/833, validation error 49.759036 %
+epoch 97, minibatch 833/833, validation error 49.759036 %
+epoch 98, minibatch 833/833, validation error 49.759036 %
+epoch 99, minibatch 833/833, validation error 49.759036 %
+epoch 100, minibatch 833/833, validation error 49.759036 %
+epoch 101, minibatch 833/833, validation error 49.759036 %
+epoch 102, minibatch 833/833, validation error 49.759036 %
+epoch 103, minibatch 833/833, validation error 49.759036 %
+epoch 104, minibatch 833/833, validation error 49.759036 %
+epoch 105, minibatch 833/833, validation error 49.759036 %
+epoch 106, minibatch 833/833, validation error 49.759036 %
+epoch 107, minibatch 833/833, validation error 49.759036 %
+epoch 108, minibatch 833/833, validation error 49.759036 %
+epoch 109, minibatch 833/833, validation error 49.759036 %
+epoch 110, minibatch 833/833, validation error 49.759036 %
+epoch 111, minibatch 833/833, validation error 49.759036 %
+epoch 112, minibatch 833/833, validation error 49.759036 %
+epoch 113, minibatch 833/833, validation error 49.759036 %
+epoch 114, minibatch 833/833, validation error 49.759036 %
+epoch 115, minibatch 833/833, validation error 49.759036 %
+epoch 116, minibatch 833/833, validation error 49.759036 %
+epoch 117, minibatch 833/833, validation error 49.759036 %
+epoch 118, minibatch 833/833, validation error 49.759036 %
+epoch 119, minibatch 833/833, validation error 49.337349 %
+epoch 120, minibatch 833/833, validation error 48.674699 %
+epoch 121, minibatch 833/833, validation error 45.240964 %
+epoch 122, minibatch 833/833, validation error 46.566265 %
+epoch 123, minibatch 833/833, validation error 45.903614 %
+epoch 124, minibatch 833/833, validation error 45.481928 %
+epoch 125, minibatch 833/833, validation error 44.759036 %
+epoch 126, minibatch 833/833, validation error 46.506024 %
+epoch 127, minibatch 833/833, validation error 45.361446 %
+epoch 128, minibatch 833/833, validation error 49.759036 %
+epoch 129, minibatch 833/833, validation error 47.650602 %
+epoch 130, minibatch 833/833, validation error 49.759036 %
+epoch 131, minibatch 833/833, validation error 49.759036 %
+epoch 132, minibatch 833/833, validation error 49.759036 %
+epoch 133, minibatch 833/833, validation error 49.759036 %
+epoch 134, minibatch 833/833, validation error 49.578313 %
+epoch 135, minibatch 833/833, validation error 48.132530 %
+epoch 136, minibatch 833/833, validation error 43.855422 %
+epoch 137, minibatch 833/833, validation error 45.903614 %
+epoch 138, minibatch 833/833, validation error 49.457831 %
+epoch 139, minibatch 833/833, validation error 49.337349 %
+epoch 140, minibatch 833/833, validation error 49.819277 %
+epoch 141, minibatch 833/833, validation error 49.759036 %
+epoch 142, minibatch 833/833, validation error 49.457831 %
+epoch 143, minibatch 833/833, validation error 45.783133 %
+epoch 144, minibatch 833/833, validation error 49.277108 %
+epoch 145, minibatch 833/833, validation error 44.457831 %
+epoch 146, minibatch 833/833, validation error 49.457831 %
+epoch 147, minibatch 833/833, validation error 49.759036 %
+epoch 148, minibatch 833/833, validation error 48.734940 %
+epoch 149, minibatch 833/833, validation error 45.963855 %
+epoch 150, minibatch 833/833, validation error 47.590361 %
+epoch 151, minibatch 833/833, validation error 40.662651 %
+epoch 152, minibatch 833/833, validation error 47.349398 %
+epoch 153, minibatch 833/833, validation error 49.759036 %
+epoch 154, minibatch 833/833, validation error 43.373494 %
+epoch 155, minibatch 833/833, validation error 46.566265 %
+epoch 156, minibatch 833/833, validation error 49.759036 %
+epoch 157, minibatch 833/833, validation error 49.759036 %
+epoch 158, minibatch 833/833, validation error 48.072289 %
+epoch 159, minibatch 833/833, validation error 45.783133 %
+epoch 160, minibatch 833/833, validation error 44.879518 %
+epoch 161, minibatch 833/833, validation error 45.361446 %
+epoch 162, minibatch 833/833, validation error 40.662651 %
+epoch 163, minibatch 833/833, validation error 38.614458 %
+epoch 164, minibatch 833/833, validation error 39.457831 %
+epoch 165, minibatch 833/833, validation error 40.662651 %
+epoch 166, minibatch 833/833, validation error 49.759036 %
+epoch 167, minibatch 833/833, validation error 42.710843 %
+epoch 168, minibatch 833/833, validation error 47.289157 %
+epoch 169, minibatch 833/833, validation error 49.698795 %
+epoch 170, minibatch 833/833, validation error 42.228916 %
+epoch 171, minibatch 833/833, validation error 41.807229 %
+epoch 172, minibatch 833/833, validation error 46.024096 %
+epoch 173, minibatch 833/833, validation error 46.084337 %
+epoch 174, minibatch 833/833, validation error 46.626506 %
+epoch 175, minibatch 833/833, validation error 42.831325 %
+epoch 176, minibatch 833/833, validation error 42.168675 %
+epoch 177, minibatch 833/833, validation error 49.759036 %
+epoch 178, minibatch 833/833, validation error 42.590361 %
+epoch 179, minibatch 833/833, validation error 44.518072 %
+epoch 180, minibatch 833/833, validation error 48.674699 %
+epoch 181, minibatch 833/833, validation error 48.493976 %
+epoch 182, minibatch 833/833, validation error 47.108434 %
+epoch 183, minibatch 833/833, validation error 47.469880 %
+epoch 184, minibatch 833/833, validation error 42.108434 %
+epoch 185, minibatch 833/833, validation error 41.204819 %
+epoch 186, minibatch 833/833, validation error 44.397590 %
+epoch 187, minibatch 833/833, validation error 36.024096 %
+epoch 188, minibatch 833/833, validation error 38.795181 %
+epoch 189, minibatch 833/833, validation error 43.734940 %
+epoch 190, minibatch 833/833, validation error 40.361446 %
+epoch 191, minibatch 833/833, validation error 44.337349 %
+epoch 192, minibatch 833/833, validation error 39.939759 %
+epoch 193, minibatch 833/833, validation error 47.289157 %
+epoch 194, minibatch 833/833, validation error 41.626506 %
+epoch 195, minibatch 833/833, validation error 45.542169 %
+epoch 196, minibatch 833/833, validation error 40.542169 %
+epoch 197, minibatch 833/833, validation error 41.746988 %
+epoch 198, minibatch 833/833, validation error 48.493976 %
+epoch 199, minibatch 833/833, validation error 46.084337 %
+epoch 200, minibatch 833/833, validation error 43.975904 %
+epoch 201, minibatch 833/833, validation error 43.192771 %
+epoch 202, minibatch 833/833, validation error 48.493976 %
+epoch 203, minibatch 833/833, validation error 43.855422 %
+epoch 204, minibatch 833/833, validation error 41.626506 %
+epoch 205, minibatch 833/833, validation error 38.734940 %
+epoch 206, minibatch 833/833, validation error 46.867470 %
+epoch 207, minibatch 833/833, validation error 45.542169 %
+epoch 208, minibatch 833/833, validation error 39.036145 %
+epoch 209, minibatch 833/833, validation error 46.867470 %
+epoch 210, minibatch 833/833, validation error 37.530120 %
+epoch 211, minibatch 833/833, validation error 43.433735 %
+epoch 212, minibatch 833/833, validation error 45.120482 %
+epoch 213, minibatch 833/833, validation error 47.530120 %
+epoch 214, minibatch 833/833, validation error 41.566265 %
+epoch 215, minibatch 833/833, validation error 43.192771 %
+epoch 216, minibatch 833/833, validation error 45.963855 %
+epoch 217, minibatch 833/833, validation error 45.843373 %
+epoch 218, minibatch 833/833, validation error 40.120482 %
+epoch 219, minibatch 833/833, validation error 36.506024 %
+epoch 220, minibatch 833/833, validation error 38.915663 %
+epoch 221, minibatch 833/833, validation error 43.313253 %
+epoch 222, minibatch 833/833, validation error 46.686747 %
+epoch 223, minibatch 833/833, validation error 42.108434 %
+epoch 224, minibatch 833/833, validation error 44.036145 %
+epoch 225, minibatch 833/833, validation error 42.891566 %
+epoch 226, minibatch 833/833, validation error 46.566265 %
+epoch 227, minibatch 833/833, validation error 30.000000 %
+epoch 228, minibatch 833/833, validation error 32.771084 %
+epoch 229, minibatch 833/833, validation error 34.879518 %
+epoch 230, minibatch 833/833, validation error 41.626506 %
+epoch 231, minibatch 833/833, validation error 34.036145 %
+epoch 232, minibatch 833/833, validation error 37.590361 %
+epoch 233, minibatch 833/833, validation error 43.734940 %
+epoch 234, minibatch 833/833, validation error 42.228916 %
+epoch 235, minibatch 833/833, validation error 37.530120 %
+epoch 236, minibatch 833/833, validation error 42.891566 %
+epoch 237, minibatch 833/833, validation error 38.734940 %
+epoch 238, minibatch 833/833, validation error 33.795181 %
+epoch 239, minibatch 833/833, validation error 41.686747 %
+epoch 240, minibatch 833/833, validation error 44.096386 %
+epoch 241, minibatch 833/833, validation error 38.975904 %
+epoch 242, minibatch 833/833, validation error 46.024096 %
+epoch 243, minibatch 833/833, validation error 42.168675 %
+epoch 244, minibatch 833/833, validation error 41.626506 %
+epoch 245, minibatch 833/833, validation error 49.518072 %
+epoch 246, minibatch 833/833, validation error 43.072289 %
+epoch 247, minibatch 833/833, validation error 44.698795 %
+epoch 248, minibatch 833/833, validation error 45.421687 %
+epoch 249, minibatch 833/833, validation error 32.168675 %
+epoch 250, minibatch 833/833, validation error 33.132530 %
+epoch 251, minibatch 833/833, validation error 36.807229 %
+epoch 252, minibatch 833/833, validation error 33.855422 %
+epoch 253, minibatch 833/833, validation error 46.867470 %
+epoch 254, minibatch 833/833, validation error 39.819277 %
+epoch 255, minibatch 833/833, validation error 41.987952 %
+epoch 256, minibatch 833/833, validation error 32.289157 %
+epoch 257, minibatch 833/833, validation error 32.048193 %
+epoch 258, minibatch 833/833, validation error 41.265060 %
+epoch 259, minibatch 833/833, validation error 38.975904 %
+epoch 260, minibatch 833/833, validation error 39.518072 %
+epoch 261, minibatch 833/833, validation error 45.542169 %
+epoch 262, minibatch 833/833, validation error 38.734940 %
+epoch 263, minibatch 833/833, validation error 46.867470 %
+epoch 264, minibatch 833/833, validation error 43.072289 %
+epoch 265, minibatch 833/833, validation error 44.578313 %
+epoch 266, minibatch 833/833, validation error 24.879518 %
+     epoch 266, minibatch 833/833, test error of best model 25.680000 %
+epoch 267, minibatch 833/833, validation error 27.228916 %
+epoch 268, minibatch 833/833, validation error 28.674699 %
+epoch 269, minibatch 833/833, validation error 49.698795 %
+epoch 270, minibatch 833/833, validation error 47.951807 %
+epoch 271, minibatch 833/833, validation error 29.036145 %
+epoch 272, minibatch 833/833, validation error 41.325301 %
+epoch 273, minibatch 833/833, validation error 48.734940 %
+epoch 274, minibatch 833/833, validation error 38.012048 %
+epoch 275, minibatch 833/833, validation error 35.783133 %
+epoch 276, minibatch 833/833, validation error 36.927711 %
+epoch 277, minibatch 833/833, validation error 39.578313 %
+epoch 278, minibatch 833/833, validation error 48.012048 %
+epoch 279, minibatch 833/833, validation error 38.734940 %
+epoch 280, minibatch 833/833, validation error 40.060241 %
+epoch 281, minibatch 833/833, validation error 35.843373 %
+epoch 282, minibatch 833/833, validation error 37.831325 %
+epoch 283, minibatch 833/833, validation error 31.807229 %
+epoch 284, minibatch 833/833, validation error 40.060241 %
+epoch 285, minibatch 833/833, validation error 37.771084 %
+epoch 286, minibatch 833/833, validation error 30.301205 %
+epoch 287, minibatch 833/833, validation error 41.867470 %
+epoch 288, minibatch 833/833, validation error 39.457831 %
+epoch 289, minibatch 833/833, validation error 45.421687 %
+epoch 290, minibatch 833/833, validation error 39.819277 %
+epoch 291, minibatch 833/833, validation error 38.554217 %
+epoch 292, minibatch 833/833, validation error 34.819277 %
+epoch 293, minibatch 833/833, validation error 41.506024 %
+epoch 294, minibatch 833/833, validation error 40.602410 %
+epoch 295, minibatch 833/833, validation error 38.253012 %
+epoch 296, minibatch 833/833, validation error 38.493976 %
+epoch 297, minibatch 833/833, validation error 34.036145 %
+epoch 298, minibatch 833/833, validation error 38.373494 %
+epoch 299, minibatch 833/833, validation error 35.542169 %
+epoch 300, minibatch 833/833, validation error 28.915663 %
+epoch 301, minibatch 833/833, validation error 34.698795 %
+epoch 302, minibatch 833/833, validation error 43.433735 %
+epoch 303, minibatch 833/833, validation error 42.048193 %
+epoch 304, minibatch 833/833, validation error 43.072289 %
+epoch 305, minibatch 833/833, validation error 42.289157 %
+epoch 306, minibatch 833/833, validation error 44.216867 %
+epoch 307, minibatch 833/833, validation error 31.506024 %
+epoch 308, minibatch 833/833, validation error 40.843373 %
+epoch 309, minibatch 833/833, validation error 41.084337 %
+epoch 310, minibatch 833/833, validation error 35.963855 %
+epoch 311, minibatch 833/833, validation error 40.843373 %
+epoch 312, minibatch 833/833, validation error 33.192771 %
+epoch 313, minibatch 833/833, validation error 33.493976 %
+epoch 314, minibatch 833/833, validation error 35.240964 %
+epoch 315, minibatch 833/833, validation error 35.301205 %
+epoch 316, minibatch 833/833, validation error 40.421687 %
+epoch 317, minibatch 833/833, validation error 35.301205 %
+epoch 318, minibatch 833/833, validation error 40.843373 %
+epoch 319, minibatch 833/833, validation error 43.734940 %
+epoch 320, minibatch 833/833, validation error 48.433735 %
+epoch 321, minibatch 833/833, validation error 47.108434 %
+epoch 322, minibatch 833/833, validation error 46.144578 %
+epoch 323, minibatch 833/833, validation error 44.638554 %
+epoch 324, minibatch 833/833, validation error 35.180723 %
+epoch 325, minibatch 833/833, validation error 40.180723 %
+epoch 326, minibatch 833/833, validation error 32.891566 %
+epoch 327, minibatch 833/833, validation error 34.457831 %
+epoch 328, minibatch 833/833, validation error 33.012048 %
+epoch 329, minibatch 833/833, validation error 39.457831 %
+epoch 330, minibatch 833/833, validation error 45.060241 %
+epoch 331, minibatch 833/833, validation error 42.048193 %
+epoch 332, minibatch 833/833, validation error 37.530120 %
+epoch 333, minibatch 833/833, validation error 40.120482 %
+epoch 334, minibatch 833/833, validation error 45.421687 %
+epoch 335, minibatch 833/833, validation error 47.891566 %
+epoch 336, minibatch 833/833, validation error 36.084337 %
+epoch 337, minibatch 833/833, validation error 39.036145 %
+epoch 338, minibatch 833/833, validation error 30.542169 %
+epoch 339, minibatch 833/833, validation error 43.493976 %
+epoch 340, minibatch 833/833, validation error 47.469880 %
+epoch 341, minibatch 833/833, validation error 30.361446 %
+epoch 342, minibatch 833/833, validation error 41.325301 %
+epoch 343, minibatch 833/833, validation error 45.542169 %
+epoch 344, minibatch 833/833, validation error 32.771084 %
+epoch 345, minibatch 833/833, validation error 28.373494 %
+epoch 346, minibatch 833/833, validation error 31.144578 %
+epoch 347, minibatch 833/833, validation error 42.650602 %
+epoch 348, minibatch 833/833, validation error 45.180723 %
+epoch 349, minibatch 833/833, validation error 42.469880 %
+epoch 350, minibatch 833/833, validation error 35.662651 %
+epoch 351, minibatch 833/833, validation error 36.024096 %
+epoch 352, minibatch 833/833, validation error 29.337349 %
+epoch 353, minibatch 833/833, validation error 32.891566 %
+epoch 354, minibatch 833/833, validation error 48.734940 %
+epoch 355, minibatch 833/833, validation error 30.662651 %
+epoch 356, minibatch 833/833, validation error 46.265060 %
+epoch 357, minibatch 833/833, validation error 38.674699 %
+epoch 358, minibatch 833/833, validation error 34.036145 %
+epoch 359, minibatch 833/833, validation error 41.325301 %
+epoch 360, minibatch 833/833, validation error 30.542169 %
+epoch 361, minibatch 833/833, validation error 45.843373 %
+epoch 362, minibatch 833/833, validation error 30.481928 %
+epoch 363, minibatch 833/833, validation error 28.975904 %
+epoch 364, minibatch 833/833, validation error 32.228916 %
+epoch 365, minibatch 833/833, validation error 38.253012 %
+epoch 366, minibatch 833/833, validation error 43.915663 %
+epoch 367, minibatch 833/833, validation error 39.939759 %
+epoch 368, minibatch 833/833, validation error 43.975904 %
+epoch 369, minibatch 833/833, validation error 31.686747 %
+epoch 370, minibatch 833/833, validation error 26.807229 %
+epoch 371, minibatch 833/833, validation error 27.168675 %
+epoch 372, minibatch 833/833, validation error 31.746988 %
+epoch 373, minibatch 833/833, validation error 34.156627 %
+epoch 374, minibatch 833/833, validation error 36.265060 %
+epoch 375, minibatch 833/833, validation error 38.855422 %
+epoch 376, minibatch 833/833, validation error 26.987952 %
+epoch 377, minibatch 833/833, validation error 36.024096 %
+epoch 378, minibatch 833/833, validation error 27.710843 %
+epoch 379, minibatch 833/833, validation error 30.361446 %
+epoch 380, minibatch 833/833, validation error 25.120482 %
+epoch 381, minibatch 833/833, validation error 43.132530 %
+epoch 382, minibatch 833/833, validation error 26.746988 %
+epoch 383, minibatch 833/833, validation error 44.939759 %
+epoch 384, minibatch 833/833, validation error 33.554217 %
+epoch 385, minibatch 833/833, validation error 25.903614 %
+epoch 386, minibatch 833/833, validation error 33.012048 %
+epoch 387, minibatch 833/833, validation error 25.602410 %
+epoch 388, minibatch 833/833, validation error 42.228916 %
+epoch 389, minibatch 833/833, validation error 28.012048 %
+epoch 390, minibatch 833/833, validation error 26.385542 %
+epoch 391, minibatch 833/833, validation error 36.626506 %
+epoch 392, minibatch 833/833, validation error 28.734940 %
+epoch 393, minibatch 833/833, validation error 30.060241 %
+epoch 394, minibatch 833/833, validation error 39.337349 %
+epoch 395, minibatch 833/833, validation error 33.614458 %
+epoch 396, minibatch 833/833, validation error 26.204819 %
+epoch 397, minibatch 833/833, validation error 28.554217 %
+epoch 398, minibatch 833/833, validation error 34.518072 %
+epoch 399, minibatch 833/833, validation error 26.024096 %
+epoch 400, minibatch 833/833, validation error 28.795181 %
+epoch 401, minibatch 833/833, validation error 27.048193 %
+epoch 402, minibatch 833/833, validation error 40.722892 %
+epoch 403, minibatch 833/833, validation error 44.518072 %
+epoch 404, minibatch 833/833, validation error 26.506024 %
+epoch 405, minibatch 833/833, validation error 30.722892 %
+epoch 406, minibatch 833/833, validation error 39.578313 %
+epoch 407, minibatch 833/833, validation error 45.421687 %
+epoch 408, minibatch 833/833, validation error 44.578313 %
+epoch 409, minibatch 833/833, validation error 46.626506 %
+epoch 410, minibatch 833/833, validation error 30.060241 %
+epoch 411, minibatch 833/833, validation error 41.626506 %
+epoch 412, minibatch 833/833, validation error 27.048193 %
+epoch 413, minibatch 833/833, validation error 26.867470 %
+epoch 414, minibatch 833/833, validation error 26.626506 %
+epoch 415, minibatch 833/833, validation error 35.542169 %
+epoch 416, minibatch 833/833, validation error 29.939759 %
+epoch 417, minibatch 833/833, validation error 27.469880 %
+epoch 418, minibatch 833/833, validation error 39.698795 %
+epoch 419, minibatch 833/833, validation error 27.590361 %
+epoch 420, minibatch 833/833, validation error 26.746988 %
+epoch 421, minibatch 833/833, validation error 30.240964 %
+epoch 422, minibatch 833/833, validation error 28.012048 %
+epoch 423, minibatch 833/833, validation error 27.289157 %
+epoch 424, minibatch 833/833, validation error 28.674699 %
+epoch 425, minibatch 833/833, validation error 26.987952 %
+epoch 426, minibatch 833/833, validation error 26.746988 %
+epoch 427, minibatch 833/833, validation error 27.409639 %
+epoch 428, minibatch 833/833, validation error 27.409639 %
+epoch 429, minibatch 833/833, validation error 27.168675 %
+epoch 430, minibatch 833/833, validation error 26.506024 %
+epoch 431, minibatch 833/833, validation error 27.349398 %
+epoch 432, minibatch 833/833, validation error 26.626506 %
+epoch 433, minibatch 833/833, validation error 26.686747 %
+epoch 434, minibatch 833/833, validation error 25.783133 %
+epoch 435, minibatch 833/833, validation error 26.927711 %
+epoch 436, minibatch 833/833, validation error 27.228916 %
+epoch 437, minibatch 833/833, validation error 26.807229 %
+epoch 438, minibatch 833/833, validation error 27.349398 %
+epoch 439, minibatch 833/833, validation error 29.216867 %
+epoch 440, minibatch 833/833, validation error 27.831325 %
+epoch 441, minibatch 833/833, validation error 27.168675 %
+epoch 442, minibatch 833/833, validation error 28.072289 %
+epoch 443, minibatch 833/833, validation error 26.325301 %
+epoch 444, minibatch 833/833, validation error 28.554217 %
+epoch 445, minibatch 833/833, validation error 29.096386 %
+epoch 446, minibatch 833/833, validation error 27.289157 %
+epoch 447, minibatch 833/833, validation error 26.265060 %
+epoch 448, minibatch 833/833, validation error 26.807229 %
+epoch 449, minibatch 833/833, validation error 26.385542 %
+epoch 450, minibatch 833/833, validation error 28.493976 %
+epoch 451, minibatch 833/833, validation error 26.265060 %
+epoch 452, minibatch 833/833, validation error 27.771084 %
+epoch 453, minibatch 833/833, validation error 30.722892 %
+epoch 454, minibatch 833/833, validation error 25.180723 %
+epoch 455, minibatch 833/833, validation error 29.518072 %
+epoch 456, minibatch 833/833, validation error 26.506024 %
+epoch 457, minibatch 833/833, validation error 26.566265 %
+epoch 458, minibatch 833/833, validation error 27.469880 %
+epoch 459, minibatch 833/833, validation error 28.855422 %
+epoch 460, minibatch 833/833, validation error 28.493976 %
+epoch 461, minibatch 833/833, validation error 26.867470 %
+epoch 462, minibatch 833/833, validation error 26.325301 %
+epoch 463, minibatch 833/833, validation error 28.253012 %
+epoch 464, minibatch 833/833, validation error 24.939759 %
+epoch 465, minibatch 833/833, validation error 25.180723 %
+epoch 466, minibatch 833/833, validation error 26.746988 %
+epoch 467, minibatch 833/833, validation error 34.457831 %
+epoch 468, minibatch 833/833, validation error 26.867470 %
+epoch 469, minibatch 833/833, validation error 27.349398 %
+epoch 470, minibatch 833/833, validation error 27.771084 %
+epoch 471, minibatch 833/833, validation error 25.903614 %
+epoch 472, minibatch 833/833, validation error 28.554217 %
+epoch 473, minibatch 833/833, validation error 31.867470 %
+epoch 474, minibatch 833/833, validation error 27.048193 %
+epoch 475, minibatch 833/833, validation error 29.578313 %
+epoch 476, minibatch 833/833, validation error 26.144578 %
+epoch 477, minibatch 833/833, validation error 27.891566 %
+epoch 478, minibatch 833/833, validation error 29.397590 %
+epoch 479, minibatch 833/833, validation error 27.409639 %
+epoch 480, minibatch 833/833, validation error 26.987952 %
+epoch 481, minibatch 833/833, validation error 26.686747 %
+epoch 482, minibatch 833/833, validation error 25.963855 %
+epoch 483, minibatch 833/833, validation error 27.831325 %
+epoch 484, minibatch 833/833, validation error 33.433735 %
+epoch 485, minibatch 833/833, validation error 26.204819 %
+epoch 486, minibatch 833/833, validation error 25.421687 %
+epoch 487, minibatch 833/833, validation error 25.542169 %
+epoch 488, minibatch 833/833, validation error 26.686747 %
+epoch 489, minibatch 833/833, validation error 31.385542 %
+epoch 490, minibatch 833/833, validation error 26.987952 %
+epoch 491, minibatch 833/833, validation error 26.204819 %
+epoch 492, minibatch 833/833, validation error 28.795181 %
+epoch 493, minibatch 833/833, validation error 27.409639 %
+epoch 494, minibatch 833/833, validation error 27.469880 %
+epoch 495, minibatch 833/833, validation error 32.168675 %
+epoch 496, minibatch 833/833, validation error 25.240964 %
+epoch 497, minibatch 833/833, validation error 26.204819 %
+epoch 498, minibatch 833/833, validation error 30.421687 %
+epoch 499, minibatch 833/833, validation error 30.180723 %
+epoch 500, minibatch 833/833, validation error 36.807229 %
+epoch 501, minibatch 833/833, validation error 27.831325 %
+epoch 502, minibatch 833/833, validation error 32.710843 %
+epoch 503, minibatch 833/833, validation error 26.927711 %
+epoch 504, minibatch 833/833, validation error 27.048193 %
+epoch 505, minibatch 833/833, validation error 28.132530 %
+epoch 506, minibatch 833/833, validation error 26.265060 %
+epoch 507, minibatch 833/833, validation error 26.445783 %
+epoch 508, minibatch 833/833, validation error 30.301205 %
+epoch 509, minibatch 833/833, validation error 27.048193 %
+epoch 510, minibatch 833/833, validation error 27.409639 %
+epoch 511, minibatch 833/833, validation error 30.903614 %
+epoch 512, minibatch 833/833, validation error 25.783133 %
+epoch 513, minibatch 833/833, validation error 30.963855 %
+epoch 514, minibatch 833/833, validation error 25.120482 %
+epoch 515, minibatch 833/833, validation error 25.602410 %
+epoch 516, minibatch 833/833, validation error 29.939759 %
+epoch 517, minibatch 833/833, validation error 29.518072 %
+epoch 518, minibatch 833/833, validation error 25.903614 %
+epoch 519, minibatch 833/833, validation error 26.144578 %
+epoch 520, minibatch 833/833, validation error 33.855422 %
+epoch 521, minibatch 833/833, validation error 29.819277 %
+epoch 522, minibatch 833/833, validation error 38.493976 %
+epoch 523, minibatch 833/833, validation error 26.445783 %
+epoch 524, minibatch 833/833, validation error 26.204819 %
+epoch 525, minibatch 833/833, validation error 25.180723 %
+epoch 526, minibatch 833/833, validation error 25.240964 %
+epoch 527, minibatch 833/833, validation error 25.722892 %
+epoch 528, minibatch 833/833, validation error 26.867470 %
+epoch 529, minibatch 833/833, validation error 28.734940 %
+epoch 530, minibatch 833/833, validation error 24.819277 %
+     epoch 530, minibatch 833/833, test error of best model 24.070000 %
+epoch 531, minibatch 833/833, validation error 27.048193 %
+epoch 532, minibatch 833/833, validation error 25.903614 %
+epoch 533, minibatch 833/833, validation error 26.144578 %
+epoch 534, minibatch 833/833, validation error 27.469880 %
+epoch 535, minibatch 833/833, validation error 25.542169 %
+epoch 536, minibatch 833/833, validation error 27.048193 %
+epoch 537, minibatch 833/833, validation error 45.301205 %
+epoch 538, minibatch 833/833, validation error 43.313253 %
+epoch 539, minibatch 833/833, validation error 30.602410 %
+epoch 540, minibatch 833/833, validation error 33.433735 %
+epoch 541, minibatch 833/833, validation error 24.819277 %
+     epoch 541, minibatch 833/833, test error of best model 23.570000 %
+epoch 542, minibatch 833/833, validation error 24.698795 %
+     epoch 542, minibatch 833/833, test error of best model 23.880000 %
+epoch 543, minibatch 833/833, validation error 43.915663 %
+epoch 544, minibatch 833/833, validation error 27.650602 %
+epoch 545, minibatch 833/833, validation error 23.192771 %
+     epoch 545, minibatch 833/833, test error of best model 23.400000 %
+epoch 546, minibatch 833/833, validation error 30.783133 %
+epoch 547, minibatch 833/833, validation error 37.710843 %
+epoch 548, minibatch 833/833, validation error 30.602410 %
+epoch 549, minibatch 833/833, validation error 36.084337 %
+epoch 550, minibatch 833/833, validation error 27.530120 %
+epoch 551, minibatch 833/833, validation error 27.831325 %
+epoch 552, minibatch 833/833, validation error 25.120482 %
+epoch 553, minibatch 833/833, validation error 25.361446 %
+epoch 554, minibatch 833/833, validation error 24.698795 %
+epoch 555, minibatch 833/833, validation error 30.240964 %
+epoch 556, minibatch 833/833, validation error 24.277108 %
+epoch 557, minibatch 833/833, validation error 26.807229 %
+epoch 558, minibatch 833/833, validation error 28.795181 %
+epoch 559, minibatch 833/833, validation error 25.120482 %
+epoch 560, minibatch 833/833, validation error 31.987952 %
+epoch 561, minibatch 833/833, validation error 27.530120 %
+epoch 562, minibatch 833/833, validation error 25.903614 %
+epoch 563, minibatch 833/833, validation error 28.373494 %
+epoch 564, minibatch 833/833, validation error 27.469880 %
+epoch 565, minibatch 833/833, validation error 27.409639 %
+epoch 566, minibatch 833/833, validation error 31.144578 %
+epoch 567, minibatch 833/833, validation error 26.204819 %
+epoch 568, minibatch 833/833, validation error 27.891566 %
+epoch 569, minibatch 833/833, validation error 26.867470 %
+epoch 570, minibatch 833/833, validation error 28.734940 %
+epoch 571, minibatch 833/833, validation error 23.734940 %
+epoch 572, minibatch 833/833, validation error 27.048193 %
+epoch 573, minibatch 833/833, validation error 25.120482 %
+epoch 574, minibatch 833/833, validation error 26.506024 %
+epoch 575, minibatch 833/833, validation error 29.156627 %
+epoch 576, minibatch 833/833, validation error 26.024096 %
+epoch 577, minibatch 833/833, validation error 28.795181 %
+epoch 578, minibatch 833/833, validation error 28.132530 %
+epoch 579, minibatch 833/833, validation error 27.409639 %
+epoch 580, minibatch 833/833, validation error 25.722892 %
+epoch 581, minibatch 833/833, validation error 24.216867 %
+epoch 582, minibatch 833/833, validation error 25.120482 %
+epoch 583, minibatch 833/833, validation error 25.903614 %
+epoch 584, minibatch 833/833, validation error 25.903614 %
+epoch 585, minibatch 833/833, validation error 25.903614 %
+epoch 586, minibatch 833/833, validation error 25.903614 %
+epoch 587, minibatch 833/833, validation error 25.722892 %
+epoch 588, minibatch 833/833, validation error 25.120482 %
+epoch 589, minibatch 833/833, validation error 26.566265 %
+epoch 590, minibatch 833/833, validation error 25.421687 %
+epoch 591, minibatch 833/833, validation error 27.891566 %
+epoch 592, minibatch 833/833, validation error 25.421687 %
+epoch 593, minibatch 833/833, validation error 25.301205 %
+epoch 594, minibatch 833/833, validation error 26.506024 %
+epoch 595, minibatch 833/833, validation error 27.650602 %
+epoch 596, minibatch 833/833, validation error 26.144578 %
+epoch 597, minibatch 833/833, validation error 28.192771 %
+epoch 598, minibatch 833/833, validation error 27.108434 %
+epoch 599, minibatch 833/833, validation error 25.963855 %
+epoch 600, minibatch 833/833, validation error 26.506024 %
+epoch 601, minibatch 833/833, validation error 28.253012 %
+epoch 602, minibatch 833/833, validation error 27.951807 %
+epoch 603, minibatch 833/833, validation error 23.855422 %
+epoch 604, minibatch 833/833, validation error 26.024096 %
+epoch 605, minibatch 833/833, validation error 27.590361 %
+epoch 606, minibatch 833/833, validation error 25.000000 %
+epoch 607, minibatch 833/833, validation error 28.072289 %
+epoch 608, minibatch 833/833, validation error 26.566265 %
+epoch 609, minibatch 833/833, validation error 33.433735 %
+epoch 610, minibatch 833/833, validation error 23.433735 %
+epoch 611, minibatch 833/833, validation error 26.566265 %
+epoch 612, minibatch 833/833, validation error 25.843373 %
+epoch 613, minibatch 833/833, validation error 26.084337 %
+epoch 614, minibatch 833/833, validation error 26.385542 %
+epoch 615, minibatch 833/833, validation error 26.265060 %
+epoch 616, minibatch 833/833, validation error 26.566265 %
+epoch 617, minibatch 833/833, validation error 24.759036 %
+epoch 618, minibatch 833/833, validation error 27.048193 %
+epoch 619, minibatch 833/833, validation error 26.084337 %
+epoch 620, minibatch 833/833, validation error 25.542169 %
+epoch 621, minibatch 833/833, validation error 25.662651 %
+epoch 622, minibatch 833/833, validation error 26.204819 %
+epoch 623, minibatch 833/833, validation error 25.542169 %
+epoch 624, minibatch 833/833, validation error 26.987952 %
+epoch 625, minibatch 833/833, validation error 26.506024 %
+epoch 626, minibatch 833/833, validation error 26.265060 %
+epoch 627, minibatch 833/833, validation error 25.963855 %
+epoch 628, minibatch 833/833, validation error 22.831325 %
+     epoch 628, minibatch 833/833, test error of best model 23.340000 %
+epoch 629, minibatch 833/833, validation error 26.506024 %
+epoch 630, minibatch 833/833, validation error 24.698795 %
+epoch 631, minibatch 833/833, validation error 25.602410 %
+epoch 632, minibatch 833/833, validation error 26.325301 %
+epoch 633, minibatch 833/833, validation error 26.204819 %
+epoch 634, minibatch 833/833, validation error 26.265060 %
+epoch 635, minibatch 833/833, validation error 25.843373 %
+epoch 636, minibatch 833/833, validation error 24.036145 %
+epoch 637, minibatch 833/833, validation error 35.421687 %
+epoch 638, minibatch 833/833, validation error 25.180723 %
+epoch 639, minibatch 833/833, validation error 24.879518 %
+epoch 640, minibatch 833/833, validation error 25.602410 %
+epoch 641, minibatch 833/833, validation error 24.759036 %
+epoch 642, minibatch 833/833, validation error 26.746988 %
+epoch 643, minibatch 833/833, validation error 38.012048 %
+epoch 644, minibatch 833/833, validation error 26.144578 %
+epoch 645, minibatch 833/833, validation error 26.867470 %
+epoch 646, minibatch 833/833, validation error 25.602410 %
+epoch 647, minibatch 833/833, validation error 27.469880 %
+epoch 648, minibatch 833/833, validation error 25.180723 %
+epoch 649, minibatch 833/833, validation error 26.144578 %
+epoch 650, minibatch 833/833, validation error 40.783133 %
+epoch 651, minibatch 833/833, validation error 26.686747 %
+epoch 652, minibatch 833/833, validation error 28.072289 %
+epoch 653, minibatch 833/833, validation error 25.783133 %
+epoch 654, minibatch 833/833, validation error 27.349398 %
+epoch 655, minibatch 833/833, validation error 26.204819 %
+epoch 656, minibatch 833/833, validation error 34.578313 %
+epoch 657, minibatch 833/833, validation error 25.843373 %
+epoch 658, minibatch 833/833, validation error 27.168675 %
+epoch 659, minibatch 833/833, validation error 28.554217 %
+epoch 660, minibatch 833/833, validation error 28.072289 %
+epoch 661, minibatch 833/833, validation error 27.891566 %
+epoch 662, minibatch 833/833, validation error 25.542169 %
+epoch 663, minibatch 833/833, validation error 28.373494 %
+epoch 664, minibatch 833/833, validation error 25.361446 %
+epoch 665, minibatch 833/833, validation error 25.963855 %
+epoch 666, minibatch 833/833, validation error 27.469880 %
+epoch 667, minibatch 833/833, validation error 25.000000 %
+epoch 668, minibatch 833/833, validation error 25.783133 %
+epoch 669, minibatch 833/833, validation error 25.903614 %
+epoch 670, minibatch 833/833, validation error 31.807229 %
+epoch 671, minibatch 833/833, validation error 24.277108 %
+epoch 672, minibatch 833/833, validation error 24.698795 %
+epoch 673, minibatch 833/833, validation error 25.722892 %
+epoch 674, minibatch 833/833, validation error 25.662651 %
+epoch 675, minibatch 833/833, validation error 25.180723 %
+epoch 676, minibatch 833/833, validation error 24.819277 %
+epoch 677, minibatch 833/833, validation error 24.337349 %
+epoch 678, minibatch 833/833, validation error 27.168675 %
+epoch 679, minibatch 833/833, validation error 24.819277 %
+epoch 680, minibatch 833/833, validation error 25.180723 %
+epoch 681, minibatch 833/833, validation error 24.698795 %
+epoch 682, minibatch 833/833, validation error 26.506024 %
+epoch 683, minibatch 833/833, validation error 36.807229 %
+epoch 684, minibatch 833/833, validation error 40.000000 %
+epoch 685, minibatch 833/833, validation error 25.301205 %
+epoch 686, minibatch 833/833, validation error 26.204819 %
+epoch 687, minibatch 833/833, validation error 26.566265 %
+epoch 688, minibatch 833/833, validation error 29.939759 %
+epoch 689, minibatch 833/833, validation error 25.783133 %
+epoch 690, minibatch 833/833, validation error 26.746988 %
+epoch 691, minibatch 833/833, validation error 26.084337 %
+epoch 692, minibatch 833/833, validation error 25.843373 %
+epoch 693, minibatch 833/833, validation error 27.831325 %
+epoch 694, minibatch 833/833, validation error 24.759036 %
+epoch 695, minibatch 833/833, validation error 23.734940 %
+epoch 696, minibatch 833/833, validation error 25.361446 %
+epoch 697, minibatch 833/833, validation error 25.000000 %
+epoch 698, minibatch 833/833, validation error 24.578313 %
+epoch 699, minibatch 833/833, validation error 24.879518 %
+epoch 700, minibatch 833/833, validation error 25.301205 %
+epoch 701, minibatch 833/833, validation error 24.216867 %
+epoch 702, minibatch 833/833, validation error 23.554217 %
+epoch 703, minibatch 833/833, validation error 24.638554 %
+epoch 704, minibatch 833/833, validation error 34.457831 %
+epoch 705, minibatch 833/833, validation error 26.084337 %
+epoch 706, minibatch 833/833, validation error 49.337349 %
+epoch 707, minibatch 833/833, validation error 35.542169 %
+epoch 708, minibatch 833/833, validation error 31.506024 %
+epoch 709, minibatch 833/833, validation error 25.662651 %
+epoch 710, minibatch 833/833, validation error 27.409639 %
+epoch 711, minibatch 833/833, validation error 26.506024 %
+epoch 712, minibatch 833/833, validation error 43.915663 %
+epoch 713, minibatch 833/833, validation error 27.710843 %
+epoch 714, minibatch 833/833, validation error 30.301205 %
+epoch 715, minibatch 833/833, validation error 27.469880 %
+epoch 716, minibatch 833/833, validation error 29.638554 %
+epoch 717, minibatch 833/833, validation error 27.289157 %
+epoch 718, minibatch 833/833, validation error 26.325301 %
+epoch 719, minibatch 833/833, validation error 33.433735 %
+epoch 720, minibatch 833/833, validation error 35.903614 %
+epoch 721, minibatch 833/833, validation error 28.915663 %
+epoch 722, minibatch 833/833, validation error 30.903614 %
+epoch 723, minibatch 833/833, validation error 27.590361 %
+epoch 724, minibatch 833/833, validation error 28.674699 %
+epoch 725, minibatch 833/833, validation error 28.192771 %
+epoch 726, minibatch 833/833, validation error 25.180723 %
+epoch 727, minibatch 833/833, validation error 27.349398 %
+epoch 728, minibatch 833/833, validation error 25.301205 %
+epoch 729, minibatch 833/833, validation error 23.674699 %
+epoch 730, minibatch 833/833, validation error 28.253012 %
+epoch 731, minibatch 833/833, validation error 37.891566 %
+epoch 732, minibatch 833/833, validation error 25.361446 %
+epoch 733, minibatch 833/833, validation error 31.325301 %
+epoch 734, minibatch 833/833, validation error 25.120482 %
+epoch 735, minibatch 833/833, validation error 25.662651 %
+epoch 736, minibatch 833/833, validation error 27.409639 %
+epoch 737, minibatch 833/833, validation error 25.843373 %
+epoch 738, minibatch 833/833, validation error 28.253012 %
+epoch 739, minibatch 833/833, validation error 28.493976 %
+epoch 740, minibatch 833/833, validation error 36.506024 %
+epoch 741, minibatch 833/833, validation error 24.578313 %
+epoch 742, minibatch 833/833, validation error 45.000000 %
+epoch 743, minibatch 833/833, validation error 28.192771 %
+epoch 744, minibatch 833/833, validation error 25.542169 %
+epoch 745, minibatch 833/833, validation error 33.855422 %
+epoch 746, minibatch 833/833, validation error 42.108434 %
+epoch 747, minibatch 833/833, validation error 23.795181 %
+epoch 748, minibatch 833/833, validation error 24.939759 %
+epoch 749, minibatch 833/833, validation error 25.180723 %
+epoch 750, minibatch 833/833, validation error 26.265060 %
+epoch 751, minibatch 833/833, validation error 25.602410 %
+epoch 752, minibatch 833/833, validation error 49.759036 %
+epoch 753, minibatch 833/833, validation error 42.771084 %
+epoch 754, minibatch 833/833, validation error 25.542169 %
+epoch 755, minibatch 833/833, validation error 26.927711 %
+epoch 756, minibatch 833/833, validation error 26.746988 %
+epoch 757, minibatch 833/833, validation error 27.289157 %
+epoch 758, minibatch 833/833, validation error 24.036145 %
+epoch 759, minibatch 833/833, validation error 27.951807 %
+epoch 760, minibatch 833/833, validation error 31.807229 %
+epoch 761, minibatch 833/833, validation error 24.397590 %
+epoch 762, minibatch 833/833, validation error 25.903614 %
+epoch 763, minibatch 833/833, validation error 39.578313 %
+epoch 764, minibatch 833/833, validation error 25.481928 %
+epoch 765, minibatch 833/833, validation error 40.421687 %
+epoch 766, minibatch 833/833, validation error 36.265060 %
+epoch 767, minibatch 833/833, validation error 29.216867 %
+epoch 768, minibatch 833/833, validation error 25.481928 %
+epoch 769, minibatch 833/833, validation error 31.506024 %
+epoch 770, minibatch 833/833, validation error 28.192771 %
+epoch 771, minibatch 833/833, validation error 25.843373 %
+epoch 772, minibatch 833/833, validation error 24.457831 %
+epoch 773, minibatch 833/833, validation error 29.036145 %
+epoch 774, minibatch 833/833, validation error 38.855422 %
+epoch 775, minibatch 833/833, validation error 25.421687 %
+epoch 776, minibatch 833/833, validation error 24.036145 %
+epoch 777, minibatch 833/833, validation error 27.771084 %
+epoch 778, minibatch 833/833, validation error 27.228916 %
+epoch 779, minibatch 833/833, validation error 26.024096 %
+epoch 780, minibatch 833/833, validation error 25.843373 %
+epoch 781, minibatch 833/833, validation error 33.975904 %
+epoch 782, minibatch 833/833, validation error 24.638554 %
+epoch 783, minibatch 833/833, validation error 26.084337 %
+epoch 784, minibatch 833/833, validation error 27.469880 %
+epoch 785, minibatch 833/833, validation error 30.722892 %
+epoch 786, minibatch 833/833, validation error 42.108434 %
+epoch 787, minibatch 833/833, validation error 39.939759 %
+epoch 788, minibatch 833/833, validation error 28.072289 %
+epoch 789, minibatch 833/833, validation error 28.433735 %
+epoch 790, minibatch 833/833, validation error 28.132530 %
+epoch 791, minibatch 833/833, validation error 26.566265 %
+epoch 792, minibatch 833/833, validation error 28.433735 %
+epoch 793, minibatch 833/833, validation error 35.301205 %
+epoch 794, minibatch 833/833, validation error 26.867470 %
+epoch 795, minibatch 833/833, validation error 26.265060 %
+epoch 796, minibatch 833/833, validation error 27.771084 %
+epoch 797, minibatch 833/833, validation error 25.240964 %
+epoch 798, minibatch 833/833, validation error 27.349398 %
+epoch 799, minibatch 833/833, validation error 27.289157 %
+epoch 800, minibatch 833/833, validation error 28.192771 %
+epoch 801, minibatch 833/833, validation error 29.337349 %
+epoch 802, minibatch 833/833, validation error 30.542169 %
+epoch 803, minibatch 833/833, validation error 25.843373 %
+epoch 804, minibatch 833/833, validation error 28.855422 %
+epoch 805, minibatch 833/833, validation error 44.216867 %
+epoch 806, minibatch 833/833, validation error 34.578313 %
+epoch 807, minibatch 833/833, validation error 35.421687 %
+epoch 808, minibatch 833/833, validation error 32.048193 %
+epoch 809, minibatch 833/833, validation error 25.000000 %
+epoch 810, minibatch 833/833, validation error 25.903614 %
+epoch 811, minibatch 833/833, validation error 25.000000 %
+epoch 812, minibatch 833/833, validation error 30.481928 %
+epoch 813, minibatch 833/833, validation error 27.409639 %
+epoch 814, minibatch 833/833, validation error 26.385542 %
+epoch 815, minibatch 833/833, validation error 26.084337 %
+epoch 816, minibatch 833/833, validation error 29.759036 %
+epoch 817, minibatch 833/833, validation error 25.843373 %
+epoch 818, minibatch 833/833, validation error 26.204819 %
+epoch 819, minibatch 833/833, validation error 27.650602 %
+epoch 820, minibatch 833/833, validation error 25.783133 %
+epoch 821, minibatch 833/833, validation error 28.373494 %
+epoch 822, minibatch 833/833, validation error 24.638554 %
+epoch 823, minibatch 833/833, validation error 29.036145 %
+epoch 824, minibatch 833/833, validation error 25.963855 %
+epoch 825, minibatch 833/833, validation error 29.036145 %
+epoch 826, minibatch 833/833, validation error 28.192771 %
+epoch 827, minibatch 833/833, validation error 27.590361 %
+epoch 828, minibatch 833/833, validation error 28.674699 %
+epoch 829, minibatch 833/833, validation error 24.337349 %
+epoch 830, minibatch 833/833, validation error 25.060241 %
+epoch 831, minibatch 833/833, validation error 24.698795 %
+epoch 832, minibatch 833/833, validation error 24.819277 %
+epoch 833, minibatch 833/833, validation error 26.385542 %
+epoch 834, minibatch 833/833, validation error 26.204819 %
+epoch 835, minibatch 833/833, validation error 26.024096 %
+epoch 836, minibatch 833/833, validation error 27.168675 %
+epoch 837, minibatch 833/833, validation error 28.614458 %
+epoch 838, minibatch 833/833, validation error 26.204819 %
+epoch 839, minibatch 833/833, validation error 29.759036 %
+epoch 840, minibatch 833/833, validation error 28.313253 %
+epoch 841, minibatch 833/833, validation error 28.674699 %
+epoch 842, minibatch 833/833, validation error 28.614458 %
+epoch 843, minibatch 833/833, validation error 28.855422 %
+epoch 844, minibatch 833/833, validation error 28.795181 %
+epoch 845, minibatch 833/833, validation error 28.614458 %
+epoch 846, minibatch 833/833, validation error 28.975904 %
+epoch 847, minibatch 833/833, validation error 28.373494 %
+epoch 848, minibatch 833/833, validation error 25.421687 %
+epoch 849, minibatch 833/833, validation error 29.216867 %
+epoch 850, minibatch 833/833, validation error 26.024096 %
+epoch 851, minibatch 833/833, validation error 24.518072 %
+epoch 852, minibatch 833/833, validation error 30.301205 %
+epoch 853, minibatch 833/833, validation error 23.674699 %
+epoch 854, minibatch 833/833, validation error 29.457831 %
+epoch 855, minibatch 833/833, validation error 25.240964 %
+epoch 856, minibatch 833/833, validation error 26.204819 %
+epoch 857, minibatch 833/833, validation error 26.024096 %
+epoch 858, minibatch 833/833, validation error 27.891566 %
+epoch 859, minibatch 833/833, validation error 25.060241 %
+epoch 860, minibatch 833/833, validation error 27.108434 %
+epoch 861, minibatch 833/833, validation error 24.879518 %
+epoch 862, minibatch 833/833, validation error 26.325301 %
+epoch 863, minibatch 833/833, validation error 26.144578 %
+epoch 864, minibatch 833/833, validation error 25.662651 %
+epoch 865, minibatch 833/833, validation error 25.301205 %
+epoch 866, minibatch 833/833, validation error 24.819277 %
+epoch 867, minibatch 833/833, validation error 26.867470 %
+epoch 868, minibatch 833/833, validation error 30.361446 %
+epoch 869, minibatch 833/833, validation error 42.771084 %
+epoch 870, minibatch 833/833, validation error 31.566265 %
+epoch 871, minibatch 833/833, validation error 26.325301 %
+epoch 872, minibatch 833/833, validation error 27.650602 %
+epoch 873, minibatch 833/833, validation error 25.602410 %
+epoch 874, minibatch 833/833, validation error 28.614458 %
+epoch 875, minibatch 833/833, validation error 25.361446 %
+epoch 876, minibatch 833/833, validation error 27.951807 %
+epoch 877, minibatch 833/833, validation error 25.783133 %
+epoch 878, minibatch 833/833, validation error 26.265060 %
+epoch 879, minibatch 833/833, validation error 27.650602 %
+epoch 880, minibatch 833/833, validation error 28.012048 %
+epoch 881, minibatch 833/833, validation error 28.132530 %
+epoch 882, minibatch 833/833, validation error 27.168675 %
+epoch 883, minibatch 833/833, validation error 24.397590 %
+epoch 884, minibatch 833/833, validation error 25.240964 %
+epoch 885, minibatch 833/833, validation error 25.963855 %
+epoch 886, minibatch 833/833, validation error 26.746988 %
+epoch 887, minibatch 833/833, validation error 26.385542 %
+epoch 888, minibatch 833/833, validation error 27.530120 %
+epoch 889, minibatch 833/833, validation error 23.674699 %
+epoch 890, minibatch 833/833, validation error 24.698795 %
+epoch 891, minibatch 833/833, validation error 28.012048 %
+epoch 892, minibatch 833/833, validation error 27.650602 %
+epoch 893, minibatch 833/833, validation error 24.578313 %
+epoch 894, minibatch 833/833, validation error 28.614458 %
+epoch 895, minibatch 833/833, validation error 24.156627 %
+epoch 896, minibatch 833/833, validation error 33.554217 %
+epoch 897, minibatch 833/833, validation error 31.566265 %
+epoch 898, minibatch 833/833, validation error 26.626506 %
+epoch 899, minibatch 833/833, validation error 32.168675 %
+epoch 900, minibatch 833/833, validation error 29.277108 %
+epoch 901, minibatch 833/833, validation error 38.554217 %
+epoch 902, minibatch 833/833, validation error 26.144578 %
+epoch 903, minibatch 833/833, validation error 23.614458 %
+epoch 904, minibatch 833/833, validation error 24.698795 %
+epoch 905, minibatch 833/833, validation error 25.481928 %
+epoch 906, minibatch 833/833, validation error 25.361446 %
+epoch 907, minibatch 833/833, validation error 27.469880 %
+epoch 908, minibatch 833/833, validation error 26.626506 %
+epoch 909, minibatch 833/833, validation error 25.783133 %
+epoch 910, minibatch 833/833, validation error 27.530120 %
+epoch 911, minibatch 833/833, validation error 29.397590 %
+epoch 912, minibatch 833/833, validation error 29.638554 %
+epoch 913, minibatch 833/833, validation error 25.421687 %
+epoch 914, minibatch 833/833, validation error 28.373494 %
+epoch 915, minibatch 833/833, validation error 27.108434 %
+epoch 916, minibatch 833/833, validation error 24.036145 %
+epoch 917, minibatch 833/833, validation error 24.036145 %
+epoch 918, minibatch 833/833, validation error 36.867470 %
+epoch 919, minibatch 833/833, validation error 24.638554 %
+epoch 920, minibatch 833/833, validation error 26.927711 %
+epoch 921, minibatch 833/833, validation error 30.361446 %
+epoch 922, minibatch 833/833, validation error 27.289157 %
+epoch 923, minibatch 833/833, validation error 27.951807 %
+epoch 924, minibatch 833/833, validation error 25.662651 %
+epoch 925, minibatch 833/833, validation error 25.000000 %
+epoch 926, minibatch 833/833, validation error 23.373494 %
+epoch 927, minibatch 833/833, validation error 23.855422 %
+epoch 928, minibatch 833/833, validation error 26.325301 %
+epoch 929, minibatch 833/833, validation error 25.481928 %
+epoch 930, minibatch 833/833, validation error 23.132530 %
+epoch 931, minibatch 833/833, validation error 32.048193 %
+epoch 932, minibatch 833/833, validation error 31.084337 %
+epoch 933, minibatch 833/833, validation error 31.807229 %
+epoch 934, minibatch 833/833, validation error 31.927711 %
+epoch 935, minibatch 833/833, validation error 28.253012 %
+epoch 936, minibatch 833/833, validation error 24.939759 %
+epoch 937, minibatch 833/833, validation error 27.048193 %
+epoch 938, minibatch 833/833, validation error 33.012048 %
+epoch 939, minibatch 833/833, validation error 27.228916 %
+epoch 940, minibatch 833/833, validation error 24.036145 %
+epoch 941, minibatch 833/833, validation error 25.000000 %
+epoch 942, minibatch 833/833, validation error 27.590361 %
+epoch 943, minibatch 833/833, validation error 24.036145 %
+epoch 944, minibatch 833/833, validation error 33.012048 %
+epoch 945, minibatch 833/833, validation error 32.289157 %
+epoch 946, minibatch 833/833, validation error 32.409639 %
+epoch 947, minibatch 833/833, validation error 23.855422 %
+epoch 948, minibatch 833/833, validation error 28.253012 %
+epoch 949, minibatch 833/833, validation error 25.000000 %
+epoch 950, minibatch 833/833, validation error 32.409639 %
+epoch 951, minibatch 833/833, validation error 33.313253 %
+epoch 952, minibatch 833/833, validation error 28.433735 %
+epoch 953, minibatch 833/833, validation error 31.987952 %
+epoch 954, minibatch 833/833, validation error 28.493976 %
+epoch 955, minibatch 833/833, validation error 26.566265 %
+epoch 956, minibatch 833/833, validation error 31.325301 %
+epoch 957, minibatch 833/833, validation error 32.771084 %
+epoch 958, minibatch 833/833, validation error 29.216867 %
+epoch 959, minibatch 833/833, validation error 23.132530 %
+epoch 960, minibatch 833/833, validation error 26.204819 %
+epoch 961, minibatch 833/833, validation error 30.722892 %
+epoch 962, minibatch 833/833, validation error 34.156627 %
+epoch 963, minibatch 833/833, validation error 27.108434 %
+epoch 964, minibatch 833/833, validation error 26.445783 %
+epoch 965, minibatch 833/833, validation error 24.578313 %
+epoch 966, minibatch 833/833, validation error 26.204819 %
+epoch 967, minibatch 833/833, validation error 29.337349 %
+epoch 968, minibatch 833/833, validation error 23.072289 %
+epoch 969, minibatch 833/833, validation error 25.903614 %
+epoch 970, minibatch 833/833, validation error 29.578313 %
+epoch 971, minibatch 833/833, validation error 27.650602 %
+epoch 972, minibatch 833/833, validation error 26.445783 %
+epoch 973, minibatch 833/833, validation error 26.807229 %
+epoch 974, minibatch 833/833, validation error 23.975904 %
+epoch 975, minibatch 833/833, validation error 26.204819 %
+epoch 976, minibatch 833/833, validation error 32.650602 %
+epoch 977, minibatch 833/833, validation error 27.168675 %
+epoch 978, minibatch 833/833, validation error 27.891566 %
+epoch 979, minibatch 833/833, validation error 27.409639 %
+epoch 980, minibatch 833/833, validation error 27.289157 %
+epoch 981, minibatch 833/833, validation error 25.602410 %
+epoch 982, minibatch 833/833, validation error 24.819277 %
+epoch 983, minibatch 833/833, validation error 32.590361 %
+epoch 984, minibatch 833/833, validation error 30.903614 %
+epoch 985, minibatch 833/833, validation error 28.012048 %
+epoch 986, minibatch 833/833, validation error 31.566265 %
+epoch 987, minibatch 833/833, validation error 29.518072 %
+epoch 988, minibatch 833/833, validation error 23.915663 %
+epoch 989, minibatch 833/833, validation error 27.590361 %
+epoch 990, minibatch 833/833, validation error 27.831325 %
+epoch 991, minibatch 833/833, validation error 25.722892 %
+epoch 992, minibatch 833/833, validation error 23.253012 %
+epoch 993, minibatch 833/833, validation error 23.674699 %
+epoch 994, minibatch 833/833, validation error 26.987952 %
+epoch 995, minibatch 833/833, validation error 29.879518 %
+epoch 996, minibatch 833/833, validation error 24.216867 %
+epoch 997, minibatch 833/833, validation error 24.819277 %
+epoch 998, minibatch 833/833, validation error 26.566265 %
+epoch 999, minibatch 833/833, validation error 22.951807 %
+epoch 1000, minibatch 833/833, validation error 26.265060 %
+Optimization complete with best validation score of 22.831325 %,with test performance 23.340000 %
+The fine tuning code for file DBN.py ran for 39.17m
