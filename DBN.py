@@ -278,12 +278,14 @@ def test_DBN(finetune_lr=0.1, pretraining_epochs=100,
     :type batch_size: int
     :param batch_size: the size of a minibatch
     """
-
     datasets = load_data(dataset)
 
     train_set_x, train_set_y = datasets[0]
     valid_set_x, valid_set_y = datasets[1]
     test_set_x, test_set_y = datasets[2]
+
+    n_in = train_set_x.shape.eval()[1]
+    n_out = len(set(train_set_y.eval()))
 
     # compute number of minibatches for training, validation and testing
     n_train_batches = train_set_x.get_value(borrow=True).shape[0] / batch_size
@@ -292,9 +294,9 @@ def test_DBN(finetune_lr=0.1, pretraining_epochs=100,
     numpy_rng = numpy.random.RandomState(123)
     print '... building the model'
     # construct the Deep Belief Network
-    dbn = DBN(numpy_rng=numpy_rng, n_ins=28 * 28,
+    dbn = DBN(numpy_rng=numpy_rng, n_ins=n_in,
               hidden_layers_sizes=[1000, 1000, 1000],
-              n_outs=10)
+              n_outs=n_out)
 
     #########################
     # PRETRAINING THE MODEL #
