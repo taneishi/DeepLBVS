@@ -192,12 +192,8 @@ def load_data(dataset):
         label = df['label']
         del df['label']
 
-        for i in xrange(df.shape[1]):
-            vec = df.ix[:,i]
-            if vec.min() != vec.max():
-                df.ix[:,i] = (vec - vec.min()) / (vec.max() - vec.min())
-            else:
-                df.ix[:,i] = 0
+        df = df.ix[:,df.max() != df.min()]
+        df = (df - df.min()) / (df.max() - df.min())
 
         fold = df.shape[0] / 6
         train_set = (df[:fold*4].values, label[:fold*4].values)
