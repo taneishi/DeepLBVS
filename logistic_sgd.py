@@ -184,7 +184,7 @@ def load_data(dataset):
         #the number of rows in the input. It should give the target
         #target to the example with the same index in the input.
     else:
-        df = pd.read_pickle('kinase')
+        df = pd.read_pickle('data/kinase')
 
         numpy.random.seed(123)
         df = df.reindex(numpy.random.permutation(df.index))
@@ -192,14 +192,17 @@ def load_data(dataset):
         label = df['label']
         del df['label']
 
-        df = (df - df.min()) / (df.max() - df.min())
+        for i in xrange(df.shape[1]):
+            vec = df.ix[:,i]
+            if vec.min() != vec.max():
+                df.ix[:,i] = (vec - vec.min()) / (vec.max() - vec.min())
+            else:
+                df.ix[:,i] = 0
 
-        fold = df.shape[0] / 10
+        fold = df.shape[0] / 6
         train_set = (df[:fold*4].values, label[:fold*4].values)
         valid_set = (df[fold*4:fold*5].values, label[fold*4:fold*5].values)
         test_set = (df[fold*5:].values, label[fold*5:].values)
-
-        print train_set[0].shape, valid_set[0].shape, test_set[0].shape
 
 
     def shared_dataset(data_xy, borrow=True):
@@ -399,4 +402,4 @@ def sgd_optimization_mnist(learning_rate=0.13, n_epochs=1000,
                           ' ran for %.1fs' % ((end_time - start_time)))
 
 if __name__ == '__main__':
-    sgd_optimization_mnist()
+    sgd_optimization_mnist(batch_size=100)
