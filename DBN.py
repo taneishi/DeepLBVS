@@ -357,7 +357,8 @@ def test_DBN(finetune_lr=0.1, pretraining_epochs=100,
     done_looping = False
     epoch = 0
 
-    validation_log = pd.Series()
+    validation_log = pd.Series(name='valid')
+    test_log = pd.Series(name='test')
     while (epoch < training_epochs) and (not done_looping):
         epoch = epoch + 1
         for minibatch_index in xrange(n_train_batches):
@@ -372,7 +373,7 @@ def test_DBN(finetune_lr=0.1, pretraining_epochs=100,
                 print('epoch %i, minibatch %i/%i, validation error %f %%' % \
                       (epoch, minibatch_index + 1, n_train_batches,
                        this_validation_loss * 100.))
-                validation_log[epoch] = this_validation_loss
+                validation_log[str(epoch)] = this_validation_loss
 
                 # if we got the best validation score until now
                 if this_validation_loss < best_validation_loss:
@@ -393,12 +394,14 @@ def test_DBN(finetune_lr=0.1, pretraining_epochs=100,
                            'best model %f %%') %
                           (epoch, minibatch_index + 1, n_train_batches,
                            test_score * 100.))
+                    test_log[str(epoch)] = test_score
 
             if patience <= iter:
                 done_looping = True
                 break
 
-    validation_log.to_pickle('validation_log')
+    log = pd.concat([validation_log,test_log], axis=1)
+    log.to_pickle('log')
 
     end_time = time.clock()
     print(('Optimization complete with best validation score of %f %%,'
