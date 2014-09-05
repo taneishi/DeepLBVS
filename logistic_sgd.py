@@ -192,7 +192,7 @@ def load_data(dataset):
         label = df['label']
         del df['label']
 
-        df = df.ix[:,df.max() != df.min()]
+        df = df.ix[:, df.max() != df.min()]
         df = (df - df.min()) / (df.max() - df.min())
 
         fold = df.shape[0] / 6
