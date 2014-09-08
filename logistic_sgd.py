@@ -184,7 +184,7 @@ def load_data(dataset):
         #the number of rows in the input. It should give the target
         #target to the example with the same index in the input.
     else:
-        df = pd.read_pickle('data/kinase')
+        df = pd.read_pickle('../data/kinase')
 
         numpy.random.seed(123)
         df = df.reindex(numpy.random.permutation(df.index))

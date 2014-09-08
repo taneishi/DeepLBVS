@@ -397,8 +397,9 @@ def test_DBN(finetune_lr=0.1, pretraining_epochs=100,
                     test_log[str(epoch)] = test_score
 
             if patience <= iter:
-                done_looping = True
-                break
+                #done_looping = True
+                #break
+                pass
 
     log = pd.concat([validation_log,test_log], axis=1)
     log.to_pickle('log')
