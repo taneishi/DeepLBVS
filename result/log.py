@@ -1,32 +1,34 @@
+import pandas as pd
+import matplotlib.pyplot as plt
 import sys
-from pylab import *
 
 def main():
     if len(sys.argv) < 2:
         sys.exit('%s [filename]' % sys.argv[0])
+
     for filename in sys.argv[1:]:
-        x = []
-        y = []
-        for l in open(filename):
-            l = l.strip(' \n')
-            if not l.startswith('epoch'): continue
-            l = l.replace('epoch ','').replace(' minibatch ','').replace(' validation error ','').replace(' %','')
-            seq = l.split(',')
-            if seq[2].startswith(' test error'): continue
+        print filename
+        df = pd.read_pickle(filename)
+        df['epoch'] = df.index.astype(int)
+        df = df.sort('epoch')
+        df = df.set_index('epoch')
 
-            x.append(seq[0])
-            y.append(seq[2])
+        plt.figure(figsize=(8,6),dpi=100)
 
-        figure(figsize=(8,6),dpi=80)
-        ylim(0,100)
-        ylabel('validation error(%)')
-        xlim(0,1000)
-        xlabel('epochs(times)')
-        title(filename.replace('.log',''))
+        plt.ylim(0,50)
+        plt.ylabel('error rate (%)')
+        plt.xlim(0,df.index.max())
+        plt.xlabel('epochs (iterations)')
+        plt.title(filename.replace('_',' ')[:-4])
 
-        plot(x, y) 
-        #show()
+        valid = df['valid'].dropna() * 100.
+        plt.plot(valid.index, valid, label='validation') 
+        test = df['test'].dropna() * 100.
+        plt.plot(test.index, test, label='test') 
+        plt.legend()
+        plt.tight_layout()
 
-        savefig(filename.replace('log','png'))
+        plt.savefig(filename.replace('log','png'))
 
-main()
+if __name__ == '__main__':
+    main()
