@@ -200,6 +200,7 @@ def load_data(dataset):
         valid_set = (df[fold*4:fold*5].values, label[fold*4:fold*5].values)
         test_set = (df[fold*5:].values, label[fold*5:].values)
 
+        print fold, fold * 4
 
     def shared_dataset(data_xy, borrow=True):
         """ Function that loads the dataset into shared variables
