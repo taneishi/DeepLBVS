@@ -402,7 +402,7 @@ def test_DBN(finetune_lr=0.1, pretraining_epochs=100,
                 pass
 
     log = pd.concat([validation_log,test_log], axis=1)
-    log.to_pickle('log')
+    log.to_pickle('mnist.log')
 
     end_time = time.clock()
     print(('Optimization complete with best validation score of %f %%,'

@@ -184,23 +184,29 @@ def load_data(dataset):
         #the number of rows in the input. It should give the target
         #target to the example with the same index in the input.
     else:
-        df = pd.read_pickle('../data/kinase')
+        df = pd.read_pickle('../data/mnist')
 
         numpy.random.seed(123)
         df = df.reindex(numpy.random.permutation(df.index))
 
+        #reindex = numpy.random.permutation(df.index)[:df.shape[0]/2]
+        #df = df.ix[reindex,:]
+
         label = df['label']
         del df['label']
 
-        df = df.ix[:, df.max() != df.min()]
-        df = (df - df.min()) / (df.max() - df.min())
+        #df = df.ix[:, df.max() != df.min()]
+        #df = (df - df.min()) / (df.max() - df.min())
 
-        fold = df.shape[0] / 6
-        train_set = (df[:fold*4].values, label[:fold*4].values)
-        valid_set = (df[fold*4:fold*5].values, label[fold*4:fold*5].values)
-        test_set = (df[fold*5:].values, label[fold*5:].values)
+        print df.shape
+        print label.sum()
 
-        print fold, fold * 4
+        fold = df.shape[0] / 7
+        train_set = (df[:fold*5].values, label[:fold*5].values)
+        valid_set = (df[fold*5:fold*6].values, label[fold*5:fold*6].values)
+        test_set = (df[fold*6:].values, label[fold*6:].values)
+        print fold, fold * 5
+
 
     def shared_dataset(data_xy, borrow=True):
         """ Function that loads the dataset into shared variables
@@ -385,8 +391,9 @@ def sgd_optimization_mnist(learning_rate=0.13, n_epochs=1000,
                          test_score * 100.))
 
             if patience <= iter:
-                done_looping = True
-                break
+                #done_looping = True
+                #break
+                pass
 
     end_time = time.clock()
     print(('Optimization complete with best validation score of %f %%,'
@@ -399,4 +406,4 @@ def sgd_optimization_mnist(learning_rate=0.13, n_epochs=1000,
                           ' ran for %.1fs' % ((end_time - start_time)))
 
 if __name__ == '__main__':
-    sgd_optimization_mnist(batch_size=100)
+    sgd_optimization_mnist(batch_size=600)
