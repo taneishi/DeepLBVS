@@ -195,8 +195,8 @@ def load_data(dataset):
         label = df['label']
         del df['label']
 
-        #df = df.ix[:, df.max() != df.min()]
-        #df = (df - df.min()) / (df.max() - df.min())
+        df = df.ix[:, df.max() != df.min()]
+        df = (df - df.min()) / (df.max() - df.min())
 
         print df.shape
         print label.sum()
