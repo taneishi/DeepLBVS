@@ -1,0 +1,5 @@
+source /etc/screenrc
+caption always "%{= dG}%-Lw%50> %n%f* %t %{= dG}%+Lw%< %= %H %0c %{-}"
+startup_message off
+defscrollback 25000
+vbell off
