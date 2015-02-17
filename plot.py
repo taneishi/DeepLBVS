@@ -8,7 +8,7 @@ import os
 def descend(df):
     data = []
     for i,row in df.iterrows():
-        if row['score'] < df.ix[df['epoch'] < row['epoch'], 'score'].min():
+        if row['score'] <= df.ix[df['epoch'] < row['epoch'], 'score'].min():
             data.append((row['epoch'],row['score']))
     return pd.DataFrame(data, columns=['epoch','score'])
 
