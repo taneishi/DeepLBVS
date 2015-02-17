@@ -1,8 +1,16 @@
 # coding:utf-8
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 import sys
 import os
+
+def descend(df):
+    data = []
+    for i,row in df.iterrows():
+        if row['score'] < df.ix[df['epoch'] < row['epoch'], 'score'].min():
+            data.append((row['epoch'],row['score']))
+    return pd.DataFrame(data, columns=['epoch','score'])
 
 def main():
     if len(sys.argv) < 2:
@@ -21,6 +29,8 @@ def main():
 
         df = pd.read_pickle(filename)
         df.columns = ['epoch','score']
+        df = descend(df) 
+
         plt.plot(df['epoch'], df['score'] * 100.0,
                 label='%s %.1f' % (
                     label,df['score'].min()*100.0

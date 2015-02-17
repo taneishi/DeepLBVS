@@ -93,9 +93,6 @@ def test_DBN(finetune_lr=0.1, pretraining_epochs=100,
     :param batch_size: the size of a minibatch
     """
 
-    spec =  '%d_%d' % (hidden_layers_sizes[0], len(hidden_layers_sizes))
-    print spec
-
     datasets = load_data(dataset)
 
     train_set_x, train_set_y = datasets[0]
@@ -219,7 +216,7 @@ def test_DBN(finetune_lr=0.1, pretraining_epochs=100,
                 pass
 
     df = pd.DataFrame(score)
-    spec =  '%d_%d' % (hidden_layers_sizes[0], len(hidden_layers_sizes))
+    spec =  '%dx%d' % (hidden_layers_sizes[0], len(hidden_layers_sizes))
     df.to_pickle('result/%s_%s_DBN.log' % (os.path.basename(dataset), spec))
 
     end_time = time.clock()
