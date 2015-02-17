@@ -1,11 +1,14 @@
 # coding:utf-8
 import pandas as pd
 import numpy as np
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 from dateutil.parser import parse
 import datetime
 import sys
 import os
+
+mpl.rcParams['font.family'] = 'Hiragino Kaku Gothic ProN'
 
 def main():
     logfile = os.path.join(os.environ['HOME'], '.local/share/snmp.log')
@@ -34,6 +37,8 @@ def main():
     df = df.ix[:, (df > 0).sum() > 0]
     delta = (df.index.max() - df.index) / np.timedelta64(1,'D')
     df = df[delta <= 10]
+
+    #df['sum'] = df.sum(axis=1)
 
     df.plot(style='.--', figsize=(8,6), legend=False)
     #plt.legend(loc='upper left',framealpha=0.7)
