@@ -38,6 +38,7 @@ def main():
 
     plt.ylabel('Error rate (%)')
     plt.xlabel('Epochs')
+    plt.xlim(0,1000)
     plt.legend(loc='best',framealpha=0.5)
     plt.tight_layout()
     plt.show()
