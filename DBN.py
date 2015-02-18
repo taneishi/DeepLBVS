@@ -233,5 +233,13 @@ def test_DBN(finetune_lr=0.1, pretraining_epochs=100,
 
 if __name__ == '__main__':
     dataset = DATASET
-    if len(sys.argv) > 1: dataset = sys.argv[1]
+    if len(sys.argv) > 3:
+        dataset = sys.argv[1]
+        n_units = int(sys.argv[2])
+        n_layers = int(sys.argv[3])
+    else:
+        sys.exit('DBN.py filename n_units n_layers')
+
+    hidden_layers_sizes = [n_units] * n_layers
+    spec =  '%dx%d' % (hidden_layers_sizes[0], len(hidden_layers_sizes))
     test_DBN(dataset=dataset, hidden_layers_sizes=[2000])
