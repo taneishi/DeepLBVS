@@ -216,7 +216,7 @@ def test_DBN(finetune_lr=0.1, pretraining_epochs=100,
                 pass
 
     df = pd.DataFrame(score)
-    spec =  '%dx%d' % (hidden_layers_sizes[0], len(hidden_layers_sizes))
+    spec = '%dx%d' % (hidden_layers_sizes[0], len(hidden_layers_sizes))
     df.to_pickle('result/%s_%s_DBN.log' % (os.path.basename(dataset), spec))
 
     end_time = time.clock()
@@ -241,5 +241,5 @@ if __name__ == '__main__':
         sys.exit('DBN.py filename n_units n_layers')
 
     hidden_layers_sizes = [n_units] * n_layers
-    spec =  '%dx%d' % (hidden_layers_sizes[0], len(hidden_layers_sizes))
-    test_DBN(dataset=dataset, hidden_layers_sizes=[2000])
+    spec = '%dx%d' % (hidden_layers_sizes[0], len(hidden_layers_sizes))
+    test_DBN(dataset=dataset, hidden_layers_sizes=hidden_layers_sizes)
