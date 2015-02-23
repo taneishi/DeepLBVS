@@ -28,7 +28,7 @@ def build(dataset):
     df = pd.concat(cat)
     df.to_pickle(dataset)
 
-def load_data(dataset):
+def load_data(dataset, nfold=5):
     ''' Loads the dataset
 
     :type dataset: string
@@ -52,8 +52,8 @@ def load_data(dataset):
         # scaling [0,1]
         df.ix[:,:-1] = (df.ix[:,:-1] - df.ix[:,:-1].min()) / (df.ix[:,:-1].max() - df.ix[:,:-1].min())
 
-    train_set = df[:-df.shape[0]/6]
-    test_set = df[-df.shape[0]/6:]
+    train_set = df[:-df.shape[0] / nfold]
+    test_set = df[-df.shape[0] / nfold:]
 
     #train_set, test_set format: pandas.DataFrame(columns=[0,1,2,...,label])
 
