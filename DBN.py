@@ -242,4 +242,5 @@ if __name__ == '__main__':
 
     hidden_layers_sizes = [n_units] * n_layers
     spec = '%dx%d' % (hidden_layers_sizes[0], len(hidden_layers_sizes))
+    print spec
     test_DBN(dataset=dataset, hidden_layers_sizes=hidden_layers_sizes)
