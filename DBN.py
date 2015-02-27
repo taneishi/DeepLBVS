@@ -236,10 +236,17 @@ if __name__ == '__main__':
         dataset = sys.argv[1]
         n_units = int(sys.argv[2])
         n_layers = int(sys.argv[3])
+        hidden_layers_sizes = [n_units] * n_layers
+        spec = '%dx%d' % (hidden_layers_sizes[0], len(hidden_layers_sizes))
+        print spec
+        test_DBN(dataset=dataset, hidden_layers_sizes=hidden_layers_sizes)
     else:
-        sys.exit('DBN.py filename n_units n_layers')
+        #sys.exit('DBN.py filename n_units n_layers')
+        dataset = 'data/gpcr50k'
+        for n_units in [500,1000,2000,3000]:
+            for n_layers in range(1,10):
+                hidden_layers_sizes = [n_units] * n_layers
+                spec = '%dx%d' % (hidden_layers_sizes[0], len(hidden_layers_sizes))
+                print spec
+                test_DBN(dataset=dataset, hidden_layers_sizes=hidden_layers_sizes)
 
-    hidden_layers_sizes = [n_units] * n_layers
-    spec = '%dx%d' % (hidden_layers_sizes[0], len(hidden_layers_sizes))
-    print spec
-    test_DBN(dataset=dataset, hidden_layers_sizes=hidden_layers_sizes)
