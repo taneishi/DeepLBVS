@@ -1,5 +1,4 @@
-"""
-"""
+# coding: utf-8
 import os
 import sys
 import time
@@ -10,7 +9,7 @@ import theano
 import theano.tensor as T
 from theano.tensor.shared_randomstreams import RandomStreams
 
-from utils import load_data, DATASET
+from utils import load_data
 
 from code.logistic_sgd import LogisticRegression 
 from code.mlp import HiddenLayer
@@ -232,7 +231,6 @@ def test_DBN(finetune_lr=0.1, pretraining_epochs=100,
 
 
 if __name__ == '__main__':
-    dataset = DATASET
     if len(sys.argv) > 3:
         dataset = sys.argv[1]
         n_units = int(sys.argv[2])
