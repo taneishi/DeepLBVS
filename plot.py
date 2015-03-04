@@ -18,7 +18,7 @@ def main():
 
     plt.figure(figsize=(8,6),dpi=100)
 
-    for filename in sys.argv[1:]:
+    for i,filename in enumerate(sys.argv[1:]):
         label = os.path.basename(filename).replace('.log','')
         if os.path.exists('data/%s' % label.split('_')[0]):
             data = pd.read_pickle('data/%s' % label.split('_')[0])
@@ -39,8 +39,8 @@ def main():
     plt.ylabel('Error rate (%)')
     plt.xlabel('Epochs')
     plt.xlim(0,1000)
-    plt.ylim(10,30)
-    plt.legend(loc='best',framealpha=0.5)
+    plt.ylim(10,40)
+    plt.legend(loc='best',framealpha=0.5, fontsize=9)
     plt.tight_layout()
     plt.show()
 
