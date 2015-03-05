@@ -211,4 +211,5 @@ def test_rbm(learning_rate=0.1, training_epochs=15,
 
 if __name__ == '__main__':
     dataset = 'data/gpcr'
-    test_rbm(dataset=dataset, training_epochs=15, n_hidden=2000, output_folder='output/%s' % os.path.basename(dataset))
+    test_rbm(dataset=dataset, training_epochs=15, n_hidden=500, 
+            output_folder='output/%s' % os.path.basename(dataset))

@@ -264,9 +264,9 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=15,
 
 
             if patience <= iter:
-                done_looping = True
-                break
-                #pass
+                #done_looping = True
+                #break
+                pass
 
     df = pd.DataFrame(score)
     spec = '%dx%d' % (hidden_layers_sizes[0], len(hidden_layers_sizes))
