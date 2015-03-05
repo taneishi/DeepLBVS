@@ -18,7 +18,7 @@ def main():
 
     plt.figure(figsize=(8,6),dpi=100)
 
-    for i,filename in enumerate(sys.argv[1:]):
+    for filename in sys.argv[1:]:
         label = os.path.basename(filename).replace('.log','')
         if os.path.exists('data/%s' % label.split('_')[0]):
             data = pd.read_pickle('data/%s' % label.split('_')[0])
