@@ -205,4 +205,5 @@ def test_dA(learning_rate=0.1, training_epochs=15,
 
 if __name__ == '__main__':
     dataset = 'data/gpcr'
-    test_dA(dataset=dataset, training_epochs=500, n_hidden=2000, output_folder='output/%s' % os.path.basename(dataset))
+    test_dA(dataset=dataset, training_epochs=15, n_hidden=2000, 
+            output_folder='output/%s' % os.path.basename(dataset))
