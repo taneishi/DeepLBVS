@@ -70,7 +70,7 @@ def build_finetune_functions(self, datasets, batch_size, learning_rate):
     (train_set_x, train_set_y) = datasets[0]
     (test_set_x, test_set_y) = datasets[1]
 
-    # compute number of minibatches for training, validation and testing
+    # compute number of minibatches for training and testing
     n_test_batches = test_set_x.get_value(borrow=True).shape[0]
     n_test_batches /= batch_size
 
@@ -151,7 +151,6 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=15,
     datasets = load_data(dataset)
 
     train_set_x, train_set_y = datasets[0]
-    #valid_set_x, valid_set_y = datasets[1]
     test_set_x, test_set_y = datasets[1]
 
     n_in = train_set_x.shape[1].eval()
@@ -276,11 +275,10 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=15,
     end_time = time.clock()
     print(
         (
-            'Optimization complete with best validation score of %f %%, '
-            'on iteration %i, '
-            'with test performance %f %%'
+            'Optimization complete with best test score of %f %%, '
+            'on iteration %i'
         )
-        % (best_validation_loss * 100., best_iter + 1, test_score * 100.)
+        % (best_test_loss * 100., best_iter + 1)
     )
     print >> sys.stderr, ('The training code for file ' +
                           os.path.split(__file__)[1] +
@@ -289,9 +287,7 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=15,
 
 if __name__ == '__main__':
     dataset = 'data/mnist'
-    test_SdA(dataset=dataset, hidden_layers_sizes=[1000,1000,1000])
-'''
-def test_SdA(finetune_lr=0.1, pretraining_epochs=15,
-             pretrain_lr=0.001, training_epochs=1000,
-             dataset='mnist.pkl.gz', batch_size=1):
-'''
+    test_SdA(dataset=dataset, pretraining_epochs=15, 
+            training_epochs=1000, hidden_layers_sizes=[1000,1000,1000],
+            finetune_lr=0.1, pretrain_lr=0.001, batch_size=1
+            )
