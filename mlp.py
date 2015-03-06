@@ -222,7 +222,7 @@ def test_mlp(learning_rate=0.01, L1_reg=0.00, L2_reg=0.0001, n_epochs=1000,
                 pass
 
     df = pd.DataFrame(score)
-    df.to_pickle('result/%s_mlp.log' % os.path.basename(dataset))
+    df.to_pickle('result/mlp/%s.log' % os.path.basename(dataset))
 
     end_time = time.clock()
     print(('Optimization complete. Best test performance %f %% obtained at iteration %i') %

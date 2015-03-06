@@ -216,7 +216,7 @@ def test_DBN(finetune_lr=0.1, pretraining_epochs=100,
 
     df = pd.DataFrame(score)
     spec = '%dx%d' % (hidden_layers_sizes[0], len(hidden_layers_sizes))
-    df.to_pickle('result/%s_%s_DBN.log' % (os.path.basename(dataset), spec))
+    df.to_pickle('result/DBN/%s_%s.log' % (os.path.basename(dataset), spec))
 
     end_time = time.clock()
     print(

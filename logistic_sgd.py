@@ -178,7 +178,7 @@ def sgd_optimization_mnist(learning_rate=0.13, n_epochs=1000,
                 pass
 
     df = pd.DataFrame(score)
-    df.to_pickle('result/%s_logistic_sgd.log' % os.path.basename(dataset))
+    df.to_pickle('result/logistic_sgd/%s.log' % os.path.basename(dataset))
 
     end_time = time.clock()
     print(
