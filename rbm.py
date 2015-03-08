@@ -54,7 +54,7 @@ def test_rbm(learning_rate=0.1, training_epochs=15,
 
     n_in = train_set_x.shape[1].eval()
     n_out = len(set(train_set_y.eval()))
-    wh = numpy.sqrt(n_in).astype(int)
+    wh = numpy.sqrt(n_in).astype(int)+1
 
     # compute number of minibatches for training, validation and testing
     n_train_batches = train_set_x.get_value(borrow=True).shape[0] / batch_size

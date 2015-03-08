@@ -270,7 +270,7 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=15,
 
     df = pd.DataFrame(score)
     spec = '%dx%d' % (hidden_layers_sizes[0], len(hidden_layers_sizes))
-    df.to_pickle('result/%s_%s_SdA.log' % (os.path.basename(dataset), spec))
+    df.to_pickle('result/SdA/%s_%s.log' % (os.path.basename(dataset), spec))
 
     end_time = time.clock()
     print(
@@ -286,7 +286,7 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=15,
 
 
 if __name__ == '__main__':
-    dataset = 'data/mnist'
+    dataset = 'data/gpcr50k'
     test_SdA(dataset=dataset, pretraining_epochs=15, 
             training_epochs=1000, hidden_layers_sizes=[1000,1000,1000],
             finetune_lr=0.1, pretrain_lr=0.001, batch_size=1
