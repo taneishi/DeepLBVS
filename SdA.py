@@ -287,7 +287,9 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=15,
 
 if __name__ == '__main__':
     dataset = 'data/gpcr50k'
-    test_SdA(dataset=dataset, pretraining_epochs=15, 
-            training_epochs=1000, hidden_layers_sizes=[1000,1000,1000],
-            finetune_lr=0.1, pretrain_lr=0.001, batch_size=1
+    for i in range(1,10):
+        hidden_layers_sizes = [1000] * i
+        test_SdA(dataset=dataset, pretraining_epochs=15, 
+                training_epochs=1000, hidden_layers_sizes=hidden_layers_sizes,
+                finetune_lr=0.1, pretrain_lr=0.001, batch_size=1
             )
