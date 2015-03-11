@@ -182,7 +182,9 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=15,
     print '... pre-training the model'
     start_time = time.clock()
     ## Pre-train layer-wise
-    corruption_levels = [.1, .2, .3]
+    #corruption_levels = [.1, .2, .3]
+    corruption_levels = numpy.arange(.1, (len(corruption_levels)+1)/10.)
+    print corruption_levels
     for i in xrange(sda.n_layers):
         # go through pretraining epochs
         for epoch in xrange(pretraining_epochs):
@@ -289,6 +291,10 @@ if __name__ == '__main__':
     dataset = 'data/gpcr50k'
     for i in range(1,10):
         hidden_layers_sizes = [1000] * i
+        spec = '%dx%d' % (hidden_layers_sizes[0], len(hidden_layers_sizes))
+        if os.path.exists('result/SdA/%s_%s.log' % (os.path.basename(dataset), spec)):
+            continue
+        print spec
         test_SdA(dataset=dataset, pretraining_epochs=15, 
                 training_epochs=1000, hidden_layers_sizes=hidden_layers_sizes,
                 finetune_lr=0.1, pretrain_lr=0.001, batch_size=1
