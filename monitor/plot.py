@@ -32,10 +32,12 @@ def main():
     df = df.astype(float)
 
     if len(sys.argv) > 1:
-        df = df.ix[:, df.columns == sys.argv[1]]
+        df = df.ix[:, df.columns.isin(sys.argv[1:])]
+
+    print df.head()
 
     df = df.ix[:, (df > 0).sum() > 0]
-    delta = (df.index.max() - df.index) / np.timedelta64(1,'D')
+    delta = (df.index.max() - df.index).astype('timedelta64[D]')
     df = df[delta <= 10]
 
     #df['sum'] = df.sum(axis=1)
