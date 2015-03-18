@@ -183,8 +183,7 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=15,
     start_time = time.clock()
     ## Pre-train layer-wise
     #corruption_levels = [.1, .2, .3]
-    corruption_levels = numpy.arange(.1, (len(corruption_levels)+1)/10.)
-    print corruption_levels
+    corruption_levels = [.1, .2, .3, .4, .5, .6, .7, .8, .9]
     for i in xrange(sda.n_layers):
         # go through pretraining epochs
         for epoch in xrange(pretraining_epochs):
@@ -264,6 +263,9 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=15,
                     best_test_loss = this_test_loss
                     best_iter = iter
 
+                if epoch >= 100 and this_test_loss > 0.40:
+                    done_looping = True
+                    break
 
             if patience <= iter:
                 #done_looping = True
