@@ -11,7 +11,7 @@ import os
 mpl.rcParams['font.family'] = 'Hiragino Kaku Gothic ProN'
 
 def main():
-    logfile = os.path.join(os.environ['HOME'], '.local/share/snmp.log')
+    logfile = os.path.join(os.path.dirname(__file__), 'snmp.log')
     df = pd.read_csv(logfile, sep=' ', header=None, 
             names=['OID', 'sign', 'type', 'value'])
 
