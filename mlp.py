@@ -30,10 +30,9 @@ import numpy
 import theano
 import theano.tensor as T
 
-from utils import load_data, DATASET
+from utils import load_data
 
-from code.logistic_sgd import LogisticRegression
-from code.mlp import HiddenLayer, MLP
+from code.mlp import MLP
 import pandas as pd
 
 
@@ -233,6 +232,8 @@ def test_mlp(learning_rate=0.01, L1_reg=0.00, L2_reg=0.0001, n_epochs=1000,
 
 
 if __name__ == '__main__':
-    dataset = DATASET
-    if len(sys.argv) > 1: dataset = sys.argv[1]
+    if len(sys.argv) > 1:
+        dataset = sys.argv[1]
+    else:
+        sys.exit('Usage: %s [datafile]' % (sys.argv[0]))
     test_mlp(dataset=dataset)

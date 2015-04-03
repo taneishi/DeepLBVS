@@ -19,7 +19,7 @@ import numpy
 import theano
 import theano.tensor as T
 
-from utils import load_data, DATASET
+from utils import load_data
 
 from code.logistic_sgd import LogisticRegression
 import pandas as pd
@@ -191,6 +191,8 @@ def sgd_optimization_mnist(learning_rate=0.13, n_epochs=1000,
                           ' ran for %.1fs' % ((end_time - start_time)))
 
 if __name__ == '__main__':
-    dataset = DATASET
-    if len(sys.argv) > 1: dataset = sys.argv[1]
+    if len(sys.argv) > 1:
+        dataset = sys.argv[1]
+    else:
+        sys.exit('Usage: %s [datafile]' % (sys.argv[0]))
     sgd_optimization_mnist(dataset=dataset)
