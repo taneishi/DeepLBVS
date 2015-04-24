@@ -67,7 +67,7 @@ def build_finetune_functions(self, datasets, batch_size, learning_rate):
 
 def test_DBN(finetune_lr=0.1, pretraining_epochs=100,
              pretrain_lr=0.01, k=1, training_epochs=1000,
-             dataset='mnist.pkl.gz', batch_size=10, hidden_layers_sizes=[1000,1000,1000]):
+             dataset='mnist.pkl.gz', batch_size=10, hidden_layers_sizes=[1000,1000,1000], spec=None):
     """
     Demonstrates how to train and test a Deep Belief Network.
 
@@ -212,7 +212,6 @@ def test_DBN(finetune_lr=0.1, pretraining_epochs=100,
                 pass
 
     df = pd.DataFrame(score)
-    spec = '%dx%d' % (hidden_layers_sizes[0], len(hidden_layers_sizes))
     df.to_pickle('result/DBN/%s_%s.log' % (os.path.basename(dataset), spec))
 
     end_time = time.clock()
@@ -228,14 +227,15 @@ def test_DBN(finetune_lr=0.1, pretraining_epochs=100,
 
 
 if __name__ == '__main__':
-    if len(sys.argv) > 3:
+    if len(sys.argv) > 4:
         dataset = sys.argv[1]
         n_units = int(sys.argv[2])
         n_layers = int(sys.argv[3])
+        pretraining_epochs = int(sys.argv[4])
     else:
-        sys.exit('Usage: DBN.py [datafile] [n_units] [n_layers]')
+        sys.exit('Usage: DBN.py [datafile] [n_units] [n_layers] [pretraining_epochs]')
 
     hidden_layers_sizes = [n_units] * n_layers
-    spec = '%dx%d' % (hidden_layers_sizes[0], len(hidden_layers_sizes))
+    spec = '%dx%d_%d' % (hidden_layers_sizes[0], len(hidden_layers_sizes), pretraining_epochs)
     print spec
-    test_DBN(dataset=dataset, hidden_layers_sizes=hidden_layers_sizes, pretraining_epochs=0)
+    test_DBN(dataset=dataset, hidden_layers_sizes=hidden_layers_sizes, pretraining_epochs=pretraining_epochs, spec=spec)
