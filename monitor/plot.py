@@ -38,11 +38,11 @@ def main():
 
     df = df.ix[:, (df > 0).sum() > 0]
     delta = (df.index.max() - df.index).astype('timedelta64[D]')
-    df = df[delta <= 10]
+    df = df[delta <= 14]
 
     #df['sum'] = df.sum(axis=1)
 
-    df.plot(style='.--', figsize=(8,6), legend=False)
+    df.plot(style='.--', figsize=(16,6), legend=False)
     #plt.legend(loc='upper left',framealpha=0.7)
     plt.xlabel('Time')
     plt.ylabel('Ampere')
