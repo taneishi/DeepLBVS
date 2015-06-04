@@ -11,8 +11,6 @@ import theano
 import theano.tensor as T
 
 PATH = os.path.join(os.environ['HOME'],'deep')
-INITPY = os.path.join(PATH,'code','__init__.py')
-if not os.path.exists(INITPY): open(INITPY, 'w')
 sys.path.insert(0, PATH)
 DATASET = os.path.join(PATH,'data','mnist')
 
