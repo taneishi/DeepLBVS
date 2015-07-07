@@ -26,6 +26,30 @@ def build(dataset):
     df = pd.concat(cat)
     df.to_pickle(dataset)
 
+def result(classifier, y):
+    """Return a float representing the number of errors in the minibatch
+    over the total number of examples of the minibatch ; zero one
+    loss over the size of the minibatch
+
+    :type y: theano.tensor.TensorType
+    :param y: corresponds to a vector that gives for each example the
+              correct label
+    """
+
+    # check if y has same dimension of y_pred
+    if y.ndim != classifier.y_pred.ndim:
+        raise TypeError(
+            'y should have the same shape as self.y_pred',
+            ('y', y.type, 'y_pred', classifier.y_pred.type)
+        )
+    # check if y is of the correct datatype
+    if y.dtype.startswith('int'):
+        # the T.neq operator returns a vector of 0s and 1s, where 1
+        # represents a mistake in prediction
+        return (classifier.p_y_given_x, classifier.y_pred, y)
+    else:
+        raise NotImplementedError()
+
 def load_data(dataset, nfold=5):
     ''' Loads the dataset
 
