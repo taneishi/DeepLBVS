@@ -45,8 +45,8 @@ export EDITOR="vim -u ~/work/config/vimrc"
 export CUDA_ROOT=/usr/local/cuda-6.5
 export LD_LIBRARY_PATH=$CUDA_ROOT/lib64:$LD_LIBRARY_PATH
 
-if [ -d $HOME/anaconda3 ]; then 
-    export PATH=$HOME/anaconda3/bin:$PATH
+if [ -d $HOME/anaconda ]; then 
+    export PATH=$HOME/anaconda/bin:$PATH
     export PYTHONSTARTUP=$HOME/work/config/startup.py
 fi
 
