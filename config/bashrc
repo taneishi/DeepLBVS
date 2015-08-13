@@ -45,12 +45,8 @@ export EDITOR="vim -u ~/work/config/vimrc"
 export CUDA_ROOT=/usr/local/cuda-6.5
 export LD_LIBRARY_PATH=$CUDA_ROOT/lib64:$LD_LIBRARY_PATH
 
-export PYLEARN2_DATA_PATH=~/pylearn2/data
-export PYLEARN2_VIEWER_COMMAND="eog --new-instance"
-
-if [ -d $HOME/canopy ]; then 
-    alias canopy=$HOME/canopy/bin/python; 
-    alias pydoc=$HOME/canopy/bin/pydoc; 
+if [ -d $HOME/anaconda3 ]; then 
+    export PATH=$HOME/anaconda3/bin:$PATH
     export PYTHONSTARTUP=$HOME/work/config/startup.py
 fi
 
