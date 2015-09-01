@@ -42,7 +42,7 @@ if [ -d $HOME/.local/bin ]; then PATH=$HOME/.local/bin:$PATH; fi
 export PATH
 export EDITOR="vim -u ~/work/config/vimrc"
 
-export CUDA_ROOT=/usr/local/cuda-6.5
+export CUDA_ROOT=/usr/local/cuda
 export LD_LIBRARY_PATH=$CUDA_ROOT/lib64:$LD_LIBRARY_PATH
 
 if [ -d $HOME/anaconda ]; then 
