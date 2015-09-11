@@ -64,15 +64,20 @@ def load_data(dataset, nfold=5):
     print '... loading data'
 
     # Load the dataset
-    df = pd.read_pickle(dataset)
+    if dataset.endswith('npz'):
+        df = numpy.load(dataset)['mat']
+    else:
+        df = pd.read_pickle(dataset)
+        if os.path.basename(dataset) != 'mnist':
+            numpy.random.seed(123)
+            df = df.reindex(numpy.random.permutation(df.index))
+        df = df.values
 
     if os.path.basename(dataset) != 'mnist':
-        numpy.random.seed(123)
-        df = df.reindex(numpy.random.permutation(df.index))
         # purge invariance
-        df = df.ix[:, df.max() != df.min()]
+        df = df[:, df.max(axis=0) != df.min(axis=0)]
         # scaling [0,1]
-        df.ix[:,:-1] = (df.ix[:,:-1] - df.ix[:,:-1].min()) / (df.ix[:,:-1].max() - df.ix[:,:-1].min())
+        df[:,:-1] = (df[:,:-1] - df[:,:-1].min(axis=0)) / (df[:,:-1].max(axis=0) - df[:,:-1].min(axis=0))
 
     train_set = df[:-df.shape[0] / nfold]
     test_set = df[-df.shape[0] / nfold:]
@@ -88,8 +93,8 @@ def load_data(dataset, nfold=5):
         is needed (the default behaviour if the data is not in a shared
         variable) would lead to a large decrease in performance.
         """
-        data_x = data_xy.ix[:,:-1]
-        data_y = data_xy.ix[:,-1]
+        data_x = data_xy[:,:-1]
+        data_y = data_xy[:,-1]
         shared_x = theano.shared(numpy.asarray(data_x,
                                                dtype=theano.config.floatX),
                                  borrow=borrow)
