@@ -2,6 +2,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn
 import sys
 import os
 
@@ -20,11 +21,15 @@ def main():
 
     for filename in sys.argv[1:]:
         label = os.path.basename(filename).replace('.log','')
-        if os.path.exists('data/%s' % label.split('_')[0]):
-            data = pd.read_pickle('data/%s' % label.split('_')[0])
-            npos = data[data['label'] == 1]
-            nneg = data[data['label'] == 0]
-            rate = '(P:N=%d:%d)' % (npos.shape[0], nneg.shape[0])
+        datafile = label.split('_')[0]
+        if os.path.exists('data/%s' % datafile):
+            if datafile.endswith('npz'):
+                data = np.load('data/%s' % datafile)['mat'] 
+            else:
+                data = pd.read_pickle('data/%s' % datafile).values
+            npos = (data[:,-1] == 1).sum()
+            nneg = (data[:,-1] == 0).sum()
+            rate = '(P:N=%d:%d)' % (npos, nneg)
             label = '%s %s' % (label,rate)
 
         df = pd.read_pickle(filename)
@@ -40,7 +45,7 @@ def main():
     plt.xlabel('Epochs')
     plt.xlim(0,1000)
     plt.ylim(0,50)
-    plt.legend(loc='best',framealpha=0.5, fontsize=9)
+    plt.legend()
     plt.tight_layout()
     plt.show()
 
