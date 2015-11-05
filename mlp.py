@@ -1,25 +1,4 @@
-"""
-This tutorial introduces the multilayer perceptron using Theano.
-
- A multilayer perceptron is a logistic regressor where
-instead of feeding the input to the logistic regression you insert a
-intermediate layer, called the hidden layer, that has a nonlinear
-activation function (usually tanh or sigmoid) . One can use many such
-hidden layers making the architecture deep. The tutorial will also tackle
-the problem of MNIST digit classification.
-
-.. math::
-
-    f(x) = G( b^{(2)} + W^{(2)}( s( b^{(1)} + W^{(1)} x))),
-
-References:
-
-    - textbooks: "Pattern Recognition and Machine Learning" -
-                 Christopher M. Bishop, section 5
-
-"""
-__docformat__ = 'restructedtext en'
-
+# Multilayer perceptron
 
 import os
 import sys
@@ -32,40 +11,67 @@ import theano.tensor as T
 
 from utils import load_data, result
 
-from code.mlp import MLP
+from code.logistic_sgd import LogisticRegression
+from code.mlp import HiddenLayer
 import pandas as pd
-import roc
 
+class MLP(object):
+    def __init__(self, rng, input, n_in, hidden_layers_sizes, n_out):
+        self.hidden_layers = []
+        self.n_layers = len(hidden_layers_sizes)
+        self.params = []
+        self.L1 = 0
+        self.L2_sqr = 0
+
+        assert self.n_layers > 0
+
+        for i in xrange(self.n_layers):
+            if i == 0:
+                input_size = n_in
+            else:
+                input_size = hidden_layers_sizes[i-1]
+
+            if i == 0:
+                layer_input = input
+            else:
+                layer_input = self.hidden_layers[-1].output
+
+            hidden_layer = HiddenLayer(
+                rng=rng,
+                input=layer_input,
+                n_in=input_size,
+                n_out=hidden_layers_sizes[i],
+                activation=T.nnet.sigmoid
+            )
+
+            self.hidden_layers.append(hidden_layer)
+            self.params.extend(hidden_layer.params)
+            self.L1 = (self.L1 + abs(hidden_layer.W).sum())
+            self.L2_sqr = (self.L2_sqr + (hidden_layer.W ** 2).sum())
+
+        self.logRegressionLayer = LogisticRegression(
+            input=self.hidden_layers[-1].output,
+            n_in=hidden_layers_sizes[-1],
+            n_out=n_out
+        )
+
+        self.L1 = (self.L1 + abs(self.logRegressionLayer.W).sum())
+
+        self.L2_sqr = (self.L2_sqr + (self.logRegressionLayer.W ** 2).sum())
+
+        self.negative_log_likelihood = (
+            self.logRegressionLayer.negative_log_likelihood
+        )
+
+        self.errors = self.logRegressionLayer.errors
+
+        self.params.extend(self.logRegressionLayer.params)
+
+        self.input = input
 
 def test_mlp(learning_rate=0.01, L1_reg=0.00, L2_reg=0.0001, n_epochs=1000,
-             dataset='mnist.pkl.gz', batch_size=20, n_hidden=500):
-    """
-    Demonstrate stochastic gradient descent optimization for a multilayer
-    perceptron
+             dataset='mnist.pkl.gz', batch_size=20, hidden_layers_sizes=[1000]):
 
-    This is demonstrated on MNIST.
-
-    :type learning_rate: float
-    :param learning_rate: learning rate used (factor for the stochastic
-    gradient
-
-    :type L1_reg: float
-    :param L1_reg: L1-norm's weight when added to the cost (see
-    regularization)
-
-    :type L2_reg: float
-    :param L2_reg: L2-norm's weight when added to the cost (see
-    regularization)
-
-    :type n_epochs: int
-    :param n_epochs: maximal number of epochs to run the optimizer
-
-    :type dataset: string
-    :param dataset: the path of the MNIST dataset file from
-                 http://www.iro.umontreal.ca/~lisa/deep/data/mnist/mnist.pkl.gz
-
-
-   """
     datasets = load_data(dataset)
 
     train_set_x, train_set_y = datasets[0]
@@ -96,7 +102,7 @@ def test_mlp(learning_rate=0.01, L1_reg=0.00, L2_reg=0.0001, n_epochs=1000,
         rng=rng,
         input=x,
         n_in=n_in,
-        n_hidden=n_hidden,
+        hidden_layers_sizes=hidden_layers_sizes,
         n_out=n_out
     )
 
@@ -208,7 +214,7 @@ def test_mlp(learning_rate=0.01, L1_reg=0.00, L2_reg=0.0001, n_epochs=1000,
                 res = numpy.concatenate([mat[0] for mat in test_result])
                 res = pd.DataFrame(res)
                 res['STATUS'] = numpy.concatenate([mat[2] for mat in test_result])
-                print roc.roc(res, 1)[0]
+                #print roc.roc(res, 1)[0]
 
                 print(
                     'epoch %i, minibatch %i/%i, test error %f %%' %
@@ -237,10 +243,14 @@ def test_mlp(learning_rate=0.01, L1_reg=0.00, L2_reg=0.0001, n_epochs=1000,
                 #break
                 pass
 
-    roc.roc(res, 1)[0].to_pickle('svmdata.result')
+    #roc.roc(res, 1)[0].to_pickle('svmdata.result')
 
     df = pd.DataFrame(score)
-    df.to_pickle('result/mlp/%s.log' % os.path.basename(dataset))
+    df.to_pickle('result/mlp/%s_%s_%d.log' % (
+        os.path.basename(dataset),
+        '_'.join(map(str, hidden_layers_sizes)),
+        batch_size,
+        ))
 
     end_time = time.clock()
     print(('Optimization complete. Best test performance %f %% obtained at iteration %i') %
@@ -249,10 +259,11 @@ def test_mlp(learning_rate=0.01, L1_reg=0.00, L2_reg=0.0001, n_epochs=1000,
                           os.path.split(__file__)[1] +
                           ' ran for %.2fm' % ((end_time - start_time) / 60.))
 
-
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         dataset = sys.argv[1]
     else:
         sys.exit('Usage: %s [datafile]' % (sys.argv[0]))
-    test_mlp(dataset=dataset)
+
+    test_mlp(learning_rate=0.1, L1_reg=0.00, L2_reg=0.00, n_epochs=1000,
+            dataset=dataset, batch_size=500, hidden_layers_sizes=[1000,1000,1000])
