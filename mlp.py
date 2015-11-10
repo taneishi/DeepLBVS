@@ -95,7 +95,7 @@ def test_mlp(learning_rate=0.01, L1_reg=0.00, L2_reg=0.0001, n_epochs=1000,
     y = T.ivector('y')  # the labels are presented as 1D vector of
                         # [int] labels
 
-    rng = numpy.random.RandomState(1234)
+    rng = numpy.random.RandomState(123)
 
     # construct the MLP class
     classifier = MLP(
@@ -266,4 +266,4 @@ if __name__ == '__main__':
         sys.exit('Usage: %s [datafile]' % (sys.argv[0]))
 
     test_mlp(learning_rate=0.1, L1_reg=0.00, L2_reg=0.00, n_epochs=1000,
-            dataset=dataset, batch_size=500, hidden_layers_sizes=[1000,1000,1000])
+            dataset=dataset, batch_size=10, hidden_layers_sizes=[1000,1000,1000])
