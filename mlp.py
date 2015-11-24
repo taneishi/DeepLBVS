@@ -14,6 +14,7 @@ from utils import load_data, result
 from code.logistic_sgd import LogisticRegression
 from code.mlp import HiddenLayer
 import pandas as pd
+import numpy as np
 
 class MLP(object):
     def __init__(self, rng, input, n_in, hidden_layers_sizes, n_out):
@@ -71,6 +72,11 @@ class MLP(object):
 
 def test_mlp(learning_rate=0.01, L1_reg=0.00, L2_reg=0.0001, n_epochs=1000,
              dataset='mnist.pkl.gz', batch_size=20, hidden_layers_sizes=[1000]):
+
+    basename = 'mlp/%s_%s_%d_%f.log' % (
+            os.path.basename(dataset),
+            '_'.join(map(str, hidden_layers_sizes)),
+            batch_size, learning_rate)
 
     datasets = load_data(dataset)
 
@@ -211,6 +217,7 @@ def test_mlp(learning_rate=0.01, L1_reg=0.00, L2_reg=0.0001, n_epochs=1000,
 
                 test_result = [result_model(i)
                                for i in xrange(n_test_batches)]
+
                 res = numpy.concatenate([mat[0] for mat in test_result])
                 res = pd.DataFrame(res)
                 res['STATUS'] = numpy.concatenate([mat[2] for mat in test_result])
@@ -244,13 +251,15 @@ def test_mlp(learning_rate=0.01, L1_reg=0.00, L2_reg=0.0001, n_epochs=1000,
                 pass
 
     #roc.roc(res, 1)[0].to_pickle('svmdata.result')
+    # save weights
+    params = {}
+    for i in xrange(0, len(classifier.params)/2):
+        params['W%d' % i] = classifier.params[i*2].get_value()
+        params['b%d' % i] = classifier.params[i*2+1].get_value()
+    np.savez(os.path.join('model', basename).replace('log','npz'), params)
 
     df = pd.DataFrame(score)
-    df.to_pickle('result/mlp/%s_%s_%d.log' % (
-        os.path.basename(dataset),
-        '_'.join(map(str, hidden_layers_sizes)),
-        batch_size,
-        ))
+    df.to_pickle(os.path.join('result', basename))
 
     end_time = time.clock()
     print(('Optimization complete. Best test performance %f %% obtained at iteration %i') %
@@ -265,5 +274,5 @@ if __name__ == '__main__':
     else:
         sys.exit('Usage: %s [datafile]' % (sys.argv[0]))
 
-    test_mlp(learning_rate=0.1, L1_reg=0.00, L2_reg=0.00, n_epochs=1000,
-            dataset=dataset, batch_size=10, hidden_layers_sizes=[1000,1000,1000])
+    test_mlp(learning_rate=0.01, L1_reg=0.00, L2_reg=0.00, n_epochs=1000,
+            dataset=dataset, batch_size=100, hidden_layers_sizes=[2000,1000,500])
