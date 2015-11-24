@@ -24,7 +24,7 @@ def main():
         datafile = label.split('_')[0]
         if os.path.exists('data/%s' % datafile):
             if datafile.endswith('npz'):
-                data = np.load('data/%s' % datafile)['mat'] 
+                data = np.load('data/%s' % datafile)['data'] 
             else:
                 data = pd.read_pickle('data/%s' % datafile).values
             npos = (data[:,-1] == 1).sum()
