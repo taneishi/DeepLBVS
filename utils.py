@@ -12,33 +12,6 @@ PATH = os.path.join(os.environ['HOME'],'deep')
 sys.path.insert(0, PATH)
 DATASET = os.path.join(PATH,'data','mnist')
 
-def build(dataset):
-    import gzip,cPickle
-    filename = dataset + '.pkl.gz'
-    data = cPickle.load(gzip.open(filename))
-    label = []
-    for row in data:
-        df = pd.DataFrame(row[0])
-        df['label'] = row[1]
-        label.append(df)
-    df = pd.concat(label)
-    df.to_pickle(dataset)
-
-def result(classifier, y):
-    # check if y has same dimension of y_pred
-    if y.ndim != classifier.y_pred.ndim:
-        raise TypeError(
-            'y should have the same shape as self.y_pred',
-            ('y', y.type, 'y_pred', classifier.y_pred.type)
-        )
-    # check if y is of the correct datatype
-    if y.dtype.startswith('int'):
-        # the T.neq operator returns a vector of 0s and 1s, where 1
-        # represents a mistake in prediction
-        return (classifier.p_y_given_x, classifier.y_pred, y)
-    else:
-        raise NotImplementedError()
-
 def load_data(dataset, nfold=5):
     #############
     # LOAD DATA #
@@ -47,10 +20,10 @@ def load_data(dataset, nfold=5):
     print '... loading data'
 
     # Load the dataset
-    df = numpy.load(dataset)['data']
+    data = numpy.load(dataset)['data']
 
-    train_set = df[:-df.shape[0] / nfold]
-    test_set = df[-df.shape[0] / nfold:]
+    train_set = data[:-data.shape[0] / nfold]
+    test_set = data[-data.shape[0] / nfold:]
 
     def shared_dataset(data_xy, borrow=True):
         data_x = data_xy[:,:-1]
@@ -70,6 +43,4 @@ def load_data(dataset, nfold=5):
     return rval
 
 if __name__ == '__main__':
-    if not os.path.exists(DATASET):
-        build(DATASET)
     print(load_data(DATASET))

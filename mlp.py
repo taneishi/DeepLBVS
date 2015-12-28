@@ -9,12 +9,14 @@ import numpy
 import theano
 import theano.tensor as T
 
-from utils import load_data, result
+from utils import load_data
 
 from code.logistic_sgd import LogisticRegression
 from code.mlp import HiddenLayer
 import pandas as pd
 import numpy as np
+
+from sklearn.metrics import roc_curve, auc
 
 class MLP(object):
     def __init__(self, rng, input, n_in, hidden_layers_sizes, n_out):
@@ -134,14 +136,9 @@ def test_mlp(learning_rate=0.01, L1_reg=0.00, L2_reg=0.0001, n_epochs=1000,
         }
     )
 
-    result_model = theano.function(
-        inputs=[index],
-        outputs=result(classifier.logRegressionLayer, y),
-        givens={
-            x: test_set_x[index * batch_size: (index + 1) * batch_size],
-            y: test_set_y[index * batch_size: (index + 1) * batch_size]
-        }
-    )
+    predict_model = theano.function(
+        inputs=[classifier.input],
+        outputs=classifier.logRegressionLayer.y_pred)
 
     # start-snippet-5
     # compute the gradient of cost with respect to theta (sotred in params)
@@ -215,13 +212,13 @@ def test_mlp(learning_rate=0.01, L1_reg=0.00, L2_reg=0.0001, n_epochs=1000,
                 this_test_score = numpy.mean(test_losses)
                 score.append([epoch,this_test_score])
 
-                test_result = [result_model(i)
-                               for i in xrange(n_test_batches)]
+                #res['STATUS'] = numpy.concatenate([mat[2] for mat in test_result])
+                #fpr,tpr,thresholds = roc_curve(res['STATUS'], res[1], pos_label=1)
+                #print auc(fpr, tpr)
+                predicted_values = predict_model(test_set_x.get_value())
+                print test_set_y.eval()
+                print predicted_values
 
-                res = numpy.concatenate([mat[0] for mat in test_result])
-                res = pd.DataFrame(res)
-                res['STATUS'] = numpy.concatenate([mat[2] for mat in test_result])
-                #print roc.roc(res, 1)[0]
 
                 print(
                     'epoch %i, minibatch %i/%i, test error %f %%' %
@@ -250,7 +247,6 @@ def test_mlp(learning_rate=0.01, L1_reg=0.00, L2_reg=0.0001, n_epochs=1000,
                 #break
                 pass
 
-    #roc.roc(res, 1)[0].to_pickle('svmdata.result')
     # save weights
     params = {}
     for i in xrange(0, len(classifier.params)/2):
@@ -275,4 +271,4 @@ if __name__ == '__main__':
         sys.exit('Usage: %s [datafile]' % (sys.argv[0]))
 
     test_mlp(learning_rate=0.01, L1_reg=0.00, L2_reg=0.00, n_epochs=1000,
-            dataset=dataset, batch_size=100, hidden_layers_sizes=[2000,1000,500])
+            dataset=dataset, batch_size=100, hidden_layers_sizes=[1000,1000,1000])

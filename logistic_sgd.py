@@ -19,7 +19,7 @@ import numpy
 import theano
 import theano.tensor as T
 
-from utils import load_data, result
+from utils import load_data 
 
 from code.logistic_sgd import LogisticRegression
 import pandas as pd
@@ -92,15 +92,6 @@ def sgd_optimization_mnist(learning_rate=0.13, n_epochs=1000,
         }
     )
 
-    result_model = theano.function(
-        inputs=[index],
-        outputs=result(classifier,y),
-        givens={
-            x: test_set_x[index * batch_size: (index + 1) * batch_size],
-            y: test_set_y[index * batch_size: (index + 1) * batch_size]
-        }
-    )
-
     # compute the gradient of cost with respect to theta = (W,b)
     g_W = T.grad(cost=cost, wrt=classifier.W)
     g_b = T.grad(cost=cost, wrt=classifier.b)
@@ -162,9 +153,6 @@ def sgd_optimization_mnist(learning_rate=0.13, n_epochs=1000,
                                for i in xrange(n_test_batches)]
                 test_score = numpy.mean(test_losses)
                 score.append([epoch, test_score])
-
-                test_result = [result_model(i)
-                               for i in xrange(n_test_batches)]
 
                 print(
                     'epoch %i, minibatch %i/%i, test error %f %%' %
