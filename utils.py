@@ -13,10 +13,6 @@ sys.path.insert(0, PATH)
 DATASET = os.path.join(PATH,'data','mnist')
 
 def load_data(dataset, nfold=5):
-    #############
-    # LOAD DATA #
-    #############
-
     print '... loading data'
 
     # Load the dataset
