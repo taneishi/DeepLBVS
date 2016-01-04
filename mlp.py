@@ -216,9 +216,8 @@ def test_mlp(learning_rate=0.01, L1_reg=0.00, L2_reg=0.0001, n_epochs=1000,
                 #fpr,tpr,thresholds = roc_curve(res['STATUS'], res[1], pos_label=1)
                 #print auc(fpr, tpr)
                 predicted_values = predict_model(test_set_x.get_value())
-                print test_set_y.eval()
-                print predicted_values
-
+                #print test_set_y.eval()
+                #print predicted_values
 
                 print(
                     'epoch %i, minibatch %i/%i, test error %f %%' %
