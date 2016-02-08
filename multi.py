@@ -3,6 +3,7 @@ from keras.layers.core import Dense, Dropout, Activation
 from keras.optimizers import SGD
 from sklearn.datasets import load_svmlight_file
 from sklearn.metrics import roc_auc_score
+from sklearn import preprocessing
 import pandas as pd
 import numpy as np
 import os
@@ -11,7 +12,7 @@ import sys
 def load_data(dataset, nfold=5):
     data, target = load_svmlight_file(dataset)
     data = data.todense()
-    data = (data - data.mean(axis=1)) / data.std(axis=1)
+    data = preprocessing.normalize(data)
 
     target = target.reshape(data.shape[0], 1)
     data = np.concatenate((data, target), axis=1)
