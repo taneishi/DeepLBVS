@@ -4,6 +4,7 @@ import sys
 import pandas as pd
 import numpy as np
 from sklearn.datasets import load_svmlight_file
+from sklearn import preprocessing
 
 import numpy
 
@@ -19,7 +20,7 @@ def load_data(dataset, nfold=4):
 
     data, target = load_svmlight_file(dataset)
     data = data.todense()
-    data = (data - data.mean(axis=1)) / data.std(axis=1)
+    data = preproecssing.normalize(data)
     target = target.reshape(data.shape[0], 1)
     data = np.concatenate((data, target), axis=1)
     data = np.asarray(data, dtype=np.float32)
