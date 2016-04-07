@@ -20,7 +20,7 @@ def load_data(dataset, nfold=4):
 
     data, target = load_svmlight_file(dataset)
     data = data.todense()
-    data = preproecssing.normalize(data)
+    data = preprocessing.minmax_scale(data)
     target = target.reshape(data.shape[0], 1)
     data = np.concatenate((data, target), axis=1)
     data = np.asarray(data, dtype=np.float32)
