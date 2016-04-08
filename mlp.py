@@ -86,8 +86,8 @@ def validation(dataset, nb_epoch=100, layers=[1000,1000], batch_size=10, activat
 
 if __name__ == '__main__':
     dirname = 'ecfp3000'
-    for n_layer in [2,3]:
-        for units in [1000,2000]:
+    for n_layer in [1,2,3]:
+        for units in [500,1000,2000]:
             for dataset in sorted(os.listdir(dirname)):
                 if os.path.isdir(os.path.join(dirname, dataset)): continue
                 print dataset
