@@ -1,6 +1,6 @@
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
-from keras.optimizers import SGD
+from keras.optimizers import SGD, Adam
 from keras.utils import np_utils
 from sklearn.datasets import load_svmlight_file
 from sklearn import metrics
@@ -12,65 +12,19 @@ import seaborn
 import os
 import sys
 
-def load_data_dragon(dataset, nfold=5):
+def load_data_dragon(dataset):
     data, target = load_svmlight_file(dataset)
     data = data.todense()
-    data[:,:-1] = preprocessing.normalize(data[:,:-1])
-    data = np.asarray(data, dtype=np.float32)
-    data = np.random.permutation(data)
-    print data.shape
-    train_set = data[:-data.shape[0] / nfold]
-    train_set = (train_set[:,:-1], train_set[:,-1])
-    test_set = data[-data.shape[0] / nfold:]
-    test_set = (test_set[:,:-1], test_set[:,-1])
-    return train_set, test_set
+    data = preprocessing.minmax_scale(data)
+    return data
 
-def load_data_ecfp(dataset, nfold=5):
-    data = np.load(dataset)['data']
-    data = np.asarray(data, dtype=np.int8)
-    print data.shape
+def load_data_ecfp(dataset):
+    df = pd.read_csv(dataset, sep=',', index_col=0)
+    print df.shape
+    data = df.values
+    return data[:,:-1], np_utils.to_categorical(data[:,-1], 2)
 
-    pos = data[data[:,-1] == 1, :]
-    neg = data[data[:,-1] == 0, :]
-    nsamples = min(pos.shape[0], neg.shape[0])
-
-    # undersampleing
-    neg = np.random.permutation(neg)
-    neg = neg[:nsamples, :]
-
-    data = np.concatenate([pos,neg])
-    data = np.random.permutation(data)
-
-    train_set = data[:-data.shape[0] / nfold]
-    train_set = (train_set[:,:-1], np_utils.to_categorical(train_set[:,-1], 2))
-    test_set = data[-data.shape[0] / nfold:]
-    test_set = (test_set[:,:-1], np_utils.to_categorical(test_set[:,-1], 2))
-    return train_set, test_set
-
-def validation(dataset, nb_epoch=100):
-    train_set, test_set = load_data_ecfp(dataset)
-
-    X_train, y_train = train_set
-    X_test, y_test = test_set
-
-    model = Sequential()
-
-    model.add(Dense(1000, input_dim=X_train.shape[1], init='uniform'))
-    model.add(Activation('sigmoid'))
-
-    model.add(Dense(1000, init='uniform'))
-    model.add(Activation('sigmoid'))
-
-    model.add(Dense(2, init='uniform'))
-    model.add(Activation('softmax'))
-
-    sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
-    model.compile(loss='categorical_crossentropy', optimizer=sgd)
-
-    history = model.fit(X_train, y_train, nb_epoch=nb_epoch, batch_size=10, shuffle=True,
-            validation_data=(X_test, y_test),
-            show_accuracy=True, verbose=1)
-
+def prediction():
     # prediction
     y_pred = model.predict_proba(X_test)
     auc = metrics.roc_auc_score(y_test, y_pred)
@@ -95,12 +49,46 @@ def validation(dataset, nb_epoch=100):
     plt.ylim(0,1)
     plt.legend(loc='lower right')
     plt.tight_layout()
-    #plt.show()
-    plt.savefig('/data/results/ecfp3000/%s.png' % basename)
+    plt.show()
+
+def validation(dataset, nb_epoch=100, layers=[1000,1000], batch_size=10, activation='sigmoid'):
+    X, y = load_data_ecfp(dataset)
+
+    model = Sequential()
+
+    model.add(Dense(layers[0], input_dim=X.shape[1], init='uniform'))
+    model.add(Activation(activation))
+
+    for units in layers[1:]:
+        model.add(Dense(units, init='uniform'))
+        model.add(Activation(activation))
+
+    model.add(Dense(2, init='uniform'))
+    model.add(Activation('softmax'))
+
+    #optimizer = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+    optimizer = ['Adam', 'adam']
+    model.compile(loss='categorical_crossentropy', optimizer=optimizer[1])
+
+    history = model.fit(X, y, nb_epoch=nb_epoch, 
+            batch_size=batch_size, shuffle=True, validation_split=0.2,
+            show_accuracy=True, verbose=1)
+
+    df = pd.DataFrame.from_dict(history.history)
+    df.to_pickle('log/%s_%s_%d_%s_%s_%d.log' % (
+        os.path.basename(dataset),
+        '_'.join(map(str,layers)),
+        batch_size,
+        optimizer[0],
+        activation,
+        nb_epoch,
+        ))
 
 if __name__ == '__main__':
-    dirname = '/data/ecfp3000'
-    for dataset in sorted(os.listdir(dirname)):
-        if os.path.isdir(os.path.join(dirname, dataset)): continue
-        print dataset
-        validation(os.path.join(dirname, dataset))
+    dirname = 'ecfp3000'
+    for n_layer in [2,3]:
+        for units in [1000,2000]:
+            for dataset in sorted(os.listdir(dirname)):
+                if os.path.isdir(os.path.join(dirname, dataset)): continue
+                print dataset
+                validation(os.path.join(dirname, dataset), nb_epoch=200, layers=[units]*n_layer, batch_size=10, activation='sigmoid')
