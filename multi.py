@@ -1,6 +1,7 @@
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
 from keras.optimizers import SGD
+from keras.utils import np_utils
 from sklearn.datasets import load_svmlight_file
 from sklearn.metrics import roc_auc_score
 from sklearn import preprocessing
@@ -9,22 +10,14 @@ import numpy as np
 import os
 import sys
 
-def load_data(dataset, nfold=5):
+def validation(dataset, W):
     data, target = load_svmlight_file(dataset)
     data = data.todense()
     data = preprocessing.minmax_scale(data)
-
-    target = target.reshape(data.shape[0], 1)
-    data = np.concatenate((data, target), axis=1)
-    data = np.asarray(data, dtype=np.float32)
-    data = np.random.permutation(data)
     print data.shape
-    train_set = data[:-data.shape[0] / nfold]
-    test_set = data[-data.shape[0] / nfold:]
-    return train_set, test_set
 
-def validation(dataset, W):
-    train_set, test_set = load_data(dataset)
+    X = data[:,:-1]
+    y = np_utils.to_categorical(data[:,-1], 2)
 
     X_train = train_set[:,:-1]
     y_train = train_set[:,-1]
