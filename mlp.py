@@ -12,17 +12,20 @@ import seaborn
 import os
 import sys
 
-def load_data_dragon(dataset):
-    data, target = load_svmlight_file(dataset)
-    data = data.todense()
-    data = preprocessing.minmax_scale(data)
-    return data
-
-def load_data_ecfp(dataset):
-    df = pd.read_csv(dataset, sep=',', index_col=0)
+def load_data(dataset):
+    df = pd.read_pickle(dataset)
+    print df.shape
+    df = df.dropna()
     print df.shape
     data = df.values
+    data = preprocessing.minmax_scale(data)
     return data[:,:-1], np_utils.to_categorical(data[:,-1], 2)
+
+#def load_data_ecfp(dataset):
+#    df = pd.read_pickle(dataset)
+#    print df.shape
+#    data = df.values
+#    return data[:,:-1], np_utils.to_categorical(data[:,-1], 2)
 
 def prediction():
     # prediction
@@ -52,7 +55,7 @@ def prediction():
     plt.show()
 
 def validation(dataset, nb_epoch=100, layers=[1000,1000], batch_size=10, activation='sigmoid'):
-    X, y = load_data_ecfp(dataset)
+    X, y = load_data(dataset)
 
     model = Sequential()
 
@@ -85,9 +88,10 @@ def validation(dataset, nb_epoch=100, layers=[1000,1000], batch_size=10, activat
         ))
 
 if __name__ == '__main__':
-    dirname = 'ecfp3000'
-    for n_layer in [2,3]:
-        for units in [1000,2000]:
+    #dirname = 'ecfp3000'
+    dirname = 'dragon'
+    for n_layer in [1,2,3]:
+        for units in [500,1000,2000]:
             for dataset in sorted(os.listdir(dirname)):
                 if os.path.isdir(os.path.join(dirname, dataset)): continue
                 print dataset
