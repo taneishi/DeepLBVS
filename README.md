@@ -20,12 +20,12 @@ Dependency
 Files
 -----
 
-- mlp.py
-  Template script for parameter search.
+- mlp.py  
+Template script for parameter search.
 
-- cpi.npz
-  Sample data for predicting compound protein interactions. 
-  Download from https://my.syncplicity.com/share/vvks9oqxas1xneg/cpi 
+- cpi.npz  
+Sample data for predicting compound protein interactions.  
+Download from https://my.syncplicity.com/share/vvks9oqxas1xneg/cpi
 
 Usage
 -----
