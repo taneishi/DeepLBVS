@@ -6,8 +6,8 @@ This template script can be used for benchmarking.
 Dependency
 ----------
 
-- Keras 1.0.1
-  https://github.com/fchollet/keras
+- Keras 1.0.1  
+  https://github.com/fchollet/keras  
   commit b1e47f7741cf526cb3381c4944f20582f368ba27
 
 - intel Theano (0.80rc fork or later for work with Keras 1.0.1)
