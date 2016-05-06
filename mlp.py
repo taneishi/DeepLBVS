@@ -2,6 +2,7 @@
 from __future__ import print_function
 from keras.models import Sequential
 from keras.layers.core import Dense, Activation
+from keras.callbacks import EarlyStopping
 from keras.utils import np_utils
 import numpy as np
 import pandas as pd
@@ -32,10 +33,12 @@ def validation(datafile, layers, nb_epoch, batch_size, optimizer, activation):
 
     model.compile(loss='categorical_crossentropy', optimizer=optimizer)
 
+    earlystopping = EarlyStopping(monitor='val_loss', patience=10)
+
     # fitting
-    history = model.fit(X, y, nb_epoch=nb_epoch, 
-            batch_size=batch_size, shuffle=True, validation_split=0.2,
-            verbose=1)
+    history = model.fit(X, y, nb_epoch=nb_epoch, batch_size=batch_size, 
+            shuffle=True, validation_split=0.2, verbose=1,
+            callbacks=[earlystopping])
 
     # write log
     logfile = 'result/%s_%s_%d_%s_%s_%d.log' % (
@@ -71,6 +74,8 @@ if __name__ == '__main__':
     for dirname in ['model','result']:
         if not os.path.isdir(dirname):
             os.makedirs(dirname)
+
+    np.random.seed(123)
 
     optimizer = 'adam'
     activation = 'sigmoid'
