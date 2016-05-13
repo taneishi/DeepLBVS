@@ -1,9 +1,11 @@
 # coding:utf-8
 from __future__ import print_function
 from keras.models import Sequential
-from keras.layers.core import Dense, Activation
+from keras.layers.core import Dense, Dropout, Activation
 from keras.callbacks import EarlyStopping
 from keras.utils import np_utils
+import keras
+import theano
 import numpy as np
 import pandas as pd
 import timeit
@@ -16,7 +18,7 @@ def validation(datafile, layers, nb_epoch, batch_size, optimizer, activation):
     print(str(data.shape))
 
     X = data[:,:-1]
-    y = np_utils.to_categorical(data[:,-1].astype('float32'), 2)
+    y = np_utils.to_categorical(data[:,-1], 2)
 
     model = Sequential()
 
@@ -31,7 +33,11 @@ def validation(datafile, layers, nb_epoch, batch_size, optimizer, activation):
     model.add(Dense(2, init='uniform'))
     model.add(Activation('softmax'))
 
-    model.compile(loss='categorical_crossentropy', optimizer=optimizer)
+    model.summary()
+    
+    start_time = timeit.default_timer()
+
+    model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
 
     earlystopping = EarlyStopping(monitor='val_loss', patience=10)
 
@@ -39,6 +45,9 @@ def validation(datafile, layers, nb_epoch, batch_size, optimizer, activation):
     history = model.fit(X, y, nb_epoch=nb_epoch, batch_size=batch_size, 
             shuffle=True, validation_split=0.2, verbose=1,
             callbacks=[earlystopping])
+
+    end_time = timeit.default_timer()
+    print('ran for %.1fs' % ((end_time - start_time)))
 
     # write log
     logfile = 'result/%s_%s_%d_%s_%s_%d.log' % (
@@ -75,6 +84,12 @@ if __name__ == '__main__':
         if not os.path.isdir(dirname):
             os.makedirs(dirname)
 
+    print('Keras %s' %keras.__version__)
+    print('Theano: %s' % theano.version.version)
+    print('numpy: %s' % np.version.version)
+    np.show_config()
+    print('Python: %s' % sys.version)
+
     np.random.seed(123)
 
     optimizer = 'adam'
@@ -83,7 +98,4 @@ if __name__ == '__main__':
     for unit in [3000]:
         for batch_size in [1000]:
             for n_layers in [1]:
-                start_time = timeit.default_timer()
                 validation(datafile, layers=[unit] * n_layers, batch_size=batch_size, nb_epoch=nb_epoch, optimizer=optimizer, activation=activation)
-                end_time = timeit.default_timer()
-                print('ran for %.1fs' % ((end_time - start_time)))
