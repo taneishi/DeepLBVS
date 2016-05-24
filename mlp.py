@@ -15,6 +15,7 @@ import sys
 def validation(datafile, layers, nb_epoch, batch_size, optimizer, activation):
     print('Data loading ...')
     data = np.load(datafile)['data']
+    data = np.random.permutation(data)
     print(str(data.shape))
 
     X = data[:,:-1]
@@ -96,6 +97,6 @@ if __name__ == '__main__':
     activation = 'sigmoid'
     nb_epoch = 200
     for unit in [3000]:
-        for batch_size in [1000]:
+        for batch_size in [10,100,1000]:
             for n_layers in [1]:
                 validation(datafile, layers=[unit] * n_layers, batch_size=batch_size, nb_epoch=nb_epoch, optimizer=optimizer, activation=activation)
