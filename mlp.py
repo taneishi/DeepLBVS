@@ -12,6 +12,15 @@ import timeit
 import os
 import sys
 
+class TimeHistory(keras.callbacks.Callback):
+    def on_train_begin(self, logs={}):
+        self.timehistory = []
+
+    def on_epoch_end(self, batch, logs={}):
+        print(timeit.default_timer())
+        self.timehistory.append(timeit.default_timer())
+        logs['time'] = timeit.default_timer()
+
 def validation(datafile, layers, nb_epoch, batch_size, optimizer, activation):
     print('Data loading ...')
     data = np.load(datafile)['data']
@@ -41,11 +50,12 @@ def validation(datafile, layers, nb_epoch, batch_size, optimizer, activation):
     model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
 
     earlystopping = EarlyStopping(monitor='val_loss', patience=10)
+    timehistory = TimeHistory()
 
     # fitting
     history = model.fit(X, y, nb_epoch=nb_epoch, batch_size=batch_size, 
             shuffle=True, validation_split=0.2, verbose=1,
-            callbacks=[earlystopping])
+            callbacks=[earlystopping, timehistory])
 
     end_time = timeit.default_timer()
     print('ran for %.1fs' % ((end_time - start_time)))
@@ -60,6 +70,7 @@ def validation(datafile, layers, nb_epoch, batch_size, optimizer, activation):
             nb_epoch,
             )
     df = pd.DataFrame.from_dict(history.history)
+    df['time'] = df['time'] - df['time'].min()
     df.to_pickle(logfile)
     print('Log file saved as %s' % logfile)
 
@@ -88,7 +99,6 @@ if __name__ == '__main__':
     print('Keras %s' %keras.__version__)
     print('Theano: %s' % theano.version.version)
     print('numpy: %s' % np.version.version)
-    np.show_config()
     print('Python: %s' % sys.version)
 
     np.random.seed(123)
