@@ -54,9 +54,10 @@ def main(nb_epoch=500):
     for df,label in logs[:10]:
         val = df[['epoch','val_acc']].dropna()
         minutes = '%d min' % (df['time'].max() / 60.) if 'time' in df.columns else ''
+        spe = '%.1f sec/epoch' % (df['time'].diff().mean()) if 'time' in df.columns else ''
         line, = plt.plot(val['epoch'], val['val_acc'] * 100.0, '^-',
-                label='%s_val %.1f at %d (%s)' % (
-                    label,val['val_acc'].max()*100.0, val['epoch'].max(), minutes,
+                label='%s_val %.1f at %d (%s, %s)' % (
+                    label,val['val_acc'].max()*100.0, val['epoch'].max(), minutes, spe,
                     )) 
         if True:
             if 'acc' in df.columns:
@@ -66,11 +67,11 @@ def main(nb_epoch=500):
                             label,acc['acc'].max()*100.0, acc['epoch'].max()
                             ), color=line.get_color()) 
 
-    plt.ylabel('Accuracy (%)')
-    plt.xlabel('Epochs')
+    plt.ylabel('Accuracy (%)', fontsize=12)
+    plt.xlabel('Epochs', fontsize=12)
     plt.xlim(0,nb_epoch)
     plt.ylim(50.,100.)
-    plt.legend(loc='lower right')
+    plt.legend(loc='lower right', fontsize=12)
     plt.tight_layout()
     plt.show()
 
