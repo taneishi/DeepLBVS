@@ -14,11 +14,11 @@ def load_data(dataset):
     data = np.asmatrix(data)
 
     # scaling
-    data = preprocessing.minmax_scale(data)
+    data = preprocessing.minmax_scale(data, copy=False)
 
     # save
     filename = os.path.basename(dataset).replace('tsv.gz','npz')
-    np.savez_compressed(os.path.join('/data/gpcr', filename), data=data)
+    np.savez_compressed(os.path.join('npz', filename), data=data)
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:

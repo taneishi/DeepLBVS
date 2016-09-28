@@ -10,13 +10,13 @@ def load_data(dataset):
     print 'Data scaling'
     data = preprocessing.minmax_scale(data)
 
-    print 'Data set permutation'	
+    print 'Data shuffling'
     np.random.seed(123)
-    data = np.random.permutation(data)		
+    data = np.random.permutation(data)
 
+    # save
     filename = os.path.basename(dataset) + '.npz'
-
-    np.savez_compressed(filename, data=data)
+    np.savez_compressed(ps.path.join('/data/gpcr/npz', filename), data=data)
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
