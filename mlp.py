@@ -44,7 +44,7 @@ def validation(datafile, layers, nb_epoch, batch_size, optimizer, activation):
     model.add(Activation('softmax'))
 
     model.summary()
-    
+
     start_time = timeit.default_timer()
 
     model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
@@ -71,6 +71,11 @@ def validation(datafile, layers, nb_epoch, batch_size, optimizer, activation):
             )
     df = pd.DataFrame.from_dict(history.history)
     df['time'] = df['time'] - df['time'].min()
+    versions = (('Keras',keras.__version__),
+            ('Theano', theano.version.version),
+            ('numpy', np.version.version),
+            ('Python', sys.version))
+    df.index.name = versions
     df.to_pickle(logfile)
     print('Log file saved as %s' % logfile)
 
@@ -96,7 +101,7 @@ if __name__ == '__main__':
         if not os.path.isdir(dirname):
             os.makedirs(dirname)
 
-    print('Keras %s' %keras.__version__)
+    print('Keras %s' % keras.__version__)
     print('Theano: %s' % theano.version.version)
     print('numpy: %s' % np.version.version)
     print('Python: %s' % sys.version)
@@ -104,9 +109,9 @@ if __name__ == '__main__':
     np.random.seed(123)
 
     optimizer = 'adam'
-    activation = 'sigmoid'
     nb_epoch = 200
-    for unit in [3000]:
-        for batch_size in [10,100,1000]:
-            for n_layers in [1]:
-                validation(datafile, layers=[unit] * n_layers, batch_size=batch_size, nb_epoch=nb_epoch, optimizer=optimizer, activation=activation)
+    for activation in ['sigmoid']:
+        for batch_size in [1900,2000,2100]:
+            for unit1 in [2900,3000,3100]:
+                for unit2 in [50]:
+                    validation(datafile, layers=[unit1,unit2], batch_size=batch_size, nb_epoch=nb_epoch, optimizer=optimizer, activation=activation)
