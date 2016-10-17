@@ -38,7 +38,7 @@ def show_version():
 
 def validation(taskname, data, layers, nb_epoch, batch_size, optimizer, activation, dropout, patience):
     X = data[:,:-1]
-    y = np_utils.to_categorical(data[:,-1], 2)
+    y = np_utils.to_categorical(data[:,-1], len(np.unique(data[:,-1])))
 
     start_time = timeit.default_timer()
 
@@ -46,8 +46,12 @@ def validation(taskname, data, layers, nb_epoch, batch_size, optimizer, activati
     log = [] 
     proba = []
     for i, (train, test) in enumerate(skf, 1):
-        earlystopping = EarlyStopping(monitor='val_loss', patience=patience)
+        callbacks = []
+        if patience > 0:
+            earlystopping = EarlyStopping(monitor='val_loss', patience=patience)
+            callbacks.append(earlystopping)
         timehistory = TimeHistory()
+        callbacks.append(timehistory)
 
         model = Sequential()
 
@@ -62,7 +66,7 @@ def validation(taskname, data, layers, nb_epoch, batch_size, optimizer, activati
                 model.add(Dropout(dropout))
 
         # output layer
-        model.add(Dense(2, init='uniform'))
+        model.add(Dense(y.shape[1], init='uniform'))
         model.add(Activation('softmax'))
 
         model.summary()
@@ -71,7 +75,7 @@ def validation(taskname, data, layers, nb_epoch, batch_size, optimizer, activati
         # fitting
         history = model.fit(X[train], y[train], nb_epoch=nb_epoch, batch_size=batch_size, 
                 shuffle=True, validation_data=(X[test], y[test]), verbose=1,
-                callbacks=[earlystopping, timehistory])
+                callbacks=callbacks)
 
         df = pd.DataFrame(model.predict_proba(X[test]))
         df['label'] = y[test,0]
