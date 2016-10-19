@@ -16,7 +16,7 @@ def ascend(df, col):
             data.append(np.nan)
     return data
 
-def main(nb_epoch=500):
+def main():
     plt.figure(figsize=(12,8))
 
     logs = []
@@ -41,8 +41,6 @@ def main(nb_epoch=500):
         else: # new
             df['epoch'] = range(1, df.shape[0]+1)
 
-        df = df[df['epoch'] <= nb_epoch]
-
         if 'acc' in df.columns:
             df['acc'] = ascend(df, col='acc')
         df['val_acc'] = ascend(df, col='val_acc') 
@@ -51,6 +49,7 @@ def main(nb_epoch=500):
 
     logs = sorted(logs, key=lambda x: x[0]['val_acc'].max(), reverse=True)
 
+    nb_epoch = 0
     for df,label in logs[:10]:
         val = df[['epoch','val_acc']].dropna()
         minutes = '%d min' % (df['time'].max() / 60.) if 'time' in df.columns else ''
@@ -59,7 +58,9 @@ def main(nb_epoch=500):
                 label='%s_val %.1f at %d (%s, %s)' % (
                     label,val['val_acc'].max()*100.0, val['epoch'].max(), minutes, spe,
                     )) 
-        if True:
+        nb_epoch = max(val['epoch'].max(), nb_epoch)
+
+        if False:
             if 'acc' in df.columns:
                 acc = df[['epoch','acc']].dropna()
                 plt.plot(acc['epoch'], acc['acc'] * 100.0,
@@ -69,8 +70,8 @@ def main(nb_epoch=500):
 
     plt.ylabel('Accuracy (%)', fontsize=12)
     plt.xlabel('Epochs', fontsize=12)
-    plt.xlim(0,nb_epoch)
-    plt.ylim(50.,100.)
+    plt.xlim(0, nb_epoch)
+    plt.ylim(50., 100.)
     plt.legend(loc='lower right', fontsize=12)
     plt.tight_layout()
     plt.show()
@@ -78,4 +79,4 @@ def main(nb_epoch=500):
 if __name__ == '__main__':
     if len(sys.argv) < 2:
         sys.exit('%s [filename]' % sys.argv[0])
-    main(nb_epoch=200)
+    main()
