@@ -36,9 +36,11 @@ def show_version():
     for version in versions():
         print(' '.join(version))
 
-def validation(taskname, data, layers, nb_epoch, batch_size, optimizer, activation, dropout, patience):
+def validation(taskname, data, layers, nb_epoch, batch_size, optimizer, lr, activation, dropout, patience):
     X = data[:,:-1]
     y = np_utils.to_categorical(data[:,-1], len(np.unique(data[:,-1])))
+
+    optimizer = optimizer(lr=lr)
 
     start_time = timeit.default_timer()
 
@@ -90,9 +92,9 @@ def validation(taskname, data, layers, nb_epoch, batch_size, optimizer, activati
     end_time = timeit.default_timer()
     print('ran for %.1fs' % ((end_time - start_time)))
 
-    basename = '%s_%s_%d_%s_%s_%.1f_%d' % (
+    basename = '%s_%s_%d_%s_%f_%s_%.1f_%d' % (
             taskname, '_'.join(map(str, layers)), 
-            batch_size, str(optimizer).split(' ')[0].split('.')[-1].lower(),
+            batch_size, str(optimizer).split(' ')[0].split('.')[-1].lower(), lr,
             activation, dropout, nb_epoch)
 
     # write score
