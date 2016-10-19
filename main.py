@@ -26,13 +26,14 @@ if __name__ == '__main__':
     print(str(data.shape))
 
     taskname = os.path.basename(datafile)
-    optimizer = Adam()
-    nb_epoch = 200
+    optimizer = Adam
+    lr = 0.0001
+    nb_epoch = 500
     for activation in ['sigmoid']:
-        for batch_size in [1900,2000,2100]:
-            for unit1 in [2900,3000,3100]:
-                for unit2 in [50]:
-                    dnn.validation(taskname, data, layers=[unit1,unit2], 
+        for batch_size in [1500]:
+            for unit1 in [3000]:
+                for unit2 in [60]:
+                    dnn.validation(taskname, data, layers=[unit1, unit2], 
                             batch_size=batch_size, nb_epoch=nb_epoch, 
-                            optimizer=optimizer, activation=activation,
-                            dropout=0, patience=10)
+                            optimizer=optimizer, lr=lr, activation=activation,
+                            dropout=0, patience=100)
