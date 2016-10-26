@@ -6,22 +6,23 @@ This template script can be used for benchmarking.
 Dependency
 ----------
 
-- Keras 1.0.1  
+- Keras 1.1.0 or later
   https://github.com/fchollet/keras  
-  commit b1e47f7741cf526cb3381c4944f20582f368ba27
 
-- intel Theano (0.80rc fork or later for work with Keras 1.0.1)
+- intel Theano 0.9.0dev or later
 
-- intel Numpy (for intel Theano)
+- Anaconda 4.2.0
 
-- pandas 0.15 (can be older version)
-- scikit-learn 0.17 (can be older version)
+- Python 3.5.2
 
 Files
 -----
 
-- mlp.py  
+- main.py
 Template script for parameter search.
+
+- dnn.py
+Main functions of DNN.
 
 - cpi.npz  
 Sample data for predicting compound protein interactions.  
