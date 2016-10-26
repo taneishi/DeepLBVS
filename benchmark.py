@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from keras.optimizers import Adam
+from keras.optimizers import Adam, SGD
 import sys
 import os
 import dnn
@@ -28,12 +28,11 @@ if __name__ == '__main__':
     taskname = os.path.basename(datafile)
     optimizer = Adam
     lr = 0.0001
-    nb_epoch = 500
-    for activation in ['sigmoid']:
-        for batch_size in [1500]:
-            for unit1 in [3000]:
-                for unit2 in [60]:
-                    dnn.validation(taskname, data, layers=[unit1, unit2], 
-                            batch_size=batch_size, nb_epoch=nb_epoch, 
-                            optimizer=optimizer, lr=lr, activation=activation,
-                            dropout=0, patience=100, count=5)
+    nb_epoch = 100
+    batch_size = 100
+    activation = 'sigmoid'
+
+    dnn.validation(taskname, data, layers=[2000]*3, 
+            batch_size=batch_size, nb_epoch=nb_epoch, 
+            optimizer=optimizer, lr=lr, activation=activation,
+            dropout=0, patience=0, count=1)
