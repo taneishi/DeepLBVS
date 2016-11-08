@@ -24,6 +24,9 @@ Template script for parameter search.
 - dnn.py
 Main functions of DNN.
 
+- benchmark.py
+Benchmark script using DNN.
+
 - cpi.npz  
 Sample data for predicting compound protein interactions.  
 Download from https://my.syncplicity.com/share/vvks9oqxas1xneg/cpi
