@@ -1,8 +1,7 @@
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
 from keras.callbacks import EarlyStopping
-from keras.utils import np_utils
-from sklearn.cross_validation import StratifiedKFold, KFold
+from sklearn.cross_validation import StratifiedKFold
 import keras
 import theano
 import numpy as np
@@ -38,13 +37,13 @@ def show_version():
 
 def validation(taskname, data, layers, nb_epoch, batch_size, optimizer, lr, activation, dropout, patience, count):
     X = data[:,:-1]
-    y = np_utils.to_categorical(data[:,-1], len(np.unique(data[:,-1])))
+    y = data[:,-1]
 
     optimizer = optimizer(lr=lr)
 
     start_time = timeit.default_timer()
 
-    skf = StratifiedKFold(y[:,0], n_folds=5, shuffle=True)
+    skf = StratifiedKFold(y, n_folds=5, shuffle=True)
     log = [] 
     proba = []
     for i, (train, test) in enumerate(skf, 1):
@@ -59,22 +58,21 @@ def validation(taskname, data, layers, nb_epoch, batch_size, optimizer, lr, acti
 
         model = Sequential()
 
-        # input layer
-        model.add(Dense(layers[0], input_dim=X.shape[1], init='uniform'))
-        model.add(Activation(activation))
-
-        for layer in layers[1:]:
-            model.add(Dense(layer, init='uniform'))
-            model.add(Activation(activation))
+        # hidden layers
+        for i, layer in enumerate(layers, 1):
+            input_dim = X.shape[1] if i == 1 else layers[i-1]
+            print(input_dim)
+            model.add(Dense(layer, input_dim=input_dim, init='uniform', name='Hidden (%d)' % i))
+            model.add(Activation(activation, name='%s (%d)' % (activation, i)))
             if dropout > 0:
-                model.add(Dropout(dropout))
+                model.add(Dropout(dropout, name='Dropout (%d)' % i))
 
         # output layer
-        model.add(Dense(y.shape[1], init='uniform'))
-        model.add(Activation('softmax'))
+        model.add(Dense(1, init='uniform', name='Output'))
+        model.add(Activation('sigmoid', name='sigmoid (output)'))
 
         model.summary()
-        model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
+        model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy'])
 
         # fitting
         history = model.fit(X[train], y[train], nb_epoch=nb_epoch, batch_size=batch_size, 
@@ -82,7 +80,7 @@ def validation(taskname, data, layers, nb_epoch, batch_size, optimizer, lr, acti
                 callbacks=callbacks)
 
         df = pd.DataFrame(model.predict_proba(X[test]))
-        df['label'] = y[test,0]
+        df['label'] = y[test]
         df['fold'] = i
         proba.append(df)
 
