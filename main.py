@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-from keras.optimizers import Adam
 import sys
 import os
 import dnn
@@ -26,7 +25,7 @@ if __name__ == '__main__':
     print(str(data.shape))
 
     taskname = os.path.basename(datafile)
-    optimizer = Adam
+    optimizer = 'Adam'
     lr = 0.0001
     nb_epoch = 1000
     for activation in ['sigmoid']:

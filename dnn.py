@@ -1,6 +1,7 @@
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
 from keras.callbacks import EarlyStopping
+from keras.optimizers import *
 from sklearn.cross_validation import StratifiedKFold
 import keras
 import theano
@@ -39,7 +40,7 @@ def validation(taskname, data, layers, nb_epoch, batch_size, optimizer, lr, acti
     X = data[:,:-1]
     y = data[:,-1]
 
-    optimizer = optimizer(lr=lr)
+    optimizer = globals()[optimizer](lr=lr)
 
     start_time = timeit.default_timer()
 
@@ -61,7 +62,6 @@ def validation(taskname, data, layers, nb_epoch, batch_size, optimizer, lr, acti
         # hidden layers
         for i, layer in enumerate(layers, 1):
             input_dim = X.shape[1] if i == 1 else layers[i-1]
-            print(input_dim)
             model.add(Dense(layer, input_dim=input_dim, init='uniform', name='Hidden (%d)' % i))
             model.add(Activation(activation, name='%s (%d)' % (activation, i)))
             if dropout > 0:
