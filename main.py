@@ -35,4 +35,8 @@ if __name__ == '__main__':
                     dnn.validation(taskname, data, layers=[unit1, unit2], 
                             batch_size=batch_size, nb_epoch=nb_epoch, class_weight=None,
                             optimizer=optimizer, lr=lr, activation=activation,
+<<<<<<< HEAD
+                            dropout=0, patience=100, count=5)
+=======
                             dropout=0, patience=0, count=1)
+>>>>>>> 9cb0a28ff243d41a55e52c5ed2862f8b10ec8cf4
