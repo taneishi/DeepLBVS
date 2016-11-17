@@ -16,7 +16,7 @@ def ascend(df, col):
             data.append(np.nan)
     return data
 
-def main():
+def main(simple=False):
     plt.figure(figsize=(12,8))
 
     logs = []
@@ -41,25 +41,28 @@ def main():
         else: # new
             df['epoch'] = range(1, df.shape[0]+1)
 
-        if 'acc' in df.columns:
+        if 'acc' in df.columns and simple:
             df['acc'] = ascend(df, col='acc')
-        df['val_acc'] = ascend(df, col='val_acc') 
+        if simple:
+            df['val_acc'] = ascend(df, col='val_acc') 
 
         logs.append([df, label])
 
     logs = sorted(logs, key=lambda x: x[0]['val_acc'].max(), reverse=True)
 
     nb_epoch = 0
+    style = '^-' if simple else '-'
     for df,label in logs[:10]:
         val = df[['epoch','val_acc']].dropna()
         minutes = '%d min' % (df['time'].max() / 60.) if 'time' in df.columns else ''
         spe = '%.1f sec/epoch' % (df['time'].diff().mean()) if 'time' in df.columns else ''
-        line, = plt.plot(val['epoch'], val['val_acc'] * 100.0, '^-',
-                label='%s_val %.1f at %d (%s, %s)' % (
+        line, = plt.plot(val['epoch'], val['val_acc'] * 100.0, style,
+                label='%s test %.1f at %d (%s, %s)' % (
                     label,val['val_acc'].max()*100.0, val['epoch'].max(), minutes, spe,
-                    )) 
+                    ), color='red', linewidth=3, alpha=.5) 
         nb_epoch = max(val['epoch'].max(), nb_epoch)
 
+<<<<<<< HEAD
         if True:
             if 'acc' in df.columns:
                 acc = df[['epoch','acc']].dropna()
@@ -67,6 +70,14 @@ def main():
                         label='%s %.1f at %d' % (
                             label,acc['acc'].max()*100.0, acc['epoch'].max()
                             ), color=line.get_color()) 
+=======
+        if 'acc' in df.columns:
+            acc = df[['epoch','acc']].dropna()
+            plt.plot(acc['epoch'], acc['acc'] * 100.0,
+                    label='%s training %.1f at %d' % (
+                        label,acc['acc'].max()*100.0, acc['epoch'].max()
+                        ), color='green', linewidth=3, alpha=.5) 
+>>>>>>> 9cb0a28ff243d41a55e52c5ed2862f8b10ec8cf4
 
     plt.ylabel('Accuracy (%)', fontsize=12)
     plt.xlabel('Epochs', fontsize=12)

@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-from keras.optimizers import Adam
 import sys
 import os
 import dnn
@@ -26,9 +25,9 @@ if __name__ == '__main__':
     print(str(data.shape))
 
     taskname = os.path.basename(datafile)
-    optimizer = Adam
+    optimizer = 'Adam'
     lr = 0.0001
-    nb_epoch = 500
+    nb_epoch = 1000
     for activation in ['sigmoid']:
         for batch_size in [1500]:
             for unit1 in [3000]:
@@ -36,4 +35,8 @@ if __name__ == '__main__':
                     dnn.validation(taskname, data, layers=[unit1, unit2], 
                             batch_size=batch_size, nb_epoch=nb_epoch, 
                             optimizer=optimizer, lr=lr, activation=activation,
+<<<<<<< HEAD
                             dropout=0, patience=100, count=5)
+=======
+                            dropout=0, patience=0, count=1)
+>>>>>>> 9cb0a28ff243d41a55e52c5ed2862f8b10ec8cf4
