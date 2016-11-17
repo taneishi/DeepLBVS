@@ -36,7 +36,7 @@ def show_version():
     for version in versions():
         print(' '.join(version))
 
-def validation(taskname, data, layers, nb_epoch, batch_size, optimizer, lr, activation, dropout, patience):
+def validation(taskname, data, layers, nb_epoch, batch_size, optimizer, lr, activation, dropout, patience, count):
     X = data[:,:-1]
     y = np_utils.to_categorical(data[:,-1], len(np.unique(data[:,-1])))
 
@@ -52,6 +52,8 @@ def validation(taskname, data, layers, nb_epoch, batch_size, optimizer, lr, acti
         if patience > 0:
             earlystopping = EarlyStopping(monitor='val_loss', patience=patience)
             callbacks.append(earlystopping)
+        if count == 0:
+            break
         timehistory = TimeHistory()
         callbacks.append(timehistory)
 
@@ -88,6 +90,8 @@ def validation(taskname, data, layers, nb_epoch, batch_size, optimizer, lr, acti
         df['time'] = df['time'] - df['time'].min()
         df['fold'] = i
         log.append(df)
+
+        count -= 1
 
     end_time = timeit.default_timer()
     print('ran for %.1fs' % ((end_time - start_time)))

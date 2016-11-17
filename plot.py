@@ -60,7 +60,7 @@ def main():
                     )) 
         nb_epoch = max(val['epoch'].max(), nb_epoch)
 
-        if False:
+        if True:
             if 'acc' in df.columns:
                 acc = df[['epoch','acc']].dropna()
                 plt.plot(acc['epoch'], acc['acc'] * 100.0,
