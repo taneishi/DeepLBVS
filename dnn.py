@@ -36,7 +36,8 @@ def show_version():
     for version in versions():
         print(' '.join(version))
 
-def validation(taskname, data, layers, nb_epoch, class_weight, batch_size, optimizer, lr, activation, dropout, patience, count):
+def validation(taskname, data, layers, nb_epoch, class_weight, batch_size, optimizer, lr, 
+        activation, dropout, patience, count):
     X = data[:,:-1]
     y = data[:,-1]
 
