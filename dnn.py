@@ -36,7 +36,7 @@ def show_version():
     for version in versions():
         print(' '.join(version))
 
-def validation(taskname, data, layers, nb_epoch, batch_size, optimizer, lr, activation, dropout, patience, count):
+def validation(taskname, data, layers, nb_epoch, class_weight, batch_size, optimizer, lr, activation, dropout, patience, count):
     X = data[:,:-1]
     y = data[:,-1]
 
@@ -47,7 +47,7 @@ def validation(taskname, data, layers, nb_epoch, batch_size, optimizer, lr, acti
     skf = StratifiedKFold(y, n_folds=5, shuffle=True)
     log = [] 
     proba = []
-    for i, (train, test) in enumerate(skf, 1):
+    for fold, (train, test) in enumerate(skf, 1):
         callbacks = []
         if patience > 0:
             earlystopping = EarlyStopping(monitor='val_loss', patience=patience)
@@ -76,17 +76,17 @@ def validation(taskname, data, layers, nb_epoch, batch_size, optimizer, lr, acti
 
         # fitting
         history = model.fit(X[train], y[train], nb_epoch=nb_epoch, batch_size=batch_size, 
-                shuffle=True, validation_data=(X[test], y[test]), verbose=1,
+                shuffle=True, validation_data=(X[test], y[test]), verbose=1, class_weight=class_weight,
                 callbacks=callbacks)
 
         df = pd.DataFrame(model.predict_proba(X[test]))
         df['label'] = y[test]
-        df['fold'] = i
+        df['fold'] = fold
         proba.append(df)
 
         df = pd.DataFrame.from_dict(history.history)
         df['time'] = df['time'] - df['time'].min()
-        df['fold'] = i
+        df['fold'] = fold
         log.append(df)
 
         count -= 1

@@ -33,6 +33,6 @@ if __name__ == '__main__':
             for unit1 in [3000]:
                 for unit2 in [60]:
                     dnn.validation(taskname, data, layers=[unit1, unit2], 
-                            batch_size=batch_size, nb_epoch=nb_epoch, 
+                            batch_size=batch_size, nb_epoch=nb_epoch, class_weight=None,
                             optimizer=optimizer, lr=lr, activation=activation,
                             dropout=0, patience=0, count=1)
