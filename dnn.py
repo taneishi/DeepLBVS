@@ -3,6 +3,7 @@ from keras.layers.core import Dense, Dropout, Activation
 from keras.callbacks import EarlyStopping
 from keras.optimizers import *
 from sklearn.cross_validation import StratifiedKFold
+from sklearn.metrics import roc_auc_score
 import keras
 import theano
 import numpy as np
@@ -19,6 +20,15 @@ class TimeHistory(keras.callbacks.Callback):
         print(timeit.default_timer())
         self.timehistory.append(timeit.default_timer())
         logs['time'] = timeit.default_timer()
+
+class AUCHistory(keras.callbacks.Callback):
+    def __init__(self, test_data):
+        self.test_data = test_data
+
+    def on_epoch_end(self, epoch, logs={}):
+        x, y = self.test_data
+        y_score = self.model.predict_proba(x, verbose=0)
+        logs['auc'] = roc_auc_score(y, y_score) 
 
 def setup():
     for dirname in ['model','result']:
@@ -55,8 +65,11 @@ def validation(taskname, data, layers, nb_epoch, class_weight, batch_size, optim
             callbacks.append(earlystopping)
         if count == 0:
             break
+
         timehistory = TimeHistory()
         callbacks.append(timehistory)
+        auchistory = AUCHistory((X[test], y[test]))
+        callbacks.append(auchistory)
 
         model = Sequential()
 
