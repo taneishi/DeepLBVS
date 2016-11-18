@@ -21,12 +21,6 @@ def load_data(dataset):
     data = preprocessing.minmax_scale(data)
     return data[:,:-1], np_utils.to_categorical(data[:,-1], 2)
 
-#def load_data_ecfp(dataset):
-#    df = pd.read_pickle(dataset)
-#    print df.shape
-#    data = df.values
-#    return data[:,:-1], np_utils.to_categorical(data[:,-1], 2)
-
 def prediction():
     # prediction
     y_pred = model.predict_proba(X_test)
@@ -54,7 +48,7 @@ def prediction():
     plt.tight_layout()
     plt.show()
 
-def validation(dataset, nb_epoch=100, layers=[1000,1000], batch_size=10, activation='sigmoid'):
+def validation(dataset, descriptor, nb_epoch=100, layers=[1000,1000], batch_size=10, optimizer=['Adam','adam'], activation='sigmoid'):
     X, y = load_data(dataset)
 
     model = Sequential()
@@ -69,17 +63,16 @@ def validation(dataset, nb_epoch=100, layers=[1000,1000], batch_size=10, activat
     model.add(Dense(2, init='uniform'))
     model.add(Activation('softmax'))
 
-    #optimizer = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
-    optimizer = ['Adam', 'adam']
     model.compile(loss='categorical_crossentropy', optimizer=optimizer[1])
 
     history = model.fit(X, y, nb_epoch=nb_epoch, 
-            batch_size=batch_size, shuffle=True, validation_split=0.2,
+            batch_size=batch_size, shuffle=True, validation_split=0.25,
             show_accuracy=True, verbose=1)
 
     df = pd.DataFrame.from_dict(history.history)
-    df.to_pickle('log/%s_%s_%d_%s_%s_%d.log' % (
+    df.to_pickle('log/%s_%s_%s_%d_%s_%s_%d.log' % (
         os.path.basename(dataset),
+        descriptor,
         '_'.join(map(str,layers)),
         batch_size,
         optimizer[0],
@@ -88,11 +81,15 @@ def validation(dataset, nb_epoch=100, layers=[1000,1000], batch_size=10, activat
         ))
 
 if __name__ == '__main__':
-    #dirname = 'ecfp3000'
-    dirname = 'dragon'
-    for n_layer in [1,2,3]:
-        for units in [500,1000,2000]:
-            for dataset in sorted(os.listdir(dirname)):
-                if os.path.isdir(os.path.join(dirname, dataset)): continue
+    #descriptor = 'ecfp3000'
+    descriptor = 'dragon'
+    #optimizer = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+    optimizer = ['Adam', 'adam']
+    for n_layer in [1,2]:
+        for units in [500,1000]:
+            for dataset in sorted(os.listdir(descriptor)):
+                if os.path.isdir(os.path.join(descriptor, dataset)): continue
                 print dataset
-                validation(os.path.join(dirname, dataset), nb_epoch=200, layers=[units]*n_layer, batch_size=10, activation='sigmoid')
+                validation(os.path.join(descriptor, dataset), descriptor=descriptor, 
+                        nb_epoch=200, layers=[units]*n_layer, batch_size=10, 
+                        optimizer=optimizer, activation='relu')
