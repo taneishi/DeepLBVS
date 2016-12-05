@@ -62,7 +62,6 @@ def main(simple=False):
                     ), color='red', linewidth=3, alpha=.5) 
         nb_epoch = max(val['epoch'].max(), nb_epoch)
 
-<<<<<<< HEAD
         if True:
             if 'acc' in df.columns:
                 acc = df[['epoch','acc']].dropna()
@@ -70,14 +69,6 @@ def main(simple=False):
                         label='%s %.1f at %d' % (
                             label,acc['acc'].max()*100.0, acc['epoch'].max()
                             ), color=line.get_color()) 
-=======
-        if 'acc' in df.columns:
-            acc = df[['epoch','acc']].dropna()
-            plt.plot(acc['epoch'], acc['acc'] * 100.0,
-                    label='%s training %.1f at %d' % (
-                        label,acc['acc'].max()*100.0, acc['epoch'].max()
-                        ), color='green', linewidth=3, alpha=.5) 
->>>>>>> 9cb0a28ff243d41a55e52c5ed2862f8b10ec8cf4
 
     plt.ylabel('Accuracy (%)', fontsize=12)
     plt.xlabel('Epochs', fontsize=12)
