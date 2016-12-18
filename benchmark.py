@@ -26,13 +26,13 @@ if __name__ == '__main__':
     print(str(data.shape))
 
     taskname = os.path.basename(datafile)
-    optimizer = Adam
+    optimizer = 'Adam'
     lr = 0.0001
     nb_epoch = 100
     batch_size = 100
     activation = 'sigmoid'
 
     dnn.validation(taskname, data, layers=[2000]*3, 
-            batch_size=batch_size, nb_epoch=nb_epoch, 
+            batch_size=batch_size, nb_epoch=nb_epoch, class_weight=None,
             optimizer=optimizer, lr=lr, activation=activation,
             dropout=0, patience=0, count=1)
