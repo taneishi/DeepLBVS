@@ -12,6 +12,7 @@ import shutil
 import numpy as np
 import deepchem as dc
 from chembl_datasets import load_chembl
+import timeit
 
 # Set numpy seed
 np.random.seed(123)
@@ -46,12 +47,20 @@ model = dc.models.TensorflowMultiTaskRegressor(
 #Use R2 classification metric
 metric = dc.metrics.Metric(dc.metrics.pearson_r2_score, task_averager=np.mean)
 
+start = timeit.default_timer()
+
 print("Training model")
 model.fit(train_dataset, nb_epoch=nb_epoch)
+
+train_time = timeit.default_timer() - start
+
+start = timeit.default_timer()
 
 train_scores = model.evaluate(train_dataset, [metric], transformers)
 valid_scores = model.evaluate(valid_dataset, [metric], transformers)
 test_scores = model.evaluate(test_dataset, [metric], transformers)
+
+eval_time = timeit.default_timer() - start
 
 print("Train scores")
 print(train_scores)
@@ -61,3 +70,6 @@ print(valid_scores)
 
 print("Test scores")
 print(test_scores)
+
+print('Train time: %.1fm' % (train_time/60.))
+print('Eval time: %.1fm' % (eval_time/60.))

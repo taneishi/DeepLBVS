@@ -1,37 +1,24 @@
 Deep Learning for Virtual Screening
 ===================================
 
-This template script can be used for benchmarking. 
-
 Dependency
 ----------
 
-- Keras 1.1.0 or later
-  https://github.com/fchollet/keras  
+- deepchem-0.0.5.dev1322
+  https://github.com/deepchem/deepchem
 
-- intel Theano 0.9.0dev or later
+- Tensorflow 1.0.0
 
 - Anaconda 4.2.0
 
 - Python 3.5.2
 
-Files
------
-
-- main.py
-Template script for parameter search.
-
-- dnn.py
-Main functions of DNN.
-
-- benchmark.py
-Benchmark script using DNN.
-
-- cpi.npz  
-Sample data for predicting compound protein interactions.  
-Download from https://my.syncplicity.com/share/vvks9oqxas1xneg/cpi
-
 Usage
 -----
 
-    $ python benchmark.py cpi.npz
+    $ python chembl/chembl_tf_models.py
+    Train time: 19.0m
+    Eval time: 0.6m
+
+    $ python chembl/chembl_graph_conv.py
+

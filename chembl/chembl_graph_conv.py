@@ -10,6 +10,7 @@ import tensorflow as tf
 import deepchem as dc
 from keras import backend as K
 from chembl_datasets import load_chembl
+import timeit
 
 # Only for debug!
 np.random.seed(123)
@@ -51,13 +52,20 @@ with g.as_default():
       learning_rate=1e-3, learning_rate_decay_time=1000,
       optimizer_type="adam", beta1=.9, beta2=.999)
 
+    start = timeit.default_timer()
     # Fit trained model
     model.fit(train_dataset, nb_epoch=20)
+
+    train_time = timeit.default_timer() - start
+
+    start = timeit.default_timer()
 
     print("Evaluating model")
     train_scores = model.evaluate(train_dataset, [metric], transformers)
     valid_scores = model.evaluate(valid_dataset, [metric], transformers)
     test_scores = model.evaluate(test_dataset, [metric], transformers)
+
+    eval_time = timeit.default_timer() - start
 
     print("Train scores")
     print(train_scores)
@@ -67,3 +75,6 @@ with g.as_default():
 
     print("Test scores")
     print(test_scores)
+
+    print('Train time: %.1fm' % (train_time/60.))
+    print('Eval time: %.1fm' % (eval_time/60.))
