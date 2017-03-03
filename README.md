@@ -17,8 +17,11 @@ Usage
 -----
 
     $ python chembl/chembl_tf_models.py
+    ...
     Train time: 19.0m
     Eval time: 0.6m
 
     $ python chembl/chembl_graph_conv.py
-
+    ...
+    Train time: 19.7m
+    Eval time: 1.4m
