@@ -5,7 +5,7 @@ Dependency
 ----------
 
 - deepchem-0.0.5.dev1322
-  https://github.com/deepchem/deepchem
+    https://github.com/deepchem/deepchem
 
 - Tensorflow 1.0.0
 
