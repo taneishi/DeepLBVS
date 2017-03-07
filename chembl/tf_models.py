@@ -1,5 +1,5 @@
 """
-Script that trains Tensorflow Multitask models on ChEMBL dataset.
+Script that trains Tensorflow Multitask models on ChEMBL 
 """
 
 from __future__ import print_function
@@ -7,8 +7,6 @@ from __future__ import division
 from __future__ import unicode_literals
 
 import os
-import tempfile
-import shutil
 import numpy as np
 import deepchem as dc
 from chembl_datasets import load_chembl

@@ -35,7 +35,7 @@ def load_chembl(shard_size=2000, featurizer="ECFP", set="5thresh", split="random
                                   "year_sets/chembl_%s_ts_test.csv.gz" % set)
     else:
         dataset_path = os.path.join(
-            current_dir, "datasets/chembl_%s.csv.gz" % set)
+            current_dir, "../datasets/chembl_%s.csv.gz" % set)
 
     # Featurize ChEMBL dataset
     print("About to featurize ChEMBL dataset.")
