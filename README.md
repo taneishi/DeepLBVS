@@ -4,12 +4,12 @@ Deep Learning for Virtual Screening
 Dependency
 ----------
 
-- deepchem-0.0.5.dev1322
+- deepchem-0.0.5.dev1357
     * https://github.com/deepchem/deepchem
 
-- Tensorflow 1.0.0
+- Tensorflow 0.12.1
 
-- Anaconda 4.2.0
+- Anaconda 4.3.0
 
 - Python 3.5.2
 
@@ -30,12 +30,12 @@ Usage
     $ python chembl/graph_conv.py
     ...
     Train scores
-    {'mean-pearson_r2_score': 0.17784507895065998}
+    {'mean-pearson_r2_score': 0.14157082738050894}
     Validation scores
-    {'mean-pearson_r2_score': 0.27744251306440482}
+    {'mean-pearson_r2_score': 0.22814428897445027}
     Test scores
-    {'mean-pearson_r2_score': 0.27499012277739387}
-    Train time: 19.7m
+    {'mean-pearson_r2_score': 0.2826175439387309}
+    Train time: 19.6m
     Eval time: 1.4m
 
     # python pcba/tf_models.py
