@@ -4,12 +4,12 @@ Deep Learning for Virtual Screening
 Dependency
 ----------
 
-- deepchem-0.0.5.dev1357
+- deepchem-0.0.5.dev1377
     * https://github.com/deepchem/deepchem
 
 - Tensorflow 0.12.1
 
-- Anaconda 4.3.0
+- Anaconda 4.2.0
 
 - Python 3.5.2
 
@@ -48,3 +48,13 @@ Usage
     {'mean-roc_auc_score': 0.79524128220494039}
     Train time: 124.0m
     Eval time: 21.3m
+
+    # python pcba/graph_conv.py
+    Train scores
+    {'mean-roc_auc_score': 0.92025902619398514}
+    Validation scores
+    {'mean-roc_auc_score': 0.86298297157687642}
+    Test scores
+    {'mean-roc_auc_score': 0.85650726803889887}
+    Train time: 219.1m
+    Eval time: 32.3m
