@@ -4,10 +4,10 @@ Deep Learning for Virtual Screening
 Dependency
 ----------
 
-- deepchem-0.0.5.dev1377
+- deepchem-0.0.5.dev1449
     * https://github.com/deepchem/deepchem
 
-- Tensorflow 0.12.1
+- Tensorflow 1.0.1
 
 - Anaconda 4.2.0
 
@@ -19,42 +19,42 @@ Usage
     $ python chembl/tf_models.py
     ...
     Train scores
-    {'mean-pearson_r2_score': 0.2800800558893527}
+    {'mean-pearson_r2_score': 0.27899640394475578}
     Validation scores
-    {'mean-pearson_r2_score': 0.31851526805470631}
+    {'mean-pearson_r2_score': 0.3179097221346463}
     Test scores
-    {'mean-pearson_r2_score': 0.34494307106309441}
-    Train time: 25.3m
+    {'mean-pearson_r2_score': 0.34468870141844038}
+    Train time: 17.1m
     Eval time: 1.0m
 
     $ python chembl/graph_conv.py
     ...
     Train scores
-    {'mean-pearson_r2_score': 0.14157082738050894}
+    {'mean-pearson_r2_score': 0.14758438301407914}
     Validation scores
-    {'mean-pearson_r2_score': 0.22814428897445027}
+    {'mean-pearson_r2_score': 0.21988992589239506}
     Test scores
-    {'mean-pearson_r2_score': 0.2826175439387309}
-    Train time: 19.6m
+    {'mean-pearson_r2_score': 0.21277860356454578}
+    Train time: 17.7m
     Eval time: 1.4m
 
     # python pcba/tf_models.py
     ...
     Train scores
-    {'mean-roc_auc_score': 0.9433418080019409}
+    {'mean-roc_auc_score': 0.93896412511755167}
     Validation scores
-    {'mean-roc_auc_score': 0.79813118519108261}
+    {'mean-roc_auc_score': 0.79112713308332894}
     Test scores
-    {'mean-roc_auc_score': 0.79524128220494039}
-    Train time: 124.0m
-    Eval time: 21.3m
+    {'mean-roc_auc_score': 0.7915215860043836}
+    Train time: 87.8m
+    Eval time: 14.5m
 
     # python pcba/graph_conv.py
     Train scores
-    {'mean-roc_auc_score': 0.92025902619398514}
+    {'mean-roc_auc_score': 0.9175177701552093}
     Validation scores
-    {'mean-roc_auc_score': 0.86298297157687642}
+    {'mean-roc_auc_score': 0.86004011415477311}
     Test scores
-    {'mean-roc_auc_score': 0.85650726803889887}
-    Train time: 219.1m
-    Eval time: 32.3m
+    {'mean-roc_auc_score': 0.85849436864485928}
+    Train time: 217.0m
+    Eval time: 32.1m
