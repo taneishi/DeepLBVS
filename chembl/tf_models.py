@@ -6,11 +6,11 @@ from __future__ import print_function
 from __future__ import division
 from __future__ import unicode_literals
 
-import os
 import numpy as np
 import deepchem as dc
-from chembl_datasets import load_chembl
+from datasets import load_chembl
 import timeit
+import os
 
 # Set numpy seed
 np.random.seed(123)
@@ -32,14 +32,14 @@ print("Number of compounds in test set")
 print(len(test_dataset))
 
 ###Create model###
-n_layers = 3
+n_layers = 2
 nb_epoch = 10
 model = dc.models.TensorflowMultiTaskRegressor(
     len(chembl_tasks), train_dataset.get_data_shape()[0],
-    layer_sizes=[1000]*n_layers, dropouts=[.25]*n_layers,
-    weight_init_stddevs=[.02]*n_layers,
-    bias_init_consts=[1.]*n_layers, learning_rate=.0003,
-    penalty=.0001, penalty_type="l2", optimizer="adam", batch_size=100,
+    layer_sizes=[1000]*n_layers, dropouts=[0.25]*n_layers,
+    weight_init_stddevs=[0.02]*n_layers,
+    bias_init_consts=[1.]*n_layers, learning_rate=0.0008,
+    penalty=0.0005, penalty_type="l2", optimizer="adam", batch_size=128,
     seed=123, verbosity="high")
 
 #Use R2 classification metric
@@ -69,5 +69,8 @@ print(valid_scores)
 print("Test scores")
 print(test_scores)
 
-print('Train time: %.1fm' % (train_time/60.))
-print('Eval time: %.1fm' % (eval_time/60.))
+if not os.path.exists('log/chembl'): os.makedirs('log/chembl')
+out = open('log/chembl/tf_models.log', 'w')
+out.write('Train time: %.1fm\n' % (train_time/60.))
+out.write('Eval time: %.1fm\n' % (eval_time/60.))
+out.close()

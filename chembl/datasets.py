@@ -12,7 +12,7 @@ import time
 import deepchem as dc
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from chembl_tasks import chembl_tasks
+from tasks import chembl_tasks
 
 
 # Set shard size low to avoid memory problems.

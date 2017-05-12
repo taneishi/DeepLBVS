@@ -10,8 +10,9 @@ np.random.seed(123)
 import tensorflow as tf
 tf.set_random_seed(123)
 import deepchem as dc
-from chembl_datasets import load_chembl
+from datasets import load_chembl
 import timeit
+import os
 
 # Load ChEMBL dataset
 chembl_tasks, datasets, transformers = load_chembl(
@@ -43,7 +44,7 @@ model = dc.models.MultitaskGraphRegressor(
     len(chembl_tasks),
     n_feat,
     batch_size=batch_size,
-    learning_rate=1e-3,
+    learning_rate=0.0005,
     learning_rate_decay_time=1000,
     optimizer_type="adam",
     beta1=.9,
@@ -65,6 +66,7 @@ test_scores = model.evaluate(test_dataset, [metric], transformers)
 
 eval_time = timeit.default_timer() - start
 
+
 print("Train scores")
 print(train_scores)
 
@@ -74,5 +76,8 @@ print(valid_scores)
 print("Test scores")
 print(test_scores)
 
-print('Train time: %.1fm' % (train_time/60.))
-print('Eval time: %.1fm' % (eval_time/60.))
+if not os.path.exists('log/chembl'): os.makedirs('log/chembl')
+out = open('log/chembl/graph_conv.log', 'w')
+out.write('Train time: %.1fm\n' % (train_time/60.))
+out.write('Eval time: %.1fm\n' % (eval_time/60.))
+out.close()
