@@ -10,7 +10,7 @@ np.random.seed(123)
 import tensorflow as tf
 tf.set_random_seed(123)
 import deepchem as dc
-from pcba_datasets import load_pcba
+from datasets import load_pcba
 import timeit
 
 # Load PCBA dataset
@@ -25,16 +25,16 @@ metric = dc.metrics.Metric(dc.metrics.roc_auc_score, np.mean)
 # Number of features on conv-mols
 n_feat = 75
 # Batch size of models
-batch_size = 128
+batch_size = 50
 graph_model = dc.nn.SequentialGraph(n_feat)
-graph_model.add(dc.nn.GraphConv(128, n_feat, activation='relu'))
+graph_model.add(dc.nn.GraphConv(64, n_feat, activation='relu'))
 graph_model.add(dc.nn.BatchNormalization(epsilon=1e-5, mode=1))
 graph_model.add(dc.nn.GraphPool())
-graph_model.add(dc.nn.GraphConv(128, 128, activation='relu'))
+graph_model.add(dc.nn.GraphConv(64, 64, activation='relu'))
 graph_model.add(dc.nn.BatchNormalization(epsilon=1e-5, mode=1))
 graph_model.add(dc.nn.GraphPool())
 # Gather Projection
-graph_model.add(dc.nn.Dense(256, 128, activation='relu'))
+graph_model.add(dc.nn.Dense(128, 64, activation='relu'))
 graph_model.add(dc.nn.BatchNormalization(epsilon=1e-5, mode=1))
 graph_model.add(dc.nn.GraphGather(batch_size, activation="tanh"))
 
@@ -43,7 +43,7 @@ model = dc.models.MultitaskGraphClassifier(
     len(pcba_tasks),
     n_feat,
     batch_size=batch_size,
-    learning_rate=1e-3,
+    learning_rate=0.0005,
     optimizer_type="adam",
     beta1=.9,
     beta2=.999)
@@ -51,7 +51,7 @@ model = dc.models.MultitaskGraphClassifier(
 start = timeit.default_timer()
 
 # Fit trained model
-model.fit(train_dataset, nb_epoch=20)
+model.fit(train_dataset, nb_epoch=15)
 
 train_time = timeit.default_timer() - start
 
@@ -73,5 +73,11 @@ print(valid_scores)
 print("Test scores")
 print(test_scores)
 
-print('Train time: %.1fm' % (train_time/60.))
-print('Eval time: %.1fm' % (eval_time/60.))
+if not os.path.exists('log/pcba'): os.makedirs('log/pcba')
+out = open('log/pcba/graph_conv.log', 'w')
+out.write('Train scores: %s' % train_scores)
+out.write('Validation scores: %s' % valid_scores)
+out.write('Test scores: %s' % test_scores)
+out.write('Train time: %.1fm\n' % (train_time/60.))
+out.write('Eval time: %.1fm\n' % (eval_time/60.))
+out.close()

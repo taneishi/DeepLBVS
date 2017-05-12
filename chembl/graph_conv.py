@@ -45,7 +45,6 @@ model = dc.models.MultitaskGraphRegressor(
     n_feat,
     batch_size=batch_size,
     learning_rate=0.0005,
-    learning_rate_decay_time=1000,
     optimizer_type="adam",
     beta1=.9,
     beta2=.999)
@@ -66,7 +65,6 @@ test_scores = model.evaluate(test_dataset, [metric], transformers)
 
 eval_time = timeit.default_timer() - start
 
-
 print("Train scores")
 print(train_scores)
 
@@ -76,8 +74,12 @@ print(valid_scores)
 print("Test scores")
 print(test_scores)
 
+
 if not os.path.exists('log/chembl'): os.makedirs('log/chembl')
 out = open('log/chembl/graph_conv.log', 'w')
+out.write('Train scores: %s' % train_scores)
+out.write('Validation scores: %s' % valid_scores)
+out.write('Test scores: %s' % test_scores)
 out.write('Train time: %.1fm\n' % (train_time/60.))
 out.write('Eval time: %.1fm\n' % (eval_time/60.))
 out.close()
