@@ -33,7 +33,7 @@ print(len(test_dataset))
 
 ###Create model###
 n_layers = 2
-nb_epoch = 10
+nb_epoch = 50
 model = dc.models.TensorflowMultiTaskRegressor(
     len(chembl_tasks), train_dataset.get_data_shape()[0],
     layer_sizes=[1000]*n_layers, dropouts=[0.25]*n_layers,

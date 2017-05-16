@@ -12,6 +12,7 @@ tf.set_random_seed(123)
 import deepchem as dc
 from datasets import load_pcba
 import timeit
+import os
 
 # Load PCBA dataset
 pcba_tasks, datasets, transformers = load_pcba(
