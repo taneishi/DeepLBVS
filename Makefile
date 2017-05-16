@@ -6,11 +6,13 @@ chembl: log/chembl/tf_models.log log/chembl/graph_conv.log
 	@echo "ChEMBL dataset"
 	@cat log/chembl/tf_models.log
 	@cat log/chembl/graph_conv.log
+	@echo
 
 pcba: log/pcba/tf_models.log log/pcba/graph_conv.log
 	@echo "PCBA dataset"
 	@cat log/pcba/tf_models.log
 	@cat log/pcba/graph_conv.log
+	@echo
 
 log/chembl/tf_models.log: chembl/tf_models.py
 	python chembl/tf_models.py
