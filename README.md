@@ -27,15 +27,13 @@ Usage
     Train time: 46.3m
     Eval time: 0.7m
 
-![chembl tf_models](log/chembl/tf_models.png)
-
     Train scores: {'mean-pearson_r2_score': 0.14826334786558712}
     Validation scores: {'mean-pearson_r2_score': 0.23758873756708912}
     Test scores: {'mean-pearson_r2_score': 0.26867242413579084}
     Train time: 13.2m
     Eval time: 0.6m
 
-    <img src="log/chembl/graph_conv.png" />
+![chembl plot](https://raw.githubusercontent.com/ktaneishi/dlvs/master/log/chembl.png)
     
     PCBA dataset
     Train scores: {'mean-roc_auc_score': 0.80845857532109999}
@@ -44,12 +42,10 @@ Usage
     Train time: 105.7m
     Eval time: 17.2m
 
-    <img src="log/pcba/tf_models.png" />
-
     Train scores: {'mean-roc_auc_score': 0.88522551045202269}
     Validation scores: {'mean-roc_auc_score': 0.85121845799474638}
     Test scores: {'mean-roc_auc_score': 0.84671217941655996}
     Train time: 208.3m
     Eval time: 17.4m
 
-    <img src="log/pcba/graph_conv.png" />
+![pcba plot](https://raw.githubusercontent.com/ktaneishi/dlvs/master/log/pcba.png)
