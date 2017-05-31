@@ -7,6 +7,7 @@ from __future__ import division
 from __future__ import unicode_literals
 
 import numpy as np
+import pandas as pd
 import deepchem as dc
 from datasets import load_chembl
 import timeit
@@ -54,26 +55,35 @@ train_time = timeit.default_timer() - start
 
 start = timeit.default_timer()
 
-train_scores = model.evaluate(train_dataset, [metric], transformers)
-valid_scores = model.evaluate(valid_dataset, [metric], transformers)
-test_scores = model.evaluate(test_dataset, [metric], transformers)
+train_score, train_scores = model.evaluate(train_dataset, [metric], transformers, per_task_metrics=True)
+valid_score, valid_scores = model.evaluate(valid_dataset, [metric], transformers, per_task_metrics=True)
+test_score, test_scores = model.evaluate(test_dataset, [metric], transformers, per_task_metrics=True)
 
 eval_time = timeit.default_timer() - start
 
 print("Train scores")
-print(train_scores)
+print(train_score)
 
 print("Validation scores")
-print(valid_scores)
+print(valid_score)
 
 print("Test scores")
-print(test_scores)
+print(test_score)
 
 if not os.path.exists('log/chembl'): os.makedirs('log/chembl')
 out = open('log/chembl/tf_models.log', 'w')
-out.write('Train scores: %s\n' % train_scores)
-out.write('Validation scores: %s\n' % valid_scores)
-out.write('Test scores: %s\n' % test_scores)
+out.write('Train scores: %s\n' % train_score)
+out.write('Validation scores: %s\n' % valid_score)
+out.write('Test scores: %s\n' % test_score)
 out.write('Train time: %.1fm\n' % (train_time/60.))
 out.write('Eval time: %.1fm\n' % (eval_time/60.))
 out.close()
+
+scores = [
+        train_scores['mean-pearson_r2_score'],
+        valid_scores['mean-pearson_r2_score'],
+        test_scores['mean-pearson_r2_score'],
+        ]
+scores = pd.DataFrame(scores).T
+scores.columns = ['train','valid','test']
+scores.to_pickle('log/chembl/tf_models.pkl')
