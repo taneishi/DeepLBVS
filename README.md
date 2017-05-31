@@ -27,7 +27,7 @@ Usage
     Train time: 46.3m
     Eval time: 0.7m
 
-    ![chembl tf_models](log/chembl/tf_models.png)
+![chembl tf_models](log/chembl/tf_models.png)
 
     Train scores: {'mean-pearson_r2_score': 0.14826334786558712}
     Validation scores: {'mean-pearson_r2_score': 0.23758873756708912}
