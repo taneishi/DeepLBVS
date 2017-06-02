@@ -14,6 +14,14 @@ def main():
 
             ax = plt.subplot(1,2,i)
             df.boxplot(ax=ax)
+            if dataset == 'chembl':
+                if i == 1:
+                    plt.ylabel('Pearson R-squared')
+                plt.ylim(0.,1.)
+            elif dataset == 'pcba':
+                if i == 1:
+                    plt.ylabel('ROC AUC')
+                plt.ylim(0.5, 1.0)
             plt.title('%s %s' % (dataset, method))
             plt.tight_layout()
         plt.savefig('log/%s.png' % (dataset))
