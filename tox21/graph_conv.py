@@ -1,29 +1,29 @@
 """
-Script that trains graph-conv models on PCBA dataset.
+Script that trains graph-conv models on Tox21 dataset.
 """
 from __future__ import print_function
 from __future__ import division
 from __future__ import unicode_literals
 
+import os
 import numpy as np
-np.random.seed(123)
 import pandas as pd
+np.random.seed(123)
 import tensorflow as tf
 tf.set_random_seed(123)
 import deepchem as dc
-from datasets import load_pcba
+from datasets import load_tox21
 import timeit
-import os
 
-# Load PCBA dataset
-pcba_tasks, datasets, transformers = load_pcba(
-    featurizer="GraphConv", split="random")
-train_dataset, valid_dataset, test_dataset = datasets
+# Load Tox21 dataset
+tox21_tasks, tox21_datasets, transformers = load_tox21(
+        featurizer='GraphConv', split='random')
+train_dataset, valid_dataset, test_dataset = tox21_datasets
 
 # Fit models
-metric = dc.metrics.Metric(dc.metrics.roc_auc_score, np.mean, mode='classification')
+metric = dc.metrics.Metric(
+    dc.metrics.roc_auc_score, np.mean, mode="classification")
 
-# Do setup required for tf/keras models
 # Number of features on conv-mols
 n_feat = 75
 # Batch size of models
@@ -42,7 +42,7 @@ graph_model.add(dc.nn.GraphGather(batch_size, activation="tanh"))
 
 model = dc.models.MultitaskGraphClassifier(
     graph_model,
-    len(pcba_tasks),
+    len(tox21_tasks),
     n_feat,
     batch_size=batch_size,
     learning_rate=0.0005,
@@ -53,7 +53,7 @@ model = dc.models.MultitaskGraphClassifier(
 start = timeit.default_timer()
 
 # Fit trained model
-model.fit(train_dataset, nb_epoch=15)
+model.fit(train_dataset, nb_epoch=10)
 
 train_time = timeit.default_timer() - start
 
@@ -62,7 +62,6 @@ start = timeit.default_timer()
 print("Evaluating model")
 train_score, train_scores = model.evaluate(train_dataset, [metric], transformers, per_task_metrics=True)
 valid_score, valid_scores = model.evaluate(valid_dataset, [metric], transformers, per_task_metrics=True)
-test_score, test_scores = model.evaluate(test_dataset, [metric], transformers, per_task_metrics=True)
 
 eval_time = timeit.default_timer() - start
 
@@ -72,14 +71,10 @@ print(train_score)
 print("Validation scores")
 print(valid_score)
 
-print("Test scores")
-print(test_score)
-
-if not os.path.exists('log/pcba'): os.makedirs('log/pcba')
-out = open('log/pcba/graph_conv.log', 'w')
+if not os.path.exists('log/tox21'): os.makedirs('log/tox21')
+out = open('log/tox21/graph_conv.log', 'w')
 out.write('Train scores: %s\n' % train_score)
 out.write('Validation scores: %s\n' % valid_score)
-out.write('Test scores: %s\n' % test_score)
 out.write('Train time: %.1fm\n' % (train_time/60.))
 out.write('Eval time: %.1fm\n' % (eval_time/60.))
 out.close()
@@ -87,8 +82,7 @@ out.close()
 scores = [
         train_scores['mean-roc_auc_score'],
         valid_scores['mean-roc_auc_score'],
-        test_scores['mean-roc_auc_score'],
         ]
 scores = pd.DataFrame(scores).T
-scores.columns = ['train','valid','test']
-scores.to_pickle('log/pcba/graph_conv.pkl')
+scores.columns = ['train','valid']
+scores.to_pickle('log/tox21/graph_conv.pkl')

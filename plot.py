@@ -4,7 +4,7 @@ import seaborn as sns
 import os
 
 def main():
-    for dataset in ['chembl', 'pcba']:
+    for dataset in ['chembl', 'pcba', 'tox21']:
         plt.figure(figsize=(8,4))
         for i, method in enumerate(['tf_models', 'graph_conv'], 1):  
             filename = os.path.join('log', dataset, method) + '.pkl'
@@ -18,7 +18,7 @@ def main():
                 if i == 1:
                     plt.ylabel('Pearson R-squared')
                 plt.ylim(0.,1.)
-            elif dataset == 'pcba':
+            elif dataset in ['pcba', 'tox21']:
                 if i == 1:
                     plt.ylabel('ROC AUC')
                 plt.ylim(0.5, 1.0)
