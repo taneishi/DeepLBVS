@@ -49,3 +49,16 @@ Usage
     Eval time: 17.4m
 
 ![pcba plot](https://raw.githubusercontent.com/ktaneishi/dlvs/master/log/pcba.png)
+
+    Tox21 dataset
+    Train scores: {'mean-roc_auc_score': 0.85204815645592868}
+    Validation scores: {'mean-roc_auc_score': 0.77706150324842393}
+    Train time: 0.3m
+    Eval time: 0.0m
+
+    Train scores: {'mean-roc_auc_score': 0.87444825960679295}
+    Validation scores: {'mean-roc_auc_score': 0.82822759095141807}
+    Train time: 0.9m
+    Eval time: 0.1m
+
+![tox21 plot](https://raw.githubusercontent.com/ktaneishi/dlvs/master/log/tox21.png)
