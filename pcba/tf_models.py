@@ -15,7 +15,7 @@ import timeit
 np.random.seed(123)
 
 pcba_tasks, pcba_datasets, transformers = load_pcba(
-        features='ECFP', split='random')
+        featurizer='ECFP', split='random')
 (train_dataset, valid_dataset, test_dataset) = pcba_datasets
 
 print("PCBA_tasks")
