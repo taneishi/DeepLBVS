@@ -16,8 +16,9 @@ import timeit
 import os
 
 # Load ChEMBL dataset
+shard_size = 2000
 chembl_tasks, datasets, transformers = load_chembl(
-    shard_size=2000, featurizer="GraphConv", set="5thresh", split="random")
+        shard_size=shard_size, featurizer="GraphConv", set="5thresh", split="random")
 train_dataset, valid_dataset, test_dataset = datasets
 
 # Fit models

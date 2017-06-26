@@ -4,7 +4,7 @@ import seaborn as sns
 import os
 
 def main():
-    for dataset in ['chembl', 'pcba', 'tox21']:
+    for dataset in ['chembl', 'pcba', 'tox21', 'delaney']:
         plt.figure(figsize=(8,4))
         for i, method in enumerate(['tf_models', 'graph_conv'], 1):  
             filename = os.path.join('log', dataset, method) + '.pkl'

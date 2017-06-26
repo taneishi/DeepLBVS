@@ -53,7 +53,7 @@ model = dc.models.MultitaskGraphClassifier(
 start = timeit.default_timer()
 
 # Fit trained model
-model.fit(train_dataset, nb_epoch=10)
+model.fit(train_dataset, nb_epoch=15)
 
 train_time = timeit.default_timer() - start
 
