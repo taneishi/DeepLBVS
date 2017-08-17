@@ -2,6 +2,12 @@
 
 all: chembl pcba tox21 delaney
 
+clean:
+	$(RM) log/chembl/tf_models.log log/chembl/graph_conv.log \
+		log/pcba/tf_models.log log/pcba/graph_conv.log \
+		log/tox21/tf_models.log log/tox21/graph_conv.log \
+		log/delaney/tf_models.log log/delaney/graph_conv.log
+
 chembl: log/chembl/tf_models.log log/chembl/graph_conv.log
 	@echo "ChEMBL dataset"
 	@echo "Multi-task DNN"
@@ -57,4 +63,3 @@ log/delaney/tf_models.log: delaney/tf_models.py
 
 log/delaney/graph_conv.log: delaney/graph_conv.py
 	python delaney/graph_conv.py
-	
