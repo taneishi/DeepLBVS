@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
+sns.set()
+
 def main():
     for dataset in ['chembl', 'pcba', 'tox21', 'delaney']:
         plt.figure(figsize=(8,4))
@@ -18,7 +20,7 @@ def main():
                 if i == 1:
                     plt.ylabel('Pearson R-squared')
                 plt.ylim(0.,1.)
-            elif dataset in ['pcba', 'tox21']:
+            elif dataset in ['pcba', 'tox21', 'delaney']:
                 if i == 1:
                     plt.ylabel('ROC AUC')
                 plt.ylim(0.5, 1.0)
