@@ -1,10 +1,7 @@
 import pandas as pd
 import numpy as np
-import gzip
 import os
 import sys
-
-COMPLEVEL = 5
 
 def profeat():
     if os.path.exists('pkl/profeat'):
@@ -40,14 +37,14 @@ def dragon():
 def dataset():
     np.random.seed(123)
     
-    profeat = pd.read_pickle('pkl/profeat')
-    dragon = pd.read_pickle('pkl/dragon')
-
-    posi = pd.read_csv(gzip.open('tsv/posi_gpcr_full.pair.gz'), sep='\t', header=None)
-    posi['label'] = 1
-
     for i in range(1, 6):
-        nega = pd.read_csv(gzip.open('tsv/nega_gpcr_full_%d.out.gz' % i), sep='\t', header=None)
+        profeat = pd.read_pickle('pkl/profeat')
+        dragon = pd.read_pickle('pkl/dragon')
+
+        posi = pd.read_csv('tsv/posi_gpcr_full.pair.gz', sep='\t', header=None)
+        posi['label'] = 1
+
+        nega = pd.read_csv('tsv/nega_gpcr_full_%d.out.gz' % i, sep='\t', header=None)
         nega['label'] = 0
 
         df = pd.concat([posi,nega])
@@ -56,9 +53,7 @@ def dataset():
         df = pd.merge(profeat, df, left_index=True, right_on='pid', how='inner')
 
         df.set_index(['cid','pid'], inplace=True)
-
-        df = df.astype(np.float32)
-        df.to_pickle('pkl/dataset%d.pkl' % i)
+        np.savez_compressed('npz/dataset%i.npz' % i, data=df.values)
 
 if __name__ == '__main__':
     profeat()
