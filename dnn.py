@@ -5,8 +5,6 @@ from keras.optimizers import SGD, RMSprop, Adam
 from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import roc_auc_score
 import keras
-import mxnet
-import theano
 import numpy as np
 import pandas as pd
 import timeit
@@ -42,7 +40,6 @@ def setup():
 
 def versions():
     versions = (('Keras',keras.__version__),
-            ('Theano', theano.version.version),
             ('numpy', np.version.version),
             ('Python', sys.version))
     return versions
@@ -93,8 +90,7 @@ def validation(taskname, data, layers, epochs, class_weight, batch_size, optimiz
 
         model.summary()
 
-        model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy'],
-                context=['gpu0', 'gpu1'])
+        model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy'])
 
         # fitting
         history = model.fit(X[train], y[train], nb_epoch=epochs, batch_size=batch_size, 
