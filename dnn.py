@@ -5,14 +5,13 @@ from keras.optimizers import SGD, RMSprop, Adam
 from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import roc_auc_score
 import keras
+import mxnet
 import theano
 import numpy as np
 import pandas as pd
 import timeit
 import os
 import sys
-
-from multi_gpu import make_parallel
 
 class TimeHistory(keras.callbacks.Callback):
     def on_train_begin(self, logs={}):
@@ -24,13 +23,17 @@ class TimeHistory(keras.callbacks.Callback):
         logs['time'] = timeit.default_timer()
 
 class AUCHistory(keras.callbacks.Callback):
-    def __init__(self, test_data):
+    def __init__(self, train_data, test_data):
+        self.train_data = train_data
         self.test_data = test_data
 
     def on_epoch_end(self, epoch, logs={}):
-        x, y = self.test_data
-        y_score = self.model.predict_proba(x, verbose=0)
-        logs['auc'] = roc_auc_score(y, y_score) 
+        train_x, train_y = self.train_data
+        train_y_score = self.model.predict_proba(train_x, verbose=0)
+        test_x, test_y = self.test_data
+        test_y_score = self.model.predict_proba(test_x, verbose=0)
+        logs['auc'] = roc_auc_score(test_y, test_y_score) 
+        print('train roc_auc %.3f, test roc_auc %.3f\n' % (roc_auc_score(train_y, train_y_score), roc_auc_score(test_y, test_y_score)))
 
 def setup():
     for dirname in ['model','result']:
@@ -48,7 +51,7 @@ def show_version():
     for version in versions():
         print(' '.join(version))
 
-def validation(taskname, data, layers, nb_epoch, class_weight, batch_size, optimizer, lr, 
+def validation(taskname, data, layers, epochs, class_weight, batch_size, optimizer, lr, 
         activation, dropout, patience, count):
     X = data[:,:-1]
     y = data[:,-1]
@@ -57,10 +60,11 @@ def validation(taskname, data, layers, nb_epoch, class_weight, batch_size, optim
 
     start_time = timeit.default_timer()
 
-    skf = StratifiedKFold(y, n_folds=5, shuffle=True)
+    skf = StratifiedKFold(n_splits=5, shuffle=True)
     log = [] 
     proba = []
-    for fold, (train, test) in enumerate(skf, 1):
+
+    for fold, (train, test) in enumerate(skf.split(X, y), 1):
         callbacks = []
         if patience > 0:
             earlystopping = EarlyStopping(monitor='val_loss', patience=patience)
@@ -70,7 +74,7 @@ def validation(taskname, data, layers, nb_epoch, class_weight, batch_size, optim
 
         timehistory = TimeHistory()
         callbacks.append(timehistory)
-        auchistory = AUCHistory((X[test], y[test]))
+        auchistory = AUCHistory((X[train], y[train]), (X[test], y[test]))
         callbacks.append(auchistory)
 
         model = Sequential()
@@ -89,12 +93,11 @@ def validation(taskname, data, layers, nb_epoch, class_weight, batch_size, optim
 
         model.summary()
 
-        model = make_parallel(model, 2)
-
-        model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy'])
+        model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy'],
+                context=['gpu0', 'gpu1'])
 
         # fitting
-        history = model.fit(X[train], y[train], nb_epoch=nb_epoch, batch_size=batch_size * 2, 
+        history = model.fit(X[train], y[train], nb_epoch=epochs, batch_size=batch_size, 
                 shuffle=True, validation_data=(X[test], y[test]), verbose=1, class_weight=class_weight,
                 callbacks=callbacks)
 
@@ -116,7 +119,7 @@ def validation(taskname, data, layers, nb_epoch, class_weight, batch_size, optim
     basename = '%s_%s_%d_%s_%f_%s_%.1f_%d' % (
             taskname, '_'.join(map(str, layers)), 
             batch_size, str(optimizer).split(' ')[0].split('.')[-1].lower(), lr,
-            activation, dropout, nb_epoch)
+            activation, dropout, epochs)
 
     # write score
     df = pd.concat(proba)
