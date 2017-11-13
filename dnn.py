@@ -1,8 +1,8 @@
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
 from keras.callbacks import EarlyStopping
-from keras.optimizers import *
-from sklearn.cross_validation import StratifiedKFold
+from keras.optimizers import SGD, RMSprop, Adam
+from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import roc_auc_score
 import keras
 import theano
@@ -11,6 +11,8 @@ import pandas as pd
 import timeit
 import os
 import sys
+
+from multi_gpu import make_parallel
 
 class TimeHistory(keras.callbacks.Callback):
     def on_train_begin(self, logs={}):
@@ -86,10 +88,13 @@ def validation(taskname, data, layers, nb_epoch, class_weight, batch_size, optim
         model.add(Activation('sigmoid', name='sigmoid'))
 
         model.summary()
+
+        model = make_parallel(model, 2)
+
         model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy'])
 
         # fitting
-        history = model.fit(X[train], y[train], nb_epoch=nb_epoch, batch_size=batch_size, 
+        history = model.fit(X[train], y[train], nb_epoch=nb_epoch, batch_size=batch_size * 2, 
                 shuffle=True, validation_data=(X[test], y[test]), verbose=1, class_weight=class_weight,
                 callbacks=callbacks)
 
