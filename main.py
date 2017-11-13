@@ -27,7 +27,7 @@ if __name__ == '__main__':
     taskname = os.path.basename(datafile)
     optimizer = 'Adam'
     lr = 0.0001
-    nb_epoch = 1000
+    epochs = 500
     dropout = 0.1
 
     for activation in ['sigmoid']:
@@ -35,6 +35,6 @@ if __name__ == '__main__':
             for unit1 in [3000]:
                 for unit2 in [60]:
                     dnn.validation(taskname, data, layers=[unit1, unit2], 
-                            batch_size=batch_size, nb_epoch=nb_epoch, class_weight=None,
+                            batch_size=batch_size, epochs=epochs, class_weight=None,
                             optimizer=optimizer, lr=lr, activation=activation,
                             dropout=dropout, patience=100, count=1)
