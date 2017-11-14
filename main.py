@@ -27,7 +27,7 @@ if __name__ == '__main__':
     taskname = os.path.basename(datafile)
     optimizer = 'Adam'
     lr = 0.0001
-    epochs = 500
+    epochs = 100
     dropout = 0.1
 
     for activation in ['sigmoid']:
