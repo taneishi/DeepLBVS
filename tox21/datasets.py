@@ -41,5 +41,5 @@ def load_tox21(featurizer='ECFP', split='index'):
                'scaffold': dc.splits.ScaffoldSplitter(),
                'butina': dc.splits.ButinaSplitter()}
   splitter = splitters[split]
-  train, valid, test = splitter.train_valid_test_split(dataset)
+  train, valid, test = splitter.train_valid_test_split(dataset, frac_train=1., frac_valid=0., frac_test=0.)
   return tox21_tasks, (train, valid, test), transformers
