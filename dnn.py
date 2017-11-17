@@ -91,7 +91,7 @@ def validation(taskname, data, layers, epochs, class_weight, batch_size, optimiz
         model.summary()
 
         model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy'],
-                context=['gpu0'])
+                context=['gpu0','gpu1'])
 
         # fitting
         history = model.fit(X[train], y[train], nb_epoch=epochs, batch_size=batch_size, 
