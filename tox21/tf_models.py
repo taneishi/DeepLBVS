@@ -27,7 +27,7 @@ X = train_dataset.X
 y = train_dataset.y
 w = train_dataset.w
 
-kf = KFold(n_splits=5, shuffle=False, random_state=123)
+kf = KFold(n_splits=5, shuffle=True, random_state=123)
 
 all_train_scores = []
 all_test_scores = []
