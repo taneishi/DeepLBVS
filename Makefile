@@ -1,6 +1,6 @@
 .PHONY: chembl pcba tox21 delaney
 
-all: tox21 delaney pcba
+all: tox21
 
 clean:
 	$(RM) log/chembl/tf_models.log log/chembl/graph_conv.log \

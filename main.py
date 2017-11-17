@@ -29,7 +29,7 @@ if __name__ == '__main__':
     lr = 0.0001
     epochs = 50
     dropout = 0.1
-    batch_size = 1500 * 2
+    batch_size = 1500
 
     for activation in ['sigmoid']:
         for unit1 in [3000]:
