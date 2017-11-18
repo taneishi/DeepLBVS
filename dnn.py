@@ -97,11 +97,12 @@ def validation(taskname, data, layers, epochs, class_weight, batch_size, optimiz
                 callbacks=callbacks)
 
 
-        np.savetxt('fold%2d_proba.txt' % fold, (
+        np.savetxt('result/fold%2d_proba.txt' % fold, (
             model.predict_proba(X[test])[:,0],
-            y[test]))
+            y[test],
+            ))
 
-        np.savetxt('fold%2d_auc.txt' % fold, (
+        np.savetxt('result/fold%2d_auc.txt' % fold, (
             history.history['val_loss'],
             history.history['val_acc'],
             history.history['loss'],
