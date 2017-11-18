@@ -6,7 +6,6 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import roc_auc_score
 import keras
 import numpy as np
-import pandas as pd
 import timeit
 import os
 import sys
@@ -58,8 +57,6 @@ def validation(taskname, data, layers, epochs, class_weight, batch_size, optimiz
     start_time = timeit.default_timer()
 
     skf = StratifiedKFold(n_splits=5, shuffle=True)
-    log = [] 
-    proba = []
 
     for fold, (train, test) in enumerate(skf.split(X, y), 1):
         callbacks = []
@@ -91,48 +88,33 @@ def validation(taskname, data, layers, epochs, class_weight, batch_size, optimiz
         model.summary()
 
         model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy'],
-                context=['gpu0','gpu1'])
+        #        context=['gpu0','gpu1'])
+        )
 
         # fitting
         history = model.fit(X[train], y[train], nb_epoch=epochs, batch_size=batch_size, 
                 shuffle=True, validation_data=(X[test], y[test]), verbose=1, class_weight=class_weight,
                 callbacks=callbacks)
 
-        df = pd.DataFrame(model.predict_proba(X[test]))
-        df['label'] = y[test]
-        df['fold'] = fold
-        proba.append(df)
 
-        df = pd.DataFrame.from_dict(history.history)
-        df['time'] = df['time'] - df['time'].min()
-        df['fold'] = fold
-        log.append(df)
+        np.savetxt('fold%2d_proba.txt' % fold, (
+            model.predict_proba(X[test])[:,0],
+            y[test]))
+
+        np.savetxt('fold%2d_auc.txt' % fold, (
+            history.history['val_loss'],
+            history.history['val_acc'],
+            history.history['loss'],
+            history.history['acc'],
+            history.history['time'],
+            history.history['auc'],
+            ))
 
         count -= 1
 
     end_time = timeit.default_timer()
+
     print('ran for %.1fs' % ((end_time - start_time)))
-
-    basename = '%s_%s_%d_%s_%f_%s_%.1f_%d' % (
-            taskname, '_'.join(map(str, layers)), 
-            batch_size, str(optimizer).split(' ')[0].split('.')[-1].lower(), lr,
-            activation, dropout, epochs)
-
-    # write score
-    df = pd.concat(proba)
-    df.to_pickle('result/%s.roc' % basename)
-
-    # write log
-    df = pd.concat(log)
-    df.index.name = versions()
-
-    df.to_pickle('result/%s.log' % basename)
-    print('Log file saved as result/%s.log' % basename)
-
-    # save model
-    modelfile = 'model/%s.json' % basename
-    open(modelfile, 'w').write(model.to_json())
-    model.save_weights(modelfile.replace('json','h5'), overwrite=True)
 
 if __name__ == '__main__':
     show_version()
