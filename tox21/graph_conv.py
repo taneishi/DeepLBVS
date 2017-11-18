@@ -88,8 +88,6 @@ for train_index, test_index in kf.split(X):
 
 train_time = timeit.default_timer() - start
 
-eval_time = timeit.default_timer() - start
-
 all_train_scores = np.concatenate(all_train_scores)
 all_test_scores = np.concatenate(all_test_scores)
 
