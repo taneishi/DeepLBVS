@@ -4,14 +4,14 @@ Deep Learning for Virtual Screening
 Dependency
 ----------
 
-- deepchem-0.0.5.dev1902
+- deepchem 0.0.5.dev2704
     * https://github.com/deepchem/deepchem
 
-- Tensorflow 1.0.1
+- Tensorflow v1.3.0-rc2-20-g0787eee
 
-- Anaconda 4.3-base
+- Anaconda 4.3
 
-- Python 3.6.0
+- Python 3.6.3
 
 Usage
 -----
