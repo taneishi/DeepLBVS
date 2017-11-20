@@ -20,34 +20,27 @@ Usage
     
     ...
      
-
     PCBA dataset
     Multi-task DNN
-    Train scores: {'mean-roc_auc_score': 0.81701982308592269}
-    Validation scores: {'mean-roc_auc_score': 0.7923668677318576}
-    Test scores: {'mean-roc_auc_score': 0.79004576329170462}
-    Train time: 36.9m
-    Eval time: 5.6m
+    Train scores: 0.819380206847
+    Test scores: 0.789931466539
+    Train time: 608.6m
     Graph-Convolution
-    Train scores: {'mean-roc_auc_score': 0.88851156241465601}
-    Validation scores: {'mean-roc_auc_score': 0.85417880493997422}
-    Test scores: {'mean-roc_auc_score': 0.85218386002296209}
-    Train time: 105.2m
-    Eval time: 10.2m
+    Train scores: 0.889408119487
+    Test scores: 0.850056521039
+    Train time: 1958.0m
 
 ![pcba plot](https://raw.githubusercontent.com/ktaneishi/dlvs/master/log/pcba.png)
 
     Tox21 dataset
     Multi-task DNN
-    Train scores: {'mean-roc_auc_score': 0.85107537796311739}
-    Validation scores: {'mean-roc_auc_score': 0.7751755026286723}
-    Train time: 0.2m
-    Eval time: 0.0m
+    Train scores: 0.848936655301
+    Test scores: 0.789951449973
+    Train time: 2.2m
     Graph-Convolution
-    Train scores: {'mean-roc_auc_score': 0.89637726248386951}
-    Validation scores: {'mean-roc_auc_score': 0.82233404602065086}
-    Train time: 1.5m
-    Eval time: 0.2m
+    Train scores: 0.90177625967
+    Test scores: 0.825843831165
+    Train time: 14.6m
 
 ![tox21 plot](https://raw.githubusercontent.com/ktaneishi/dlvs/master/log/tox21.png)
 
