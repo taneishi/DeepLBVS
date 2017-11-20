@@ -6,7 +6,7 @@ import os
 sns.set()
 
 def main():
-    for dataset in ['chembl', 'pcba', 'tox21', 'delaney']:
+    for dataset in ['pcba', 'tox21', 'delaney']:
         plt.figure(figsize=(8,4))
         for i, method in enumerate(['tf_models', 'graph_conv'], 1):  
             filename = os.path.join('log', dataset, method) + '.pkl'

@@ -34,22 +34,6 @@ Usage
     Train time: 13.5m
     Eval time: 0.6m
 
-![chembl plot](https://raw.githubusercontent.com/ktaneishi/dlvs/master/log/chembl.png)
-
-    PCBA dataset
-    Multi-task DNN
-    Train scores: {'mean-roc_auc_score': 0.81701982308592269}
-    Validation scores: {'mean-roc_auc_score': 0.7923668677318576}
-    Test scores: {'mean-roc_auc_score': 0.79004576329170462}
-    Train time: 36.9m
-    Eval time: 5.6m
-    Graph-Convolution
-    Train scores: {'mean-roc_auc_score': 0.88851156241465601}
-    Validation scores: {'mean-roc_auc_score': 0.85417880493997422}
-    Test scores: {'mean-roc_auc_score': 0.85218386002296209}
-    Train time: 105.2m
-    Eval time: 10.2m
-
 ![pcba plot](https://raw.githubusercontent.com/ktaneishi/dlvs/master/log/pcba.png)
 
     Tox21 dataset
