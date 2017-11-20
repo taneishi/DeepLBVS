@@ -13,6 +13,15 @@ Dependency
 
 - Python 3.6.3
 
+
+Method
+------
+
+- Multi-task DNN and Graph convolutional network
+
+- 5-fold CV
+
+
 Usage
 -----
 
