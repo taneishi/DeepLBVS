@@ -20,21 +20,6 @@ Usage
     
     ...
      
-    ChEMBL dataset
-    Multi-task DNN
-    Train scores: {'mean-pearson_r2_score': 0.82877779263621998}
-    Validation scores: {'mean-pearson_r2_score': 0.5645538273513665}
-    Test scores: {'mean-pearson_r2_score': 0.58975850295561705}
-    Train time: 46.7m
-    Eval time: 0.7m
-    Graph-Convolution
-    Train scores: {'mean-pearson_r2_score': 0.15552323865084641}
-    Validation scores: {'mean-pearson_r2_score': 0.23971861668422137}
-    Test scores: {'mean-pearson_r2_score': 0.26573330538498841}
-    Train time: 13.5m
-    Eval time: 0.6m
-
-![chembl plot](https://raw.githubusercontent.com/ktaneishi/dlvs/master/log/chembl.png)
 
     PCBA dataset
     Multi-task DNN
