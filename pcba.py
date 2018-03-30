@@ -5,11 +5,11 @@ from rdkit import Chem
 from rdkit.Chem import rdMolDescriptors
 import sys
 
-sys.path.append('../dlvs')
+sys.path.append('../../dlvs')
 import dnn
 
 def build(diameter=4, nbits=2048):
-    df = pd.read_csv('../deepchem/datasets/pcba.csv.gz', sep=',')
+    df = pd.read_csv('../../deepchem/datasets/pcba.csv.gz', sep=',')
     df = df.set_index(['mol_id','smiles'])
     df = df.to_sparse()
     df.to_pickle('data/pcba')
