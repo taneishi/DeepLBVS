@@ -47,6 +47,7 @@ for train_index, test_index in kf.split(X):
     n_feat = 75
     # Batch size of models
     batch_size = 50
+    '''
     graph_model = dc.nn.SequentialGraph(n_feat)
     graph_model.add(dc.nn.GraphConv(64, n_feat, activation='relu'))
     graph_model.add(dc.nn.BatchNormalization(epsilon=1e-5, mode=1))
@@ -58,14 +59,15 @@ for train_index, test_index in kf.split(X):
     graph_model.add(dc.nn.Dense(128, 64, activation='relu'))
     graph_model.add(dc.nn.BatchNormalization(epsilon=1e-5, mode=1))
     graph_model.add(dc.nn.GraphGather(batch_size, activation="tanh"))
+    '''
 
-    model = dc.models.MultitaskGraphClassifier(
-        graph_model,
+    model = dc.models.tensorgraph.models.graph_models.GraphConvModel(
         len(tox21_tasks),
-        n_feat,
+        graph_conv_layers=[n_feat, n_feat],
         batch_size=batch_size,
         learning_rate=0.0005,
         optimizer_type="adam",
+        mode='classification',
         beta1=.9,
         beta2=.999)
 

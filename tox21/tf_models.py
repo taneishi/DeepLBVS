@@ -42,7 +42,7 @@ for train_index, test_index in kf.split(X):
     # Fit models
     metric = dc.metrics.Metric(dc.metrics.roc_auc_score, np.mean, mode='classification')
 
-    model = dc.models.TensorflowMultiTaskClassifier(
+    model = dc.models.MultiTaskClassifier(
         len(tox21_tasks), train_dataset.get_data_shape()[0],
         layer_sizes=[1500], bias_init_consts=[1.], dropouts=[0.5],
         penalty=0.1, penalty_type='l2',

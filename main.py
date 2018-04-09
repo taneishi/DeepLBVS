@@ -20,19 +20,22 @@ if __name__ == '__main__':
 
     print('Data loading ...')
     data = np.load(datafile)['data']
+    data = (data - data.min(axis=0)) / (data.max(axis=0) - data.min(axis=0))
+    data = np.nan_to_num(data)
+    print(data)
     np.random.shuffle(data)
     print(str(data.shape))
 
     taskname = os.path.basename(datafile)
     optimizer = 'Adam'
     lr = 0.0001
-    epochs = 50
+    epochs = 100
     dropout = 0.1
     batch_size = 1500
 
-    for activation in ['sigmoid']:
+    for activation in ['relu']:
         for unit1 in [3000]:
-            for unit2 in [60]:
+            for unit2 in [50]:
                 dnn.validation(taskname, data, layers=[unit1, unit2], 
                         batch_size=batch_size, epochs=epochs, class_weight=None,
                         optimizer=optimizer, lr=lr, activation=activation,
