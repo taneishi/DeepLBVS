@@ -1,4 +1,2 @@
 __pycache__
-cpi.npz
-log/*/*.pkl
-log/*/*.log
+log
