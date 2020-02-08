@@ -9,9 +9,8 @@ if __name__ == '__main__':
     else:
         sys.exit('Usage: %s [datafile]' % (sys.argv[0]))
 
-    for dirname in ['model','result']:
-        if not os.path.isdir(dirname):
-            os.makedirs(dirname)
+    os.makedirs('model', exist_ok=True)
+    os.makedirs('result', exist_ok=True)
 
     np.random.seed(123)
 
@@ -33,10 +32,7 @@ if __name__ == '__main__':
     dropout = 0.1
     batch_size = 1500
 
-    for activation in ['relu']:
-        for unit1 in [3000]:
-            for unit2 in [50]:
-                dnn.validation(taskname, data, layers=[unit1, unit2], 
-                        batch_size=batch_size, epochs=epochs, class_weight=None,
-                        optimizer=optimizer, lr=lr, activation=activation,
-                        dropout=dropout, patience=100, count=1)
+    dnn.validation(taskname, data, layers=[3000, 50], 
+            batch_size=batch_size, epochs=epochs, class_weight=None,
+            optimizer=optimizer, lr=lr, activation='relu',
+            dropout=dropout, patience=100, count=1)
