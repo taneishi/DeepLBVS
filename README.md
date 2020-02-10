@@ -4,39 +4,35 @@ Deep Learning for Virtual Screening
 Dependency
 ----------
 
-- deepchem 0.0.5.dev2704
-    * https://github.com/deepchem/deepchem
-
-- Tensorflow v1.3.0-rc2-20-g0787eee
-
-- Anaconda 4.3
-
-- Python 3.6.3
-
+- Docker
 
 Method
 ------
 
 - Multi-task DNN and Graph convolutional network
 
-- 5-fold CV
-
-
 Usage
 -----
 
-    $ make
-    
-    ...
-     
-    Tox21 dataset
-    Multi-task DNN
-    Train scores: 0.848936655301
-    Test scores: 0.789951449973
-    Train time: 2.2m
-    Graph-Convolution
-    Train scores: 0.90177625967
-    Test scores: 0.825843831165
-    Train time: 14.6m
+    $ cd docker; docker build -t deepchem .
 
-![tox21 plot](https://raw.githubusercontent.com/ktaneishi/dlvs/master/log/tox21.png)
+    $ docker run --rm --gpus all deepchem python /deepchem/examples/tox21/tox21_fcnet.py
+
+    Evaluating model
+    computed_metrics: [0.9299578126724557, 0.9458712166827232, 0.9280284357638446, 0.9220849586138754, 0.8551558673271497, 0.9174501986369031, 0.9329760914453087, 0.8719519135012093, 0.9347915637201338, 0.9041829883940808, 0.9151527618538451, 0.9116779940705935]
+    computed_metrics: [0.6974719240093009, 0.7843915343915344, 0.8433304510080553, 0.769700050838841, 0.6527045454545455, 0.7243529226654079, 0.7258566978193146, 0.8072993729303177, 0.7553096303272899, 0.6950512405609492, 0.8380799540108745, 0.7548664944013782]
+    Train scores
+    {'mean-roc_auc_score': 0.914106816890177}
+    Validation scores
+    {'mean-roc_auc_score': 0.7540345682014841}
+
+    $ docker run --rm --gpus all deepchem python /deepchem/examples/tox21/tox21_tensorgraph_graph_conv.py
+
+    Evaluating model
+    computed_metrics: [0.8587179437462527, 0.9111863760436738, 0.9178365573942335, 0.8965872453143185, 0.7978176911909749, 0.8781941808981657, 0.880756722850828, 0.8485150594595501, 0.893674791033038, 0.8622644553545097, 0.9270013859912554, 0.8800871231190917]
+    computed_metrics: [0.796962350962252, 0.8382109788359788, 0.8628544122331954, 0.8493263853584139, 0.6733181818181818, 0.7677995437023051, 0.8114399446175147, 0.8427628643227882, 0.8579232399340712, 0.7885877382236606, 0.8942250113775181, 0.8484496124031007]
+    Train scores
+    {'mean-roc_auc_score': 0.8793866276996577}
+    Validation scores
+    {'mean-roc_auc_score': 0.8193216886490817}
+    
