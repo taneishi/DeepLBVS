@@ -17,6 +17,7 @@ def main():
 
     relation = pd.merge(relation[['ligand_id', 'gpcr_id', 'activity']], gpcr[['gpcr_id', 'fasta']], on='gpcr_id', how='left')
     relation = pd.merge(relation, ligand[['ligand_id', 'smi']], on='ligand_id', how='left')
+    relation.to_csv('gpcr-ligand.csv', index=False, sep='\t')
     print(relation)
 
 if __name__ == '__main__':
