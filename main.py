@@ -1,38 +1,28 @@
 import numpy as np
-import sys
-import os
-import dnn
+import argparse
+from sklearn.preprocessing import minmax_scale
+from model import validation
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        datafile = sys.argv[1]
-    else:
-        sys.exit('Usage: %s [datafile]' % (sys.argv[0]))
-
-    os.makedirs('model', exist_ok=True)
-    os.makedirs('result', exist_ok=True)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--datafile', default='cpi.npz')
+    args = parser.parse_args()
 
     np.random.seed(123)
 
-    dnn.setup()
-    dnn.show_version()
-
     print('Data loading ...')
-    data = np.load(datafile)['data']
-    data = (data - data.min(axis=0)) / (data.max(axis=0) - data.min(axis=0))
-    data = np.nan_to_num(data)
+    data = np.load(args.datafile, allow_pickle=True)['data']
+    data = minmax_scale(data)
     print(data)
-    np.random.shuffle(data)
-    print(str(data.shape))
 
-    taskname = os.path.basename(datafile)
-    optimizer = 'Adam'
+    np.random.shuffle(data)
+    print(data.shape)
+
     lr = 0.0001
-    epochs = 100
+    epochs = 1000
     dropout = 0.1
     batch_size = 1500
 
-    dnn.validation(taskname, data, layers=[3000, 50], 
-            batch_size=batch_size, epochs=epochs, class_weight=None,
-            optimizer=optimizer, lr=lr, activation='relu',
-            dropout=dropout, patience=100, count=1)
+    validation(data, layers=[3000, 50], 
+            batch_size=batch_size, epochs=epochs,
+            lr=lr, activation='relu', dropout=dropout)
