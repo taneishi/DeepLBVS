@@ -4,9 +4,9 @@ Deep Learning for Virtual Screening
 Dependency
 ----------
 
-- Docker
+- Keras
 
-Method
-------
+Usage
+-----
 
-- Multi-task DNN and Graph convolutional network
+- python main.py
