@@ -9,11 +9,10 @@ from sklearn.metrics import roc_auc_score
 import argparse
 import timeit
 
-def main(args):
+def data_load():
     print('Data loading ...')
     data = np.load(args.datafile, allow_pickle=True)['data']
     data = minmax_scale(data)
-    print(data)
 
     np.random.shuffle(data)
     print(data.shape)
@@ -23,26 +22,26 @@ def main(args):
     train_x, train_y = train[:,:-1], train[:,-1]
     test_x, test_y = test[:,:-1], test[:,-1]
 
-    lr = 0.0001
-    epochs = 300
-    dropout = 0.1
-    batch_size = 1500
-    activation = 'relu'
+    return train_x, train_y, test_x, test_y
 
-    optimizer = Adam(lr=lr)
+def main(args):
+    train_x, train_y, test_x, test_y = data_load()
+
+    activation = 'relu'
+    optimizer = Adam(lr=args.lr)
 
     model = Sequential()
     
     # input layer
     model.add(Dense(3000, input_dim=1974, init='uniform', name='Input'))
     model.add(Activation(activation))
-    if dropout > 0:
-        model.add(Dropout(dropout))
+    if args.dropout > 0:
+        model.add(Dropout(args.dropout))
 
     model.add(Dense(50, init='uniform', name='Hidden'))
     model.add(Activation(activation))
-    if dropout > 0:
-        model.add(Dropout(dropout))
+    if args.dropout > 0:
+        model.add(Dropout(args.dropout))
 
     # output layer
     model.add(Dense(1, init='uniform', name='Output'))
@@ -52,13 +51,20 @@ def main(args):
     model.compile(loss='binary_crossentropy', optimizer=optimizer)
 
     # fitting
-    model.fit(train_x, train_y, nb_epoch=epochs, batch_size=batch_size, shuffle=True, 
+    model.fit(train_x, train_y, nb_epoch=args.epochs, batch_size=args.batch_size, shuffle=True, 
             validation_data=(test_x, test_y), verbose=1)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--datafile', default='cpi.npz')
+    parser.add_argument('--datafile', default='data/cpi.npz')
+    parser.add_argument('--modelfile', default=None, type=str)
+    parser.add_argument('--epochs', default=300, type=int)
+    parser.add_argument('--batch_size', default=1500, type=int)
+    parser.add_argument('--lr', default=1e-4, type=float)
+    parser.add_argument('--dropout', default=0.1, type=float)
+    parser.add_argument('--random_seed', default=123, type=int)
     args = parser.parse_args()
+    print(vars(args))
 
-    np.random.seed(123)
+    np.random.seed(args.random_seed)
     main(args)
