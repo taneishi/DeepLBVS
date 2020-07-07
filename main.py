@@ -24,7 +24,7 @@ def main(args):
     test_x, test_y = test[:,:-1], test[:,-1]
 
     lr = 0.0001
-    epochs = 1000
+    epochs = 300
     dropout = 0.1
     batch_size = 1500
     activation = 'relu'
@@ -49,7 +49,7 @@ def main(args):
     model.add(Activation('sigmoid', name='sigmoid'))
 
     model.summary()
-    model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy'])
+    model.compile(loss='binary_crossentropy', optimizer=optimizer)
 
     # fitting
     model.fit(train_x, train_y, nb_epoch=epochs, batch_size=batch_size, shuffle=True, 
