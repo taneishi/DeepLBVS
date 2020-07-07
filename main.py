@@ -33,26 +33,26 @@ def main(args):
     model = Sequential()
     
     # input layer
-    model.add(Dense(3000, input_dim=1974, init='uniform', name='Input'))
+    model.add(Dense(3000, input_dim=1974, name='Input'))
     model.add(Activation(activation))
     if args.dropout > 0:
         model.add(Dropout(args.dropout))
 
-    model.add(Dense(50, init='uniform', name='Hidden'))
+    model.add(Dense(50, name='Hidden'))
     model.add(Activation(activation))
     if args.dropout > 0:
         model.add(Dropout(args.dropout))
 
     # output layer
-    model.add(Dense(1, init='uniform', name='Output'))
+    model.add(Dense(1, name='Output'))
     model.add(Activation('sigmoid', name='sigmoid'))
 
     model.summary()
     model.compile(loss='binary_crossentropy', optimizer=optimizer)
 
     # fitting
-    model.fit(train_x, train_y, nb_epoch=args.epochs, batch_size=args.batch_size, shuffle=True, 
-            validation_data=(test_x, test_y), verbose=1)
+    model.fit(train_x, train_y, epochs=args.epochs, batch_size=args.batch_size, 
+            validation_data=(test_x, test_y))
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
