@@ -1,5 +1,5 @@
-Deep Learning for Virtual Screening
-===================================
+Deep Learning for Multi-modal Virtual Screening
+===============================================
 
 Dependency
 ----------
