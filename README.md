@@ -1,10 +1,10 @@
-Deep Learning for Virtual Screening
-===================================
+Deep Learning for Multi-modal Virtual Screening
+===============================================
 
 Dependency
 ----------
 
-- Keras-2.0 or later
+- PyTorch-1.5.0
 
 Usage
 -----
@@ -14,7 +14,8 @@ $ python main.py -h
 
 usage: main.py [-h] [--datafile DATAFILE] [--modelfile MODELFILE]
                [--epochs EPOCHS] [--batch_size BATCH_SIZE] [--lr LR]
-               [--dropout DROPOUT] [--random_seed RANDOM_SEED]
+               [--weight_decay WEIGHT_DECAY] [--dropout DROPOUT]
+               [--random_seed RANDOM_SEED] [--cpu]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -23,34 +24,27 @@ optional arguments:
   --epochs EPOCHS
   --batch_size BATCH_SIZE
   --lr LR
+  --weight_decay WEIGHT_DECAY
   --dropout DROPOUT
   --random_seed RANDOM_SEED
+  --cpu
 ```
 
 Results
 -------
 
 ```
-Epoch 1/300
-11/11 [==============================] - 2s 170ms/step - loss: 0.7024 - val_loss: 0.6934
-Epoch 2/300
-11/11 [==============================] - 1s 78ms/step - loss: 0.6929 - val_loss: 0.6922
-Epoch 3/300
-11/11 [==============================] - 1s 76ms/step - loss: 0.6912 - val_loss: 0.6906
-Epoch 4/300
-11/11 [==============================] - 1s 76ms/step - loss: 0.6894 - val_loss: 0.6896
-Epoch 5/300
-11/11 [==============================] - 1s 76ms/step - loss: 0.6854 - val_loss: 0.6866
-Epoch 6/300
-11/11 [==============================] - 1s 82ms/step - loss: 0.6827 - val_loss: 0.6834
-Epoch 7/300
-11/11 [==============================] - 1s 74ms/step - loss: 0.6803 - val_loss: 0.6807
-Epoch 8/300
-11/11 [==============================] - 1s 74ms/step - loss: 0.6763 - val_loss: 0.6763
-Epoch 9/300
-11/11 [==============================] - 1s 74ms/step - loss: 0.6701 - val_loss: 0.6734
-Epoch 10/300
-11/11 [==============================] - 1s 78ms/step - loss: 0.6643 - val_loss: 0.6658
+epoch    0 batch    4/   4 train_loss  0.694 test_loss  0.693  1.47 sec
+epoch    1 batch    4/   4 train_loss  0.693 test_loss  0.693  1.11 sec
+epoch    2 batch    4/   4 train_loss  0.693 test_loss  0.693  1.26 sec
+epoch    3 batch    4/   4 train_loss  0.692 test_loss  0.692  1.32 sec
+epoch    4 batch    4/   4 train_loss  0.691 test_loss  0.692  1.27 sec
+epoch    5 batch    4/   4 train_loss  0.691 test_loss  0.691  1.31 sec
+epoch    6 batch    4/   4 train_loss  0.690 test_loss  0.691  1.27 sec
+epoch    7 batch    4/   4 train_loss  0.689 test_loss  0.690  1.09 sec
+epoch    8 batch    4/   4 train_loss  0.688 test_loss  0.689  1.34 sec
+epoch    9 batch    4/   4 train_loss  0.686 test_loss  0.688  1.31 sec
+epoch   10 batch    4/   4 train_loss  0.685 test_loss  0.689  1.31 sec
 ...
 
 ```
