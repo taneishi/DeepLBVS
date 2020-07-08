@@ -115,7 +115,7 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--datafile', default='data/cpi.npz')
+    parser.add_argument('--datafile', default='data/cpi.20k.npz')
     parser.add_argument('--modelfile', default=None, type=str)
     parser.add_argument('--epochs', default=300, type=int)
     parser.add_argument('--batch_size', default=5000, type=int)
