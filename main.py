@@ -62,7 +62,7 @@ def train(dataloader, model, optimizer, loss_func, epoch):
         loss.backward()
         optimizer.step()
 
-        print('\repoch %4d batch %4d/%4d train_loss %6.3f' % (epoch, index, len(dataloader), train_loss / index), end='')
+    print('epoch %4d batch %4d/%4d train_loss %6.3f' % (epoch, index, len(dataloader), train_loss / index), end='')
 
     return train_loss / index
 
