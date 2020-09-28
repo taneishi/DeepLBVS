@@ -89,6 +89,9 @@ def main(args):
     world_size = int(os.environ[args.env_size]) if args.env_size in os.environ else 1
     local_rank = int(os.environ[args.env_rank]) if args.env_rank in os.environ else 0
 
+    if local_rank == 0:
+        print(vars(args))
+
     if world_size > 1:
         print('rank: {}/{}'.format(local_rank+1, world_size))
         torch.distributed.init_process_group(
@@ -140,6 +143,5 @@ if __name__ == '__main__':
     parser.add_argument('--env_size', default='WORLD_SIZE', type=str)
     parser.add_argument('--env_rank', default='RANK', type=str)
     args = parser.parse_args()
-    print(vars(args))
 
     main(args)
