@@ -1,7 +1,9 @@
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.utils.data
+from sklearn.model_selection import train_test_split
 import argparse
 import timeit
 import os
@@ -24,8 +26,8 @@ class MLP(nn.Module):
         return x
 
 def load_dataset(args, device, world_size):
-    data = torch.load(args.datafile)
-    train, test = data['train'], data['test']
+    data = np.load(args.datafile)['data']
+    train, test = train_test_split(data, test_size=0.2, random_state=123)
 
     train_x, train_y = train[:, :-1], train[:, -1]
     test_x, test_y = test[:, :-1], test[:, -1]
