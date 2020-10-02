@@ -1,5 +1,4 @@
 import pandas as pd
-import pybel
 import timeit
 
 names = {

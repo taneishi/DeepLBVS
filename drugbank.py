@@ -1,11 +1,12 @@
 import pandas as pd
-import pybel
+from rdkit import Chem
 
 def main():
     drugbank = []
-    for mol in pybel.readfile('sdf', 'data/drugbank.sdf'):
-        drugbank_id = mol.data['DRUGBANK_ID']
-        drugbank.append([drugbank_id, mol.write('smi').split('\t')[0]])
+    for mol in Chem.SDMolSupplier('data/drugbank.sdf'):
+        if mol:
+            drugbank_id = mol.GetProp('DRUGBANK_ID')
+            drugbank.append([drugbank_id, Chem.MolToSmiles(mol)])
 
     drugbank = pd.DataFrame(drugbank)
     drugbank.columns = ['drugbank_id', 'smi']
