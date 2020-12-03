@@ -26,7 +26,7 @@ class MLP(nn.Module):
         x = torch.sigmoid(self.output_layer(x))
         return x
 
-def load_dataset(args, device, world_size):
+def load_dataset(args, device):
     data = np.load(args.datafile)['data']
     data = preprocessing.minmax_scale(data)
     np.random.seed(123)
@@ -45,14 +45,8 @@ def load_dataset(args, device, world_size):
     train = torch.utils.data.TensorDataset(train_x, train_y)
     test = torch.utils.data.TensorDataset(test_x, test_y)
 
-    if world_size > 1:
-        sampler_train = torch.utils.data.distributed.DistributedSampler(train)
-        train_dataloader = torch.utils.data.DataLoader(train, batch_size=args.batch_size, sampler=sampler_train)
-        sampler_test = torch.utils.data.distributed.DistributedSampler(test)
-        test_dataloader = torch.utils.data.DataLoader(test, batch_size=args.batch_size, sampler=sampler_test)
-    else:
-        train_dataloader = torch.utils.data.DataLoader(train, batch_size=args.batch_size, shuffle=True)
-        test_dataloader = torch.utils.data.DataLoader(test, batch_size=args.batch_size, shuffle=True)
+    train_dataloader = torch.utils.data.DataLoader(train, batch_size=args.batch_size, shuffle=True)
+    test_dataloader = torch.utils.data.DataLoader(test, batch_size=args.batch_size, shuffle=True)
 
     return train_dataloader, test_dataloader
 
@@ -92,26 +86,9 @@ def main(args):
     device = torch.device('cuda' if torch.cuda.is_available() and not args.cpu else 'cpu')
     print('Using %s device.' % device)
 
-    world_size = int(os.environ[args.env_size]) if args.env_size in os.environ else 1
-    local_rank = int(os.environ[args.env_rank]) if args.env_rank in os.environ else 0
-
-    if local_rank == 0:
-        print(vars(args))
-
-    if world_size > 1:
-        print('rank: {}/{}'.format(local_rank+1, world_size))
-        torch.distributed.init_process_group(
-                backend='gloo',
-                init_method='file://%s' % args.tmpname,
-                rank=local_rank,
-                world_size=world_size)
-
-    train_dataloader, test_dataloader = load_dataset(args, device, world_size)
+    train_dataloader, test_dataloader = load_dataset(args, device)
 
     net = MLP(input_dim=1974, dropout=args.dropout).to(device)
-
-    if world_size > 1:
-        net = torch.nn.parallel.DistributedDataParallel(net)
 
     if args.modelfile:
         net.load_state_dict(torch.load(args.modelfile))
@@ -145,9 +122,6 @@ if __name__ == '__main__':
     parser.add_argument('--weight_decay', default=0., type=float)
     parser.add_argument('--dropout', default=0.1, type=float)
     parser.add_argument('--cpu', action='store_true')
-    parser.add_argument('--tmpname', default='tmpfile', type=str)
-    parser.add_argument('--env_size', default='WORLD_SIZE', type=str)
-    parser.add_argument('--env_rank', default='RANK', type=str)
     args = parser.parse_args()
 
     main(args)
