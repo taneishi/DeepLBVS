@@ -1,10 +1,15 @@
 Deep Learning for Multi-modal Virtual Screening
 ===============================================
 
-Dependency
-----------
+Requirements
+------------
 
-- PyTorch-1.5.0
+- Python3.9
+    - Anaconda3-2020.11
+- PyTorch1.8.0
+    - conda install -c conda-forge pytorch
+- RDKit
+    - conda install -c conda-forge rdkit
 
 Usage
 -----
@@ -28,23 +33,4 @@ optional arguments:
   --dropout DROPOUT
   --random_seed RANDOM_SEED
   --cpu
-```
-
-Results
--------
-
-```
-epoch    0 batch    4/   4 train_loss  0.694 test_loss  0.693  1.47 sec
-epoch    1 batch    4/   4 train_loss  0.693 test_loss  0.693  1.11 sec
-epoch    2 batch    4/   4 train_loss  0.693 test_loss  0.693  1.26 sec
-epoch    3 batch    4/   4 train_loss  0.692 test_loss  0.692  1.32 sec
-epoch    4 batch    4/   4 train_loss  0.691 test_loss  0.692  1.27 sec
-epoch    5 batch    4/   4 train_loss  0.691 test_loss  0.691  1.31 sec
-epoch    6 batch    4/   4 train_loss  0.690 test_loss  0.691  1.27 sec
-epoch    7 batch    4/   4 train_loss  0.689 test_loss  0.690  1.09 sec
-epoch    8 batch    4/   4 train_loss  0.688 test_loss  0.689  1.34 sec
-epoch    9 batch    4/   4 train_loss  0.686 test_loss  0.688  1.31 sec
-epoch   10 batch    4/   4 train_loss  0.685 test_loss  0.689  1.31 sec
-...
-
 ```
