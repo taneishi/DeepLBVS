@@ -3,8 +3,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.utils.data
-from sklearn.model_selection import train_test_split
-from sklearn import preprocessing
 import argparse
 import timeit
 import os
@@ -27,14 +25,11 @@ class MLP(nn.Module):
         return x
 
 def load_dataset(args, device):
-    data = np.load(args.datafile)['data']
-    data = preprocessing.minmax_scale(data)
-    np.random.seed(123)
-    np.random.shuffle(data)
-    train, test = train_test_split(data, test_size=0.2, random_state=123)
-
-    train_x, train_y = train[:, :-1], train[:, -1]
-    test_x, test_y = test[:, :-1], test[:, -1]
+    data = np.load(args.datafile)
+    train_x = data['train_x']
+    train_y = data['train_y']
+    test_x = data['test_x']
+    test_y = data['test_y']
 
     # create torch tensor from numpy array
     train_x = torch.FloatTensor(train_x).to(device)
@@ -114,7 +109,7 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--datafile', required=True, type=str)
+    parser.add_argument('--datafile', default='data/cpi_preprocessed.npz', type=str)
     parser.add_argument('--modelfile', default=None, type=str)
     parser.add_argument('--epochs', default=500, type=int)
     parser.add_argument('--batch_size', default=100, type=int)
