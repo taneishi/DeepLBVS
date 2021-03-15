@@ -1,11 +1,11 @@
 import numpy as np
 from sklearn.preprocessing import minmax_scale
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import roc_auc_score
 import keras
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
 from keras.optimizers import Adam
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import roc_auc_score
 import argparse
 import timeit
 
