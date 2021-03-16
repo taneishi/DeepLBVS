@@ -118,6 +118,6 @@ if __name__ == '__main__':
     parser.add_argument('--dropout', default=0.1, type=float)
     parser.add_argument('--cpu', action='store_true')
     args = parser.parse_args()
-    os.makedir('model', exist_ok=True)
+    os.makedirs('model', exist_ok=True)
 
     main(args)

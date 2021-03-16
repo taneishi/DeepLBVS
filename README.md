@@ -1,5 +1,5 @@
-Deep Learning Prediction of Compound-Protein Interaction
-========================================================
+Prediction of Compound-Protein Interactions
+===========================================
 
 Environment
 -----------
