@@ -3,7 +3,6 @@ from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
 import argparse
 import timeit
-import os
 
 def main(args):
     start_time = timeit.default_timer()

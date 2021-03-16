@@ -1,8 +1,8 @@
-Deep Learning for Multi-modal Virtual Screening
-===============================================
+Deep Learning Prediction of Compound-Protein Interaction
+========================================================
 
-Requirements
-------------
+Environment
+-----------
 
 - Python3.9
     - Anaconda3-2020.11
