@@ -15,6 +15,9 @@ Usage
 -----
 
 ```
+$ python preprocess.py
+$ python main.py
+
 $ python main.py -h
 
 usage: main.py [-h] [--datafile DATAFILE] [--modelfile MODELFILE]
