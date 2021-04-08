@@ -17,7 +17,12 @@ Usage
 ```
 $ python preprocess.py
 $ python main.py
+```
 
+Parameters
+----------
+
+```
 $ python main.py -h
 
 usage: main.py [-h] [--datafile DATAFILE] [--modelfile MODELFILE]
