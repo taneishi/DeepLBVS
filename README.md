@@ -19,8 +19,8 @@ $ python preprocess.py
 $ python main.py
 ```
 
-Parameters
-----------
+Hyperparameters
+---------------
 
 ```
 $ python main.py -h
