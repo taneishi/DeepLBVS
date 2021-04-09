@@ -105,11 +105,11 @@ def main(args):
         test_losses.append(test_loss)
 
         if test_loss <= min(test_losses):
-            torch.save(net.state_dict(), 'model/%5.3f.pth' % min(test_losses))
+            torch.save(net.state_dict(), os.path.join(os.path.dirname(__file__), 'model', '%5.3f.pth' % min(test_losses)))
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--datafile', default='data/cpi_preprocessed.npz', type=str)
+    parser.add_argument('--datafile', default=os.path.join(os.path.dirname(__file__), 'data', 'cpi_preprocessed.npz'), type=str)
     parser.add_argument('--modelfile', default=None, type=str)
     parser.add_argument('--epochs', default=200, type=int)
     parser.add_argument('--batch_size', default=100, type=int)
@@ -118,6 +118,6 @@ if __name__ == '__main__':
     parser.add_argument('--dropout', default=0.1, type=float)
     parser.add_argument('--cpu', action='store_true')
     args = parser.parse_args()
-    os.makedirs('model', exist_ok=True)
+    os.makedirs(os.path.join(os.path.dirname(__file__), 'model'), exist_ok=True)
 
     main(args)
