@@ -3,6 +3,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.utils.data
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import roc_auc_score, accuracy_score, precision_score, recall_score
+from sklearn import preprocessing
 import argparse
 import timeit
 import os
@@ -14,7 +17,7 @@ class MLP(nn.Module):
         self.dropout1 = nn.Dropout(dropout)
         self.fc1 = nn.Linear(3000, 50)
         self.dropout2 = nn.Dropout(dropout)
-        self.output_layer = nn.Linear(50, 1)
+        self.output_layer = nn.Linear(50, 2)
         
     def forward(self, x):
         x = F.relu(self.input_layer(x))
@@ -25,20 +28,31 @@ class MLP(nn.Module):
         return x
 
 def load_dataset(args, device):
-    data = np.load(args.datafile)
-    train_x = data['train_x']
-    train_y = data['train_y']
-    test_x = data['test_x']
-    test_y = data['test_y']
+    start_time = timeit.default_timer()
+
+    data = np.load(args.datafile)['data']
+    data = preprocessing.minmax_scale(data)
+
+    np.random.seed(args.random_seed)
+    np.random.shuffle(data)
+
+    train, test = train_test_split(data, test_size=args.test_size, random_state=args.random_seed)
+
+    print('%d training, %d test samples.' % (train.shape[0], test.shape[0]))
+
+    train_x, train_y = train[:, :-1], train[:, -1]
+    test_x, test_y = test[:, :-1], test[:, -1]
 
     # create torch tensor from numpy array
     train_x = torch.FloatTensor(train_x).to(device)
-    train_y = torch.FloatTensor(train_y).to(device)
+    train_y = torch.LongTensor(train_y).to(device)
     test_x = torch.FloatTensor(test_x).to(device)
-    test_y = torch.FloatTensor(test_y).to(device)
+    test_y = torch.LongTensor(test_y).to(device)
 
     train = torch.utils.data.TensorDataset(train_x, train_y)
     test = torch.utils.data.TensorDataset(test_x, test_y)
+
+    print('%5.2f sec for preprocessing.' % (timeit.default_timer() - start_time))
 
     train_dataloader = torch.utils.data.DataLoader(train, batch_size=args.batch_size, shuffle=True)
     test_dataloader = torch.utils.data.DataLoader(test, batch_size=args.batch_size, shuffle=True)
@@ -52,7 +66,6 @@ def train(dataloader, net, optimizer, loss_func, epoch):
     for index, (data, label) in enumerate(dataloader, 1):
         optimizer.zero_grad()
         output = net(data)
-        output = torch.flatten(output)
         loss = loss_func(output, label, reduction='mean')
         train_loss += loss.item()
         loss.backward()
@@ -65,15 +78,26 @@ def train(dataloader, net, optimizer, loss_func, epoch):
 def test(dataloader, net, loss_func):
     net.eval()
     test_loss = 0
+    y_score, y_true = [], []
 
     for index, (data, label) in enumerate(dataloader, 1):
         with torch.no_grad():
             output = net(data)
-        output = torch.flatten(output)
         loss = loss_func(output, label, reduction='mean')
         test_loss += loss.item()
+        y_score.append(output)
+        y_true.append(label.cpu())
 
-    print(' test_loss %6.3f' % (test_loss / index), end='')
+    y_score = np.concatenate(y_score)
+    y_pred = [np.argmax(x) for x in y_score]
+    y_true = np.concatenate(y_true)
+
+    acc = accuracy_score(y_true, y_pred)
+    auc = roc_auc_score(y_true, y_score[:,1])
+    prec = precision_score(y_true, y_pred)
+    recall = recall_score(y_true, y_pred)
+
+    print(' test_loss %5.3f test_auc %5.3F test_prec %5.3f test_recall %5.3f' % (test_loss / index, auc, prec, recall), end='')
 
     return test_loss / index
 
@@ -90,7 +114,7 @@ def main(args):
 
     # define our optimizer and loss function
     optimizer = torch.optim.Adam(net.parameters(), lr=args.lr, weight_decay=args.weight_decay)
-    loss_func = F.binary_cross_entropy
+    loss_func = F.cross_entropy
 
     test_losses = []
 
@@ -109,7 +133,9 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--datafile', default=os.path.join(os.path.dirname(__file__), 'data', 'cpi_preprocessed.npz'), type=str)
+    parser.add_argument('--datafile', default=os.path.join(os.path.dirname(__file__), 'data', 'cpi.npz'), type=str)
+    parser.add_argument('--random_seed', default=123, type=int)
+    parser.add_argument('--test_size', default=0.2, type=float)
     parser.add_argument('--modelfile', default=None, type=str)
     parser.add_argument('--epochs', default=200, type=int)
     parser.add_argument('--batch_size', default=100, type=int)
