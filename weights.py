@@ -1,4 +1,3 @@
-# coding:utf-8
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -7,7 +6,7 @@ import sys
 def main(filename):
     params = np.load(filename)['arr_0'].item()
     weights = filter(lambda x: x.startswith('W'), params.keys())
-    print weights
+    print(weights)
     plt.figure(figsize=(16,9))
     for i,key in enumerate(sorted(weights), 1):
         if key.startswith('W'):
