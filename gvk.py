@@ -21,16 +21,15 @@ def main(family='gpcr'):
         df = pd.merge(pair, df['label'], left_index=True, right_index=True)
         df['train'] = split == 'train'
 
-        print(df)
         dfs.append(df)
 
-        df = preprocessing.minmax_scale(df, axis=0)
-        print(df)
-
+    train = dfs[0]
+    test = dfs[1]
     df = pd.concat(dfs)
     print(df)
-    os.makedirs('data', exist_ok=True)
-    df.to_csv('data/%s.csv.gz' % (family), sep='\t', index=False)
+
+    train = preprocessing.minmax_scale(train, axis=0)
+    test = preprocessing.minmax_scale(test, axis=0)
 
     data = np.load(os.path.join(data_dir, '%s10k.npz' % (family)))
 
