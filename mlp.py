@@ -10,11 +10,11 @@ import os
 import sys
 
 def load_data(dataset, nfold=5):
-    print '... loading data'
+    print('... loading data')
 
     # Load the dataset
     data = np.load(dataset)['data']
-    print data.shape
+    print(data.shape)
 
     train_set = data[:-data.shape[0] / nfold]
     test_set = data[-data.shape[0] / nfold:]
@@ -50,12 +50,12 @@ def validation(dataset):
             show_accuracy=True, verbose=1)
 
     for layer in model.layers:
-        #print model.get_weights()
+        #print(model.get_weights())
         pass
 
     score = model.evaluate(X_test, y_test, batch_size=100, show_accuracy=True, verbose=1)
     auc = roc_auc_score(y_test, model.predict_proba(X_test))
-    print auc
+    print(auc)
     #out = open('result.log', 'a')
     #out.write('%s\t%.3f\n' % (dataset,auc))
     #out.close()

@@ -5,7 +5,7 @@ import sys
 
 def main(filename):
     params = np.load(filename)['arr_0'].item()
-    weights = filter(lambda x: x.startswith('W'), params.keys())
+    weights = [x for x in params.keys() if x.startswith('W')]
     print(weights)
     plt.figure(figsize=(16,9))
     for i,key in enumerate(sorted(weights), 1):
