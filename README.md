@@ -4,9 +4,9 @@ Prediction of Compound-Protein Interactions
 Environment
 -----------
 
-- Python3.9
+- Python 3.9
     - Anaconda3-2020.11
-- PyTorch1.8.0
+- PyTorch 1.8.0
     - conda install -c conda-forge pytorch
 - RDKit
     - conda install -c conda-forge rdkit
