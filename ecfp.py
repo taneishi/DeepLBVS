@@ -6,14 +6,19 @@ from rdkit import Chem
 from rdkit.Chem import AllChem
 
 def main(args):
-    with gzip.open('data/hiv.txt.gz', 'rt') as infile:
-        lines = infile.readlines()
+    filename = 'data/drugbank.tsv'
+    #filename = 'data/hiv.txt'
+
+    df = pd.read_csv(filename, sep='\t')
+    print(df)
 
     fps = []
     bit_info = {}
-    for index, line in enumerate(lines, 1):
-        smi, result = line.strip('\n').split(' ')
-        mol = Chem.MolFromSmiles(smi)  
+    for index, row in df.iterrows():
+        mol = Chem.MolFromSmiles(row['smi'])
+
+        if not mol:
+            continue
 
         fp_bit = list(AllChem.GetMorganFingerprintAsBitVect(mol, args.radius, bitInfo=bit_info, nBits=args.nbits))
 
@@ -22,7 +27,7 @@ def main(args):
         fp = list(bit_info.keys())
         fps.append(fp)
 
-        print('\r%5d/%5d' % (index, len(lines)), end='')
+        print('\r%5d/%5d' % (index, df.shape[0]), end='')
 
     print('\nfinished')
 
@@ -34,7 +39,7 @@ def main(args):
         mat[i, fp] = 1
     
     df = pd.DataFrame(mat)
-    df.to_csv('hiv.csv.gz', index=False)
+    df.to_csv('data/ecfp.csv', index=False)
     print(df)
 
 if __name__ == '__main__':
