@@ -38,7 +38,7 @@ def main(args):
     
     df = pd.concat([pd.DataFrame(table, columns=['drugbank_id', 'smi']), pd.DataFrame(mat)], axis=1)
     print(df)
-    df.to_csv('%s/drugbank.tsv.gz' % (args.output_dir), index=False)
+    df.to_csv('%s/drugbank.tsv.gz' % (args.output_dir), index=False, sep='\t')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser() 
