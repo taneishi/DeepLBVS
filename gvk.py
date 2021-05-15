@@ -31,23 +31,26 @@ def main(family='gpcr'):
     train = preprocessing.minmax_scale(train, axis=0)
     test = preprocessing.minmax_scale(test, axis=0)
 
-    data = np.load(os.path.join(data_dir, '%s10k.npz' % (family)))
+    data = np.load(os.path.join(data_dir, '%s10k_train.npz' % (family)))
+    X_train = data['X_train']
+    y_train = data['y_train']
 
-    train_x = data['train_x']
-    train_y = data['train_y']
-    valid_x = data['valid_x']
-    valid_y = data['valid_y']
-    test_x = data['test_x']
-    test_y = data['test_y']
+    data = np.load(os.path.join(data_dir, '%s10k_valid.npz' % (family)))
+    X_valid = data['X_valid']
+    y_valid = data['y_valid']
 
-    print(train_x.shape, train_y.shape)
-    print(train_x, train_y)
+    data = np.load(os.path.join(data_dir, '%s10k_test.npz' % (family)))
+    X_test = data['X_test']
+    y_test = data['y_test']
 
-    print(valid_x.shape, valid_y.shape)
-    print(valid_x, valid_y)
+    print(X_train.shape, y_train.shape)
+    print(X_train, y_train)
 
-    print(test_x.shape, test_y.shape)
-    print(test_x, test_y)
+    print(X_valid.shape, y_valid.shape)
+    print(X_valid, y_valid)
+
+    print(X_test.shape, y_test.shape)
+    print(X_test, y_test)
 
 if __name__ == '__main__':
     main(family='gpcr')
