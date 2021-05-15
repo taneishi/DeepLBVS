@@ -2,7 +2,15 @@ import pandas as pd
 import numpy as np
 from rdkit import Chem
 from rdkit.Chem import rdMolDescriptors
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import cross_val_score
 import os
+
+def predict(X, y):
+    np.random.seed(123)
+    cls = RandomForestClassifier(n_estimators=100)
+    scores = cross_val_score(cls, X, y, cv=5, scoring='roc_auc')
+    print(scores.mean())
 
 def build_table():
     df = pd.read_csv('../data/pcba.csv.gz', sep=',').set_index(['mol_id','smiles'])
@@ -47,4 +55,5 @@ if __name__ == '__main__':
     X, y = build(aid)
     print(X, X.shape)
     print(y, y.shape)
-    np.savez_compressed('data/pcba.npz', X=X, y=y)
+
+    predict(X, y)
