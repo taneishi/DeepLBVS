@@ -153,6 +153,7 @@ if __name__ == '__main__':
     parser.add_argument('--cpu', action='store_true')
 
     args = parser.parse_args()
+    print(vars(args))
     os.makedirs(os.path.join(args.root_dir, args.model_dir), exist_ok=True)
 
     main(args)
