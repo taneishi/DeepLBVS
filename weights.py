@@ -4,9 +4,11 @@ import matplotlib.pyplot as plt
 import sys
 
 def main(filename):
-    params = np.load(filename)['arr_0'].item()
+    params = np.load(filename)['weights'].item()
+
     weights = [x for x in params.keys() if x.startswith('W')]
     print(weights)
+
     plt.figure(figsize=(16,9))
     for i,key in enumerate(sorted(weights), 1):
         if key.startswith('W'):
@@ -28,6 +30,4 @@ def main(filename):
     plt.show()
 
 if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        sys.exit('weights [filename]')
     main(sys.argv[1])
