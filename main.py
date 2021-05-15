@@ -12,6 +12,8 @@ import os
 
 class MLP(nn.Module):
     def __init__(self, input_dim=1974, dropout=0.1):
+        # 2000, 100, 2, relu, adam, lr=0.0001, dropout=0
+        # 1000, 1000, 2, sigmoid, sgd, lr=0.01, momentum=0.9, mse
         super(MLP, self).__init__()
         self.input_layer = nn.Linear(input_dim, 3000)
         self.dropout1 = nn.Dropout(dropout)
