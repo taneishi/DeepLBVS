@@ -1,16 +1,32 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 from rdkit import Chem
 from rdkit.Chem import rdMolDescriptors
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import cross_val_score
 import os
 
+def heatmap():
+    mat = []
+    df = pd.pivot_table(mat, index='AID', columns='epochs', values='mean_auc')
+
+    print(df.shape)
+    plt.figure(figsize=(12,8))
+    sns.heatmap(df, xticklabels=10, yticklabels=5, vmin=.6, vmax=1., cmap='inferno')
+    plt.yticks(rotation=0)
+    plt.xlabel('Epoch')
+    plt.ylabel('PubChem AID (n=%d)' % df.shape[0])
+    plt.tight_layout()
+    plt.show()
+
 def predict(X, y):
     np.random.seed(123)
     cls = RandomForestClassifier(n_estimators=100)
     scores = cross_val_score(cls, X, y, cv=5, scoring='roc_auc')
-    print(scores.mean())
+
+    return scores.mean()
 
 def build_table():
     df = pd.read_csv('../data/pcba.csv.gz', sep=',').set_index(['mol_id','smiles'])
@@ -31,7 +47,7 @@ def build(aid, diameter=4, nbits=2048):
 
     X, y = [], []
     for index, row in df.loc[df[aid].notnull(), :].iterrows():
-        print('\r%5d/%5d' % (len(y), df[aid].notnull().sum()), end='')
+        print('\rCompounds %5d/%5d' % (len(y), df[aid].notnull().sum()), end='')
         mol_id, smiles = index
         mol = Chem.MolFromSmiles(smiles)
         fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(
@@ -50,10 +66,11 @@ def build(aid, diameter=4, nbits=2048):
 if __name__ == '__main__':
     table = build_table()
     print(table)
-    aid = table.iloc[0, 0]
 
-    X, y = build(aid)
-    print(X, X.shape)
-    print(y, y.shape)
+    for aid in table.iloc[:10, 0]:
+        X, y = build(aid)
 
-    predict(X, y)
+        print(X.shape)
+
+        mean_auc = predict(X, y)
+        print(aid, mean_auc)
