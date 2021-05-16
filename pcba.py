@@ -1,25 +1,11 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
 from rdkit import Chem
 from rdkit.Chem import rdMolDescriptors
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import cross_val_score
 import os
-
-def heatmap():
-    mat = []
-    df = pd.pivot_table(mat, index='AID', columns='epochs', values='mean_auc')
-
-    print(df.shape)
-    plt.figure(figsize=(12,8))
-    sns.heatmap(df, xticklabels=10, yticklabels=5, vmin=.6, vmax=1., cmap='inferno')
-    plt.yticks(rotation=0)
-    plt.xlabel('Epoch')
-    plt.ylabel('PubChem AID (n=%d)' % df.shape[0])
-    plt.tight_layout()
-    plt.show()
 
 def predict(X, y):
     np.random.seed(123)
@@ -69,8 +55,11 @@ if __name__ == '__main__':
 
     for aid in table.iloc[:10, 0]:
         X, y = build(aid)
-
         print(X.shape)
 
         mean_auc = predict(X, y)
         print(aid, mean_auc)
+
+        table.loc[table['AID'] == aid, 'MeanAUC'] = mean_auc
+
+    print(table.loc[table['MeanAUC'].notnull(), :])
