@@ -103,7 +103,7 @@ def test(dataloader, net, loss_func):
         print(' %4d/%4d test_loss %5.3f test_auc %5.3F test_prec %5.3f test_recall %5.3f' % (np.sum(y_pred), np.sum(y_true), test_loss / index, auc, prec, recall), end='')
 
     else:
-        print(' %4d/%4d' % (np.sum(y_pred), np.sum(y_true)), end='')
+        print(' %4d/%4d test_loss %5.3f' % (np.sum(y_pred), np.sum(y_true), test_loss / index), end='')
 
     return test_loss / index
 
