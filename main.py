@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.utils.data
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import roc_auc_score, accuracy_score, precision_score, recall_score
+from sklearn import metrics
 from sklearn import preprocessing
 import argparse
 import timeit
@@ -87,28 +87,29 @@ def test(dataloader, net, loss_func):
             output = net(data)
         loss = loss_func(output, label, reduction='mean')
         test_loss += loss.item()
-        y_score.append(output)
+        y_score.append(output.cpu())
         y_true.append(label.cpu())
 
     y_score = np.concatenate(y_score)
     y_pred = [np.argmax(x) for x in y_score]
     y_true = np.concatenate(y_true)
+    confusion_matrix = metrics.confusion_matrix(y_true, y_pred, labels=[1,0]).flatten()
 
     if np.sum(y_pred) != 0:
-        acc = accuracy_score(y_true, y_pred)
-        auc = roc_auc_score(y_true, y_score[:,1])
-        prec = precision_score(y_true, y_pred)
-        recall = recall_score(y_true, y_pred)
+        acc = metrics.accuracy_score(y_true, y_pred)
+        auc = metrics.roc_auc_score(y_true, y_score[:,1])
+        prec = metrics.precision_score(y_true, y_pred)
+        recall = metrics.recall_score(y_true, y_pred)
 
-        print(' %4d/%4d test_loss %5.3f test_auc %5.3F test_prec %5.3f test_recall %5.3f' % (np.sum(y_pred), np.sum(y_true), test_loss / index, auc, prec, recall), end='')
-
+        print(' %s test_loss %5.3f test_auc %5.3F test_prec %5.3f test_recall %5.3f' % (confusion_matrix, test_loss / index, auc, prec, recall), end='')
     else:
-        print(' %4d/%4d test_loss %5.3f' % (np.sum(y_pred), np.sum(y_true), test_loss / index), end='')
+        print(' %s test_loss %5.3f' % (confusion_matrix, test_loss / index), end='')
 
     return test_loss / index
 
 def main(args):
     device = torch.device('cuda' if torch.cuda.is_available() and not args.cpu else 'cpu')
+    #device = ipex.DEVICE
     print('Using %s device.' % device)
 
     train_dataloader, test_dataloader = load_dataset(args, device)
