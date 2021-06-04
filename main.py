@@ -134,7 +134,8 @@ def main(args):
 
         test_losses.append(test_loss)
 
-        if test_loss <= min(test_losses):
+        if test_loss <= min(test_losses) and args.model_save:
+            os.makedirs(os.path.join(args.root_dir, args.model_dir), exist_ok=True)
             torch.save(net.state_dict(), os.path.join(args.root_dir, args.model_dir, '%5.3f.pth' % min(test_losses)))
 
 if __name__ == '__main__':
@@ -145,15 +146,14 @@ if __name__ == '__main__':
     parser.add_argument('--test_size', default=0.2, type=float)
     parser.add_argument('--model_dir', default='model', type=str)
     parser.add_argument('--modelfile', default=None, type=str)
+    parser.add_argument('--model_save', default=False)
     parser.add_argument('--epochs', default=200, type=int)
     parser.add_argument('--batch_size', default=100, type=int)
     parser.add_argument('--lr', default=1e-4, type=float)
     parser.add_argument('--weight_decay', default=0., type=float)
     parser.add_argument('--dropout', default=0.1, type=float)
     parser.add_argument('--cpu', action='store_true')
-
     args = parser.parse_args()
     print(vars(args))
-    os.makedirs(os.path.join(args.root_dir, args.model_dir), exist_ok=True)
 
     main(args)
