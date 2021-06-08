@@ -148,7 +148,7 @@ if __name__ == '__main__':
     parser.add_argument('--model_dir', default='model', type=str)
     parser.add_argument('--modelfile', default=None, type=str)
     parser.add_argument('--model_save', default=False)
-    parser.add_argument('--epochs', default=50, type=int)
+    parser.add_argument('--epochs', default=100, type=int)
     parser.add_argument('--batch_size', default=100, type=int)
     parser.add_argument('--lr', default=1e-4, type=float)
     parser.add_argument('--weight_decay', default=0., type=float)
