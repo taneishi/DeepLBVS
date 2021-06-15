@@ -56,8 +56,10 @@ def load_dataset(args, device):
 
     print('%5.2f sec for preprocessing.' % (timeit.default_timer() - start_time))
 
-    train_dataloader = torch.utils.data.DataLoader(train, batch_size=args.batch_size, shuffle=True)
-    test_dataloader = torch.utils.data.DataLoader(test, batch_size=args.batch_size, shuffle=True)
+    train_dataloader = torch.utils.data.DataLoader(train, batch_size=args.batch_size,
+            num_workers=0, pin_memory=False, shuffle=True)
+    test_dataloader = torch.utils.data.DataLoader(test, batch_size=args.batch_size,
+            num_workers=0, pin_memory=False, shuffle=True)
 
     return train_dataloader, test_dataloader
 
