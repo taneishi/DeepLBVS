@@ -138,13 +138,12 @@ def main(args):
         test_losses.append(test_loss)
 
         if test_loss <= min(test_losses) and args.model_save:
-            os.makedirs(os.path.join(args.root_dir, args.model_dir), exist_ok=True)
-            torch.save(net.state_dict(), os.path.join(args.root_dir, args.model_dir, '%5.3f.pth' % min(test_losses)))
+            os.makedirs(args.model_dir, exist_ok=True)
+            torch.save(net.state_dict(), os.path.join(args.model_dir, '%5.3f.pth' % min(test_losses)))
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--datafile', default=os.path.join(os.path.dirname(__file__), 'data', 'cpi.npz'), type=str)
-    parser.add_argument('--root_dir', default=os.path.dirname(__file__), type=str)
+    parser.add_argument('--datafile', default=os.path.join('data', 'cpi.npz'), type=str)
     parser.add_argument('--random_seed', default=123, type=int)
     parser.add_argument('--test_size', default=0.2, type=float)
     parser.add_argument('--model_dir', default='model', type=str)
