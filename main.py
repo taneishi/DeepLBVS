@@ -110,7 +110,7 @@ def test(dataloader, net, loss_func):
     return test_loss / index
 
 def main(args):
-    device = torch.device('cuda' if torch.cuda.is_available() and not args.cpu else 'cpu')
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     #device = ipex.DEVICE
     print('Using %s device.' % device)
 
@@ -155,7 +155,6 @@ if __name__ == '__main__':
     parser.add_argument('--lr', default=1e-4, type=float)
     parser.add_argument('--weight_decay', default=0., type=float)
     parser.add_argument('--dropout', default=0.1, type=float)
-    parser.add_argument('--cpu', action='store_true')
     args = parser.parse_args()
     print(vars(args))
 
