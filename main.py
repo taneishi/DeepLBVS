@@ -116,7 +116,8 @@ def main(args):
 
     train_dataloader, test_dataloader = load_dataset(args, device)
 
-    net = MLP(input_dim=1974, dropout=args.dropout).to(device)
+    net = MLP(input_dim=1974, dropout=args.dropout)
+    net = net.to(device)
 
     if args.modelfile:
         net.load_state_dict(torch.load(args.modelfile))
