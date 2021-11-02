@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 from rdkit import Chem
 from rdkit.Chem import rdMolDescriptors
 from sklearn.ensemble import RandomForestClassifier
@@ -15,7 +14,7 @@ def predict(X, y):
     return scores.mean()
 
 def build_table():
-    df = pd.read_csv('../data/pcba.csv.gz', sep=',').set_index(['mol_id','smiles'])
+    df = pd.read_csv('data/pcba.csv.gz', sep=',').set_index(['mol_id','smiles'])
 
     table = []
     for col in df.columns:
@@ -29,11 +28,10 @@ def build_table():
     return table
     
 def build(aid, diameter=4, nbits=2048):
-    df = pd.read_csv('../data/pcba.csv.gz', sep=',').set_index(['mol_id','smiles'])
+    df = pd.read_csv('data/pcba.csv.gz', sep=',').set_index(['mol_id','smiles'])
 
     X, y = [], []
     for index, row in df.loc[df[aid].notnull(), :].iterrows():
-        print('\rCompounds %5d/%5d' % (len(y), df[aid].notnull().sum()), end='')
         mol_id, smiles = index
         mol = Chem.MolFromSmiles(smiles)
         fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(
@@ -41,8 +39,9 @@ def build(aid, diameter=4, nbits=2048):
         fp = np.asarray(fp)
         X.append(fp)
         y.append(row[aid])
+        print('\rConverted compounds %5d/%5d' % (len(y), df[aid].notnull().sum()), end='')
 
-    print('\n')
+    print('\n', end='')
         
     X = np.asarray(X)
     y = np.asarray(y)
@@ -54,11 +53,12 @@ if __name__ == '__main__':
     print(table)
 
     for aid in table.iloc[:10, 0]:
+        print('\nAID', aid)
         X, y = build(aid)
-        print(X.shape)
+        print('The shape of fingerprints matrix', X.shape)
 
         mean_auc = predict(X, y)
-        print(aid, mean_auc)
+        print('RandomForest 5-fold CV mean AUC %5.3f' % (mean_auc))
 
         table.loc[table['AID'] == aid, 'MeanAUC'] = mean_auc
 
