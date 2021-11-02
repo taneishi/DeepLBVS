@@ -4,12 +4,16 @@ Prediction of Compound-Protein Interactions
 Environment
 -----------
 
-- Python 3.9
-    - Anaconda3-2020.11
-- PyTorch 1.8.0
-    - conda install -c conda-forge pytorch
-- RDKit
-    - conda install -c conda-forge rdkit
+```
+python3 -m venv rdkit
+source rdkit/bin/activate
+pip install rdkit torch scikit-learn
+```
+
+- Python-3.8
+- rdkit-2021.9.2
+- scikit-learn-1.0.1
+- torch-1.10.0
 
 Usage
 -----
