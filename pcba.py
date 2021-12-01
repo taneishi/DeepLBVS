@@ -3,32 +3,35 @@ import numpy as np
 from rdkit import Chem
 from rdkit.Chem import rdMolDescriptors
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import StratifiedKFold
+from sklearn.metrics import roc_auc_score
+import argparse
+import timeit
 import os
 
-def predict(X, y):
+def predict(X, y, n_splits=5):
     np.random.seed(123)
     cls = RandomForestClassifier(n_estimators=100)
-    scores = cross_val_score(cls, X, y, cv=5, scoring='roc_auc')
 
-    return scores.mean()
+    auc = []
+    skf = StratifiedKFold(n_splits=n_splits)
+    for train, test in skf.split(X, y):
+        cls.fit(X[train], y[train])
+        y_pred = cls.predict(X[test])
+        auc.append(roc_auc_score(y[test], y_pred))
 
-def build_table():
-    df = pd.read_csv('data/pcba.csv.gz', sep=',').set_index(['mol_id','smiles'])
+    return auc
 
-    table = []
-    for col in df.columns:
-        negative, positive = df.groupby(col).size()
-        table.append([col, df[col].notnull().sum(), negative, positive])
+def build_ecfp(aid, diameter=4, nbits=2048):
+    dirname = 'ecfp%d_%d' % (diameter, nbits)
+    filename = '%s/%s.tsv.gz' % (dirname, aid)
 
-    table = pd.DataFrame(table, columns=['AID', 'count', 'negative', 'positive'])
-    table['diff'] = np.abs(table['positive'] - table['negative'])
-    table = table.sort_values(['diff', 'count'], ascending=True)
+    os.makedirs(dirname, exist_ok=True)
+    if os.path.exists(filename):
+        df = pd.read_csv(filename, sep='\t')
+        return df.iloc[:, :-1].values, df.iloc[:, -1].values
 
-    return table
-    
-def build(aid, diameter=4, nbits=2048):
-    df = pd.read_csv('data/pcba.csv.gz', sep=',').set_index(['mol_id','smiles'])
+    df = pd.read_csv('data/pcba.csv.gz', sep=',').set_index(['mol_id', 'smiles'])
 
     X, y = [], []
     for index, row in df.loc[df[aid].notnull(), :].iterrows():
@@ -39,27 +42,63 @@ def build(aid, diameter=4, nbits=2048):
         fp = np.asarray(fp)
         X.append(fp)
         y.append(row[aid])
-        print('\rConverted compounds %5d/%5d' % (len(y), df[aid].notnull().sum()), end='')
+        print('\rConverted compounds %6d/%6d' % (len(y), df[aid].notnull().sum()), end='')
 
-    print('\n', end='')
-        
     X = np.asarray(X)
     y = np.asarray(y)
+
+    df = pd.DataFrame(X)
+    df['outcome'] = y
+    df.to_csv(filename, sep='\t', index=False)
     
     return X, y
 
+def main(args):
+    df = pd.read_csv('data/pcba.csv.gz', sep=',').set_index(['mol_id', 'smiles'])
+    df = df.reset_index(drop=True).T
+
+    for aid in df.index:
+        negative, positive = df.T.groupby(aid).size()
+        df.loc[aid, 'count'] = df.T[aid].notnull().sum()
+        df.loc[aid, 'positive'] = positive
+        df.loc[aid, 'negative'] = negative
+
+    df = df[['count', 'negative', 'positive']]
+    df['diff'] = np.abs(df['positive'] - df['negative'])
+
+    if args.sort:
+        df = df.sort_values(['diff', 'count'], ascending=True)
+
+    print(df)
+
+    if args.limit == 0:
+        args.limit = df.shape[0]
+
+    for index, aid in enumerate(df.index[:args.limit]):
+        start_time = timeit.default_timer()
+        print('\nAID %s (%3d/%3d)' % (aid, index+1, args.limit))
+        X, y = build_ecfp(aid)
+        print('\rNumber of compounds converted %6d %5.3fsec' % (len(y), timeit.default_timer() - start_time))
+
+        start_time = timeit.default_timer()
+        auc = predict(X, y, args.n_splits)
+        print('RandomForest %d-fold CV mean AUC %5.3f %5.3fsec' % (args.n_splits, np.mean(auc), timeit.default_timer() - start_time))
+
+        for index, value in enumerate(auc, 1):
+            df.loc[df.index == aid, 'AUC_%d' % (index)] = value
+        df.loc[df.index == aid, 'MeanAUC'] = np.mean(auc)
+
+        df.to_csv('results.tsv.gz', sep='\t')
+
+    print(df.loc[df['MeanAUC'].notnull(), :])
+
 if __name__ == '__main__':
-    table = build_table()
-    print(table)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--data_dir', default='data', type=str)
+    parser.add_argument('--n_splits', default=5, type=int)
+    parser.add_argument('--limit', default=0, type=int, help='Number of AIDs to process')
+    parser.add_argument('--sort', default=False, action='store_true', help='Sort by number of compounds and positive/negative difference')
+    args = parser.parse_args()
+    print(vars(args))
 
-    for aid in table.iloc[:10, 0]:
-        print('\nAID', aid)
-        X, y = build(aid)
-        print('The shape of fingerprints matrix', X.shape)
-
-        mean_auc = predict(X, y)
-        print('RandomForest 5-fold CV mean AUC %5.3f' % (mean_auc))
-
-        table.loc[table['AID'] == aid, 'MeanAUC'] = mean_auc
-
-    print(table.loc[table['MeanAUC'].notnull(), :])
+    main(args)
