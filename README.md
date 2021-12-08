@@ -1,19 +1,14 @@
 Prediction of Compound-Protein Interactions
 ===========================================
 
-Environment
------------
+Environments
+------------
 
 ```
 python3 -m venv rdkit
 source rdkit/bin/activate
 pip install rdkit torch pandas scikit-learn
 ```
-
-- Python-3.8
-- rdkit-2021.9.2
-- scikit-learn-1.0.1
-- torch-1.10.0
 
 Usage
 -----
@@ -25,6 +20,7 @@ python main.py --epochs 100
 
 ```
 python pcba.py
+python pcba.py --limit 10 --sort
 ```
 
 will generate ECFP fingerprints for each PCBA dataset and

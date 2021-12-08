@@ -64,17 +64,18 @@ def main(args):
         df.loc[aid, 'negative'] = negative
 
     df = df[['count', 'negative', 'positive']]
-    df['diff'] = np.abs(df['positive'] - df['negative'])
+    df['percentage'] = df['positive'] / df['count'] * 100.
 
     if args.sort:
-        df = df.sort_values(['diff', 'count'], ascending=True)
-
-    print(df)
+        df = df.sort_values(['percentage', 'count'], ascending=False)
 
     if args.limit == 0:
         args.limit = df.shape[0]
 
-    for index, aid in enumerate(df.index[:args.limit]):
+    df = df.iloc[:args.limit, :]
+    print(df)
+
+    for index, aid in enumerate(df.index):
         start_time = timeit.default_timer()
         print('\nAID %s (%3d/%3d)' % (aid, index+1, args.limit))
         X, y = build_ecfp(aid)
@@ -96,8 +97,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_dir', default='data', type=str)
     parser.add_argument('--n_splits', default=5, type=int)
+    parser.add_argument('--sort', default=False, action='store_true', help='Sort by number of compounds and positive percenrage')
     parser.add_argument('--limit', default=0, type=int, help='Number of AIDs to process')
-    parser.add_argument('--sort', default=False, action='store_true', help='Sort by number of compounds and positive/negative difference')
     args = parser.parse_args()
     print(vars(args))
 
