@@ -23,7 +23,7 @@ def predict(X, y, n_splits=5):
     return auc
 
 def build_ecfp(aid, diameter=4, nbits=2048):
-    dirname = 'ecfp%d_%d' % (diameter, nbits)
+    dirname = 'ecfp/%d_%d' % (diameter, nbits)
     filename = '%s/%s.tsv.gz' % (dirname, aid)
 
     os.makedirs(dirname, exist_ok=True)
@@ -74,11 +74,12 @@ def main(args):
 
     df = df.iloc[:args.limit, :]
     print(df)
+    os.makedirs('log', exist_ok=True)
 
     for index, aid in enumerate(df.index):
         start_time = timeit.default_timer()
         print('\nAID %s (%3d/%3d)' % (aid, index+1, args.limit))
-        X, y = build_ecfp(aid)
+        X, y = build_ecfp(aid, diameter=args.diameter, nbits=args.nbits)
         print('\rNumber of compounds converted %6d %5.3fsec' % (len(y), timeit.default_timer() - start_time))
 
         start_time = timeit.default_timer()
@@ -89,17 +90,36 @@ def main(args):
             df.loc[df.index == aid, 'AUC_%d' % (index)] = value
         df.loc[df.index == aid, 'MeanAUC'] = np.mean(auc)
 
-        df.to_csv('results.tsv.gz', sep='\t')
+        df.to_csv('log/%d_%d_results.tsv.gz' % (args.diameter, args.nbits), sep='\t')
 
     print(df.loc[df['MeanAUC'].notnull(), :])
+
+def show(args):
+    results = dict()
+    for diameter in range(2, 12, 2):
+        for nbits in range(1024, 8192, 1024):
+            filename = 'log/%d_%d_results.tsv.gz' % (diameter, nbits)
+            if os.path.exists(filename):
+                df = pd.read_csv(filename, sep='\t', index_col=0)
+                results.update({'%d_%d' % (diameter, nbits): df['MeanAUC']})
+        
+    df = pd.DataFrame.from_dict(results)
+    df.loc['mean', :] = df.mean(axis=0)
+    print(df)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_dir', default='data', type=str)
+    parser.add_argument('--diameter', default=4, type=int)
+    parser.add_argument('--nbits', default=2048, type=int)
     parser.add_argument('--n_splits', default=5, type=int)
     parser.add_argument('--sort', default=False, action='store_true', help='Sort by number of compounds and positive percenrage')
     parser.add_argument('--limit', default=0, type=int, help='Number of AIDs to process')
+    parser.add_argument('--show', default=False, action='store_true', help='Show the previous results')
     args = parser.parse_args()
     print(vars(args))
 
-    main(args)
+    if args.show:
+        show(args)
+    else:
+        main(args)
