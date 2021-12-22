@@ -3,7 +3,7 @@ import numpy as np
 from rdkit import Chem
 from rdkit.Chem import rdMolDescriptors
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import StratifiedKFold
+from sklearn.model_selection import GridSearchCV, StratifiedKFold
 from sklearn.metrics import roc_auc_score
 import argparse
 import timeit
@@ -11,8 +11,15 @@ import os
 
 def predict(X, y, n_splits=5):
     np.random.seed(123)
-    cls = RandomForestClassifier(n_estimators=100)
 
+    cls = RandomForestClassifier()
+    param_grid = {'n_estimators': range(50, 300, 50)}
+    gs_cls = GridSearchCV(estimator=cls, param_grid=param_grid, scoring='roc_auc', cv=5)
+    gs_cls.fit(X, y)
+    print('Best Parameters:', gs_cls.best_params_)
+    print('Best Score:', gs_cls.best_score_)
+
+    cls = RandomForestClassifier(n_estimators=gs_cls.best_params_['n_estimators'])
     auc = []
     skf = StratifiedKFold(n_splits=n_splits)
     for train, test in skf.split(X, y):
@@ -96,8 +103,15 @@ def main(args):
 
 def show(args):
     results = dict()
-    for diameter in range(2, 12, 2):
-        for nbits in range(1024, 8192, 1024):
+
+    diameter_list, nbits_list = [], []
+    for filename in os.listdir('log'):
+        diameter, nbits, basename = filename.split('_')
+        diameter_list.append(int(diameter))
+        nbits_list.append(int(nbits))
+
+    for diameter in sorted(diameter_list):
+        for nbits in sorted(nbits_list):
             filename = 'log/%d_%d_results.tsv.gz' % (diameter, nbits)
             if os.path.exists(filename):
                 df = pd.read_csv(filename, sep='\t', index_col=0)
