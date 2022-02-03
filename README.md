@@ -7,7 +7,8 @@ Environments
 ```
 python3 -m venv rdkit
 source rdkit/bin/activate
-pip install rdkit torch pandas scikit-learn
+pip install --upgrade pip
+pip install rdkit-pypi torch pandas scikit-learn
 ```
 
 Usage
