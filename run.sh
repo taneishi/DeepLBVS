@@ -9,4 +9,4 @@ else
     pip install torch numpy scikit-learn pandas rdkit-pypi
 fi
 
-python pcba.py --sort --limit 10
+python pcba.py
