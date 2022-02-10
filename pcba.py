@@ -7,7 +7,6 @@ from sklearn.model_selection import GridSearchCV, StratifiedKFold
 from sklearn.metrics import roc_auc_score
 import argparse
 import timeit
-import sys
 import os
 
 def predict(X, y, n_splits=5):
@@ -30,7 +29,7 @@ def predict(X, y, n_splits=5):
 
     return auc
 
-def build_ecfp(aid, diameter=4, nbits=2048):
+def build_ecfp(aid, diameter, nbits):
     dirname = 'ecfp/%d_%d' % (diameter, nbits)
     filename = '%s/%s.tsv.gz' % (dirname, aid)
 
@@ -61,7 +60,7 @@ def build_ecfp(aid, diameter=4, nbits=2048):
     df['outcome'] = y
     df.to_csv(filename, sep='\t', index=False)
     
-def load_ecfp(aid, diameter=4, nbits=2048):
+def load_ecfp(aid, diameter, nbits):
     dirname = 'ecfp/%d_%d' % (diameter, nbits)
     filename = '%s/%s.tsv.gz' % (dirname, aid)
 
@@ -113,27 +112,6 @@ def main(args):
 
     print(df.loc[df['MeanAUC'].notnull(), :])
 
-def show(args):
-    results = dict()
-
-    diameter_list, nbits_list = [], []
-    for filename in os.listdir('log'):
-        diameter, nbits, basename = filename.split('_')
-        diameter_list.append(int(diameter))
-        nbits_list.append(int(nbits))
-
-    for diameter in sorted(diameter_list):
-        for nbits in sorted(nbits_list):
-            filename = 'log/%d_%d_results.tsv.gz' % (diameter, nbits)
-            if os.path.exists(filename):
-                df = pd.read_csv(filename, sep='\t', index_col=0)
-                results.update({'%d_%d' % (diameter, nbits): df['MeanAUC']})
-        
-    df = pd.DataFrame.from_dict(results)
-    df.loc['mean', :] = df.mean(axis=0)
-    print(df)
-    sys.exit()
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_dir', default='data', type=str)
@@ -143,10 +121,7 @@ if __name__ == '__main__':
     parser.add_argument('--n_splits', default=5, type=int)
     parser.add_argument('--sort', default=True, action='store_true', help='Sort by positive percenrage and count of compounds')
     parser.add_argument('--limit', default=10, type=int, help='Number of AIDs to process')
-    parser.add_argument('--show', default=False, action='store_true', help='Show the previous results')
     args = parser.parse_args()
     print(vars(args))
 
-    if args.show:
-        show(args)
     main(args)
