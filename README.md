@@ -1,8 +1,6 @@
-Prediction of Compound-Protein Interactions
-===========================================
+# Ligand-Based Virtual Screening using Deep Learning
 
-Environments
-------------
+## Environments
 
 ```
 python3 -m venv rdkit
@@ -11,8 +9,7 @@ pip install --upgrade pip
 pip install rdkit-pypi torch pandas scikit-learn
 ```
 
-Usage
------
+## Usage
 
 ```
 python main.py -h
