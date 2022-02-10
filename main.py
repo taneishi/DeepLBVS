@@ -136,7 +136,21 @@ def main(args):
     for epoch in range(args.epochs):
         epoch_start = timeit.default_timer()
 
-        train(train_dataloader, net, optimizer, loss_func, epoch)
+        #train(train_dataloader, net, optimizer, loss_func, epoch)
+        net.train()
+        train_loss = 0
+
+        for index, (data, label) in enumerate(train_dataloader, 1):
+            optimizer.zero_grad()
+            output = net(data)
+            loss = loss_func(output, label, reduction='mean')
+            train_loss += loss.item()
+            loss.backward()
+            optimizer.step()
+
+            print('\repoch %4d batch %4d/%4d train_loss %6.3f' % (epoch, index, len(train_dataloader), train_loss / index), end='')
+        #return train_loss / index
+
         test_loss = test(test_dataloader, net, loss_func)
 
         print(' %5.2f sec' % (timeit.default_timer() - epoch_start))
