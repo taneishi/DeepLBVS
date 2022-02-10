@@ -114,6 +114,11 @@ def main(args):
     #device = ipex.DEVICE
     print('Using %s device.' % device)
 
+    dirname = 'ecfp/%d_%d' % (args.diameter, args.nbits)
+
+    for datafile in os.listdir(dirname):
+        print(datafile)
+
     train_dataloader, test_dataloader = load_dataset(args, device)
 
     net = MLP(input_dim=1974, dropout=args.dropout)
@@ -144,7 +149,8 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--datafile', default=os.path.join('data', 'cpi.npz'), type=str)
+    parser.add_argument('--diameter', default=4, type=int)
+    parser.add_argument('--nbits', default=2048, type=int)
     parser.add_argument('--random_seed', default=123, type=int)
     parser.add_argument('--test_size', default=0.2, type=float)
     parser.add_argument('--model_dir', default='model', type=str)

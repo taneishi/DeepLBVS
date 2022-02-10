@@ -7,6 +7,7 @@ from sklearn.model_selection import GridSearchCV, StratifiedKFold
 from sklearn.metrics import roc_auc_score
 import argparse
 import timeit
+import sys
 import os
 
 def predict(X, y, n_splits=5):
@@ -17,7 +18,7 @@ def predict(X, y, n_splits=5):
     gs_cls = GridSearchCV(estimator=cls, param_grid=param_grid, scoring='roc_auc', cv=5)
     gs_cls.fit(X, y)
     print('Best Parameters:', gs_cls.best_params_)
-    print('Best Score:', gs_cls.best_score_)
+    print('Best ROC-AUC: %6.3f' % (gs_cls.best_score_))
 
     cls = RandomForestClassifier(n_estimators=gs_cls.best_params_['n_estimators'])
     auc = []
@@ -35,11 +36,11 @@ def build_ecfp(aid, diameter=4, nbits=2048):
 
     os.makedirs(dirname, exist_ok=True)
     if os.path.exists(filename):
-        df = pd.read_csv(filename, sep='\t')
-        return df.iloc[:, :-1].values, df.iloc[:, -1].values
+        return
 
     df = pd.read_csv('data/pcba.csv.gz', sep=',').set_index(['mol_id', 'smiles'])
 
+    start_time = timeit.default_timer()
     X, y = [], []
     for index, row in df.loc[df[aid].notnull(), :].iterrows():
         mol_id, smiles = index
@@ -51,6 +52,8 @@ def build_ecfp(aid, diameter=4, nbits=2048):
         y.append(row[aid])
         print('\rConverted compounds %6d/%6d' % (len(y), df[aid].notnull().sum()), end='')
 
+    print('\nNumber of compounds converted %6d %5.3fsec' % (len(y), timeit.default_timer() - start_time))
+
     X = np.asarray(X)
     y = np.asarray(y)
 
@@ -58,10 +61,19 @@ def build_ecfp(aid, diameter=4, nbits=2048):
     df['outcome'] = y
     df.to_csv(filename, sep='\t', index=False)
     
+def load_ecfp(aid, diameter=4, nbits=2048):
+    dirname = 'ecfp/%d_%d' % (diameter, nbits)
+    filename = '%s/%s.tsv.gz' % (dirname, aid)
+
+    df = pd.read_csv(filename, sep='\t')
+
+    X = df.iloc[:, :-1].values
+    y = df['outcome'].values
+    
     return X, y
 
 def main(args):
-    df = pd.read_csv('data/pcba.csv.gz', sep=',').set_index(['mol_id', 'smiles'])
+    df = pd.read_csv('%s/%s' % (args.data_dir, args.dataset), sep=',').set_index(['mol_id', 'smiles'])
     df = df.reset_index(drop=True).T
 
     for aid in df.index:
@@ -84,10 +96,10 @@ def main(args):
     os.makedirs('log', exist_ok=True)
 
     for index, aid in enumerate(df.index):
-        start_time = timeit.default_timer()
         print('\nAID %s (%3d/%3d)' % (aid, index+1, args.limit))
-        X, y = build_ecfp(aid, diameter=args.diameter, nbits=args.nbits)
-        print('\rNumber of compounds converted %6d %5.3fsec' % (len(y), timeit.default_timer() - start_time))
+        build_ecfp(aid, diameter=args.diameter, nbits=args.nbits)
+
+        X, y = load_ecfp(aid, diameter=args.diameter, nbits=args.nbits)
 
         start_time = timeit.default_timer()
         auc = predict(X, y, args.n_splits)
@@ -120,20 +132,21 @@ def show(args):
     df = pd.DataFrame.from_dict(results)
     df.loc['mean', :] = df.mean(axis=0)
     print(df)
+    sys.exit()
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_dir', default='data', type=str)
+    parser.add_argument('--dataset', default='pcba.csv.gz', type=str)
     parser.add_argument('--diameter', default=4, type=int)
     parser.add_argument('--nbits', default=2048, type=int)
     parser.add_argument('--n_splits', default=5, type=int)
-    parser.add_argument('--sort', default=False, action='store_true', help='Sort by number of compounds and positive percenrage')
-    parser.add_argument('--limit', default=0, type=int, help='Number of AIDs to process')
+    parser.add_argument('--sort', default=True, action='store_true', help='Sort by positive percenrage and count of compounds')
+    parser.add_argument('--limit', default=10, type=int, help='Number of AIDs to process')
     parser.add_argument('--show', default=False, action='store_true', help='Show the previous results')
     args = parser.parse_args()
     print(vars(args))
 
     if args.show:
         show(args)
-    else:
-        main(args)
+    main(args)
