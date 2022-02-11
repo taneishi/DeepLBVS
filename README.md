@@ -10,28 +10,40 @@ will generate ECFP fingerprints for each PCBA dataset and
 perform 5-fold CV of RandomForest model for assay results.
 
 ```
-                count  negative  positive  percentage
-PCBA-884      10471.0    7048.0    3423.0   32.690287
-PCBA-899       8256.0    6419.0    1837.0   22.250484
-PCBA-686978  303167.0  240040.0   63127.0   20.822517
-PCBA-891       7888.0    6309.0    1579.0   20.017748
-PCBA-686979  309966.0  260836.0   49130.0   15.850125
-PCBA-883       8158.0    6921.0    1237.0   15.163030
-PCBA-504332  297588.0  266903.0   30685.0   10.311236
-PCBA-1030    161832.0  145842.0   15990.0    9.880617
-PCBA-720532   12987.0   11981.0    1006.0    7.746208
-PCBA-588342  326954.0  301893.0   25061.0    7.664993
+              count  negative  positive  percentage
+PCBA-884      10471      7048      3423       32.69
+PCBA-899       8256      6419      1837       22.25
+PCBA-686978  303167    240040     63127       20.82
+PCBA-891       7888      6309      1579       20.02
+PCBA-686979  309966    260836     49130       15.85
+PCBA-883       8158      6921      1237       15.16
+PCBA-504332  297588    266903     30685       10.31
+PCBA-1030    161832    145842     15990        9.88
+PCBA-720532   12987     11981      1006        7.75
+PCBA-588342  326954    301893     25061        7.66
+ 
+               4_1024
+PCBA-884     0.834002
+PCBA-899     0.733279
+PCBA-686978  0.684328
+PCBA-891     0.746985
+PCBA-686979  0.649927
+PCBA-883     0.700886
+PCBA-504332  0.635792
+PCBA-1030    0.605897
+PCBA-720532  0.652586
+PCBA-588342  0.693636
+MeanAUC      0.693732
 
+AID PCBA-884 (  1/ 10)
+          count  negative  positive  percentage
+PCBA-884  10471      7048      3423       32.69
+RandomForestClassifier(n_estimators=200) 5-fold CV mean AUC 0.834 28.250sec
 
-AID PCBA-884
-Converted compounds 10471/10471
-The shape of fingerprints matrix (10471, 2048)
-RandomForest 5-fold CV mean AUC 0.934
-
-AID PCBA-899
-Converted compounds  8256/ 8256
-The shape of fingerprints matrix (8256, 2048)
-RandomForest 5-fold CV mean AUC 0.871
+AID PCBA-899 (  2/ 10)
+          count  negative  positive  percentage
+PCBA-899   8256      6419      1837       22.25
+RandomForestClassifier(n_estimators=200) 5-fold CV mean AUC 0.733 21.159sec
 
 ...
 ```

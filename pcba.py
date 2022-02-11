@@ -20,8 +20,8 @@ def pcba_matrix(args):
         df.loc[aid, 'positive'] = positive
         df.loc[aid, 'negative'] = negative
 
-    df = df[['count', 'negative', 'positive']]
-    df['percentage'] = df['positive'] / df['count'] * 100.
+    df = df[['count', 'negative', 'positive']].astype(int)
+    df['percentage'] = np.round(df['positive'] / df['count'] * 100., 2)
 
     if args.sort:
         df = df.sort_values(['percentage', 'count'], ascending=False)
@@ -96,20 +96,26 @@ def main(args):
     np.random.seed(123)
     os.makedirs(args.log_dir, exist_ok=True)
 
+    # dataset is provided in (aid x compounds) matrix
     df = pcba_matrix(args)
     print(df)
 
     show_results(args)
 
-    for index, aid in enumerate(df.index, 1):
-        print('\nAID %s (%3d/%3d)' % (aid, index, args.limit))
+    # create ECFP fingerprints
+    for aid in df.index:
         create_ecfp(aid, args)
+
+    cls = RandomForestClassifier(n_estimators=200)
+
+    for aid in df.index:
+        print('\nAID %6s (%3d/%3d)' % (aid, df.index.get_loc(aid) + 1, args.limit))
+        print(df.loc[df.index == aid, :'percentage'])
 
         X, y = load_ecfp(aid, args)
 
-        cls = RandomForestClassifier(n_estimators=200)
-
         start_time = timeit.default_timer()
+
         skf = StratifiedKFold(n_splits=args.n_splits)
         for fold, (train, test) in enumerate(skf.split(X, y), 1):
             cls.fit(X[train], y[train])
@@ -118,14 +124,14 @@ def main(args):
 
             df.loc[df.index == aid, 'AUC_%d' % (fold)] = auc
 
+        elapsed = timeit.default_timer() - start_time
+
         mean_auc = df.loc[df.index == aid, 'AUC_1':'AUC_%d' % (args.n_splits)].mean(axis=1)
         df.loc[df.index == aid, 'MeanAUC'] = mean_auc
 
-        print('%s %d-fold CV mean AUC %5.3f' % (cls, args.n_splits, mean_auc), end='')
-        print(' %5.3fsec' % (timeit.default_timer() - start_time))
+        print('%s %d-fold CV mean AUC %5.3f %5.3fsec' % (cls, args.n_splits, mean_auc, elapsed))
 
-        df.to_csv('%s/%d_%d_results.tsv.gz' % (args.log_dir, args.diameter, args.nbits), sep='\t')
-
+    df.to_csv('%s/%d_%d_results.tsv.gz' % (args.log_dir, args.diameter, args.nbits), sep='\t')
     print(df.loc[df['MeanAUC'].notnull(), :])
 
 if __name__ == '__main__':
