@@ -10,3 +10,4 @@ else
 fi
 
 python pcba.py
+python main.py

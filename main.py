@@ -1,14 +1,18 @@
+import pandas as pd
 import numpy as np
+from rdkit import Chem
+from rdkit.Chem import rdMolDescriptors
+from sklearn.model_selection import StratifiedKFold
+from sklearn import metrics
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.utils.data
-from sklearn.model_selection import train_test_split
-from sklearn import metrics
-from sklearn import preprocessing
 import argparse
 import timeit
 import os
+
+from pcba import pcba_matrix, show_results, create_ecfp, load_ecfp
 
 class MLP(nn.Module):
     def __init__(self, input_dim=1974, dropout=0.1):
@@ -29,152 +33,132 @@ class MLP(nn.Module):
         x = torch.sigmoid(self.output_layer(x))
         return x
 
-def load_dataset(args, device):
-    start_time = timeit.default_timer()
-
-    data = np.load(args.datafile)['data']
-    data = preprocessing.minmax_scale(data)
-
-    np.random.seed(args.random_seed)
-    np.random.shuffle(data)
-
-    train, test = train_test_split(data, test_size=args.test_size, random_state=args.random_seed)
-
-    print('%d training, %d test samples.' % (train.shape[0], test.shape[0]))
-
-    train_x, train_y = train[:, :-1], train[:, -1]
-    test_x, test_y = test[:, :-1], test[:, -1]
-
-    # create torch tensor from numpy array
-    train_x = torch.FloatTensor(train_x).to(device)
-    train_y = torch.LongTensor(train_y).to(device)
-    test_x = torch.FloatTensor(test_x).to(device)
-    test_y = torch.LongTensor(test_y).to(device)
-
-    train = torch.utils.data.TensorDataset(train_x, train_y)
-    test = torch.utils.data.TensorDataset(test_x, test_y)
-
-    print('%5.2f sec for preprocessing.' % (timeit.default_timer() - start_time))
-
-    train_dataloader = torch.utils.data.DataLoader(train, batch_size=args.batch_size,
-            num_workers=0, pin_memory=False, shuffle=True)
-    test_dataloader = torch.utils.data.DataLoader(test, batch_size=args.batch_size,
-            num_workers=0, pin_memory=False, shuffle=True)
-
-    return train_dataloader, test_dataloader
-
-def train(dataloader, net, optimizer, loss_func, epoch):
-    net.train()
-    train_loss = 0
-
-    for index, (data, label) in enumerate(dataloader, 1):
-        optimizer.zero_grad()
-        output = net(data)
-        loss = loss_func(output, label, reduction='mean')
-        train_loss += loss.item()
-        loss.backward()
-        optimizer.step()
-
-    print('epoch %4d batch %4d/%4d train_loss %6.3f' % (epoch, index, len(dataloader), train_loss / index), end='')
-
-    return train_loss / index
-
-def test(dataloader, net, loss_func):
-    net.eval()
-    test_loss = 0
-    y_score, y_true = [], []
-
-    for index, (data, label) in enumerate(dataloader, 1):
-        with torch.no_grad():
-            output = net(data)
-        loss = loss_func(output, label, reduction='mean')
-        test_loss += loss.item()
-        y_score.append(output.cpu())
-        y_true.append(label.cpu())
-
-    y_score = np.concatenate(y_score)
-    y_pred = [np.argmax(x) for x in y_score]
-    y_true = np.concatenate(y_true)
-    confusion_matrix = metrics.confusion_matrix(y_true, y_pred, labels=[1,0]).flatten()
-
-    if np.sum(y_pred) != 0:
-        acc = metrics.accuracy_score(y_true, y_pred)
-        auc = metrics.roc_auc_score(y_true, y_score[:,1])
-        prec = metrics.precision_score(y_true, y_pred)
-        recall = metrics.recall_score(y_true, y_pred)
-
-        print(' %s test_loss %5.3f test_auc %5.3F test_prec %5.3f test_recall %5.3f' % (confusion_matrix, test_loss / index, auc, prec, recall), end='')
-    else:
-        print(' %s test_loss %5.3f' % (confusion_matrix, test_loss / index), end='')
-
-    return test_loss / index
-
 def main(args):
+    np.random.seed(args.random_seed)
+    os.makedirs(args.log_dir, exist_ok=True)
+    os.makedirs(args.model_dir, exist_ok=True)
+
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     #device = ipex.DEVICE
     print('Using %s device.' % device)
 
-    dirname = 'ecfp/%d_%d' % (args.diameter, args.nbits)
+    # dataset is provided in (aid x compounds) matrix
+    df = pcba_matrix(args)
+    print(df)
 
-    for datafile in os.listdir(dirname):
-        print(datafile)
+    show_results(args)
 
-    train_dataloader, test_dataloader = load_dataset(args, device)
+    # create ECFP fingerprints
+    for aid in df.index:
+        create_ecfp(aid, args)
 
-    net = MLP(input_dim=1974, dropout=args.dropout)
-    net = net.to(device)
+    for aid in df.index:
+        print('\nAID %6s (%3d/%3d)' % (aid, df.index.get_loc(aid) + 1, args.limit))
+        print(df.loc[df.index == aid, :'percentage'])
 
-    if args.modelfile:
-        net.load_state_dict(torch.load(args.modelfile))
+        X, y = load_ecfp(aid, args)
 
-    # define our optimizer and loss function
-    optimizer = torch.optim.Adam(net.parameters(), lr=args.lr, weight_decay=args.weight_decay)
-    loss_func = F.cross_entropy
+        start_time = timeit.default_timer()
 
-    test_losses = []
+        skf = StratifiedKFold(n_splits=args.n_splits)
+        for fold, (train, test) in enumerate(skf.split(X, y), 1):
+            # create torch tensor from numpy array
+            train_x = torch.FloatTensor(X[train]).to(device)
+            train_y = torch.LongTensor(y[train]).to(device)
+            test_x = torch.FloatTensor(X[test]).to(device)
+            test_y = torch.LongTensor(y[test]).to(device)
 
-    for epoch in range(args.epochs):
-        epoch_start = timeit.default_timer()
+            train = torch.utils.data.TensorDataset(train_x, train_y)
+            test = torch.utils.data.TensorDataset(test_x, test_y)
 
-        #train(train_dataloader, net, optimizer, loss_func, epoch)
-        net.train()
-        train_loss = 0
+            train_dataloader = torch.utils.data.DataLoader(train, batch_size=args.batch_size, shuffle=True)
+            test_dataloader = torch.utils.data.DataLoader(test, batch_size=args.batch_size)
 
-        for index, (data, label) in enumerate(train_dataloader, 1):
-            optimizer.zero_grad()
-            output = net(data)
-            loss = loss_func(output, label, reduction='mean')
-            train_loss += loss.item()
-            loss.backward()
-            optimizer.step()
+            net = MLP(input_dim=args.nbits, dropout=args.dropout)
+            net = net.to(device)
+        
+            if args.modelfile:
+                net.load_state_dict(torch.load(args.modelfile))
 
-            print('\repoch %4d batch %4d/%4d train_loss %6.3f' % (epoch, index, len(train_dataloader), train_loss / index), end='')
-        #return train_loss / index
+            net.train()
 
-        test_loss = test(test_dataloader, net, loss_func)
+            # define our optimizer and loss function
+            optimizer = torch.optim.Adam(net.parameters(), lr=args.lr, weight_decay=args.weight_decay)
+            loss_func = F.cross_entropy
 
-        print(' %5.2f sec' % (timeit.default_timer() - epoch_start))
+            for epoch in range(args.epochs):
+                epoch_start = timeit.default_timer()
 
-        test_losses.append(test_loss)
+                train_loss = 0
 
-        if test_loss <= min(test_losses) and args.model_save:
-            os.makedirs(args.model_dir, exist_ok=True)
-            torch.save(net.state_dict(), os.path.join(args.model_dir, '%5.3f.pth' % min(test_losses)))
+                for index, (data, label) in enumerate(train_dataloader, 1):
+                    optimizer.zero_grad()
+                    output = net(data)
+                    loss = loss_func(output, label, reduction='mean')
+                    train_loss += loss.item()
+                    loss.backward()
+                    optimizer.step()
+
+                print('\rfold %d epoch %4d batch %4d/%4d' % (fold, epoch, index, len(train_dataloader)), end='')
+                print(' train_loss %5.3f %5.3fsec' % (train_loss / index, timeit.default_timer() - epoch_start), end='')
+
+            net.eval()
+            test_loss = 0
+            y_score, y_true = [], []
+
+            for index, (data, label) in enumerate(test_dataloader, 1):
+                with torch.no_grad():
+                    output = net(data)
+                loss = loss_func(output, label, reduction='mean')
+                test_loss += loss.item()
+                y_score.append(output.cpu())
+                y_true.append(label.cpu())
+
+            y_score = np.concatenate(y_score)
+            y_pred = [np.argmax(x) for x in y_score]
+            y_true = np.concatenate(y_true)
+            confusion_matrix = metrics.confusion_matrix(y_true, y_pred, labels=[1,0]).flatten()
+
+            acc = metrics.accuracy_score(y_true, y_pred)
+            auc = metrics.roc_auc_score(y_true, y_score[:,1])
+            prec = metrics.precision_score(y_true, y_pred)
+            recall = metrics.recall_score(y_true, y_pred)
+
+            df.loc[df.index == aid, 'AUC_%d' % (fold)] = auc
+
+            print(' %s test_loss %5.3f test_auc %5.3F test_prec %5.3f test_recall %5.3f' % (
+                confusion_matrix, test_loss / index, auc, prec, recall))
+
+            torch.save(net.state_dict(), os.path.join(args.model_dir, 'aid%s_fold_%d.pth' % (aid, fold)))
+
+        elapsed = timeit.default_timer() - start_time
+
+        mean_auc = df.loc[df.index == aid, 'AUC_1':'AUC_%d' % (args.n_splits)].mean(axis=1)
+        df.loc[df.index == aid, 'MeanAUC'] = mean_auc
+
+        print('MLP %d-fold CV mean AUC %5.3f %5.3fsec' % (args.n_splits, mean_auc, elapsed))
+
+    df.to_csv('%s/%d_%d_results.tsv.gz' % (args.log_dir, args.diameter, args.nbits), sep='\t')
+    print(df.loc[df['MeanAUC'].notnull(), :])
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
+    parser.add_argument('--dropout', default=0.1, type=float)
+    parser.add_argument('--data_dir', default='data', type=str)
+    parser.add_argument('--dataset', default='pcba.csv.gz', type=str)
     parser.add_argument('--diameter', default=4, type=int)
-    parser.add_argument('--nbits', default=2048, type=int)
+    parser.add_argument('--nbits', default=1024, type=int)
+    parser.add_argument('--n_splits', default=5, type=int, help='a number of folds of cross validation')
+    parser.add_argument('--sort', default=True, action='store_true', help='Sort by positive percenrage and count of compounds')
+    parser.add_argument('--limit', default=10, type=int, help='Number of AIDs to process')
+    parser.add_argument('--log_dir', default='mlp', type=str)
     parser.add_argument('--random_seed', default=123, type=int)
-    parser.add_argument('--test_size', default=0.2, type=float)
     parser.add_argument('--model_dir', default='model', type=str)
     parser.add_argument('--modelfile', default=None, type=str)
-    parser.add_argument('--model_save', default=False)
     parser.add_argument('--epochs', default=100, type=int)
     parser.add_argument('--batch_size', default=100, type=int)
     parser.add_argument('--lr', default=1e-4, type=float)
     parser.add_argument('--weight_decay', default=0., type=float)
-    parser.add_argument('--dropout', default=0.1, type=float)
     args = parser.parse_args()
     print(vars(args))
 
