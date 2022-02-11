@@ -9,5 +9,7 @@ else
     pip install torch numpy scikit-learn pandas rdkit-pypi
 fi
 
+wget -c -P data https://github.com/deepchem/deepchem/raw/master/datasets/pcba.csv.gz
+
 python pcba.py
 python main.py
