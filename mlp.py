@@ -65,14 +65,8 @@ def main(args):
             # create torch tensor from numpy array
             train_x = torch.FloatTensor(X[train]).to(device)
             train_y = torch.LongTensor(y[train]).to(device)
-            test_x = torch.FloatTensor(X[test]).to(device)
-            test_y = torch.LongTensor(y[test]).to(device)
-
             train = torch.utils.data.TensorDataset(train_x, train_y)
-            test = torch.utils.data.TensorDataset(test_x, test_y)
-
             train_dataloader = torch.utils.data.DataLoader(train, batch_size=args.batch_size, shuffle=True)
-            test_dataloader = torch.utils.data.DataLoader(test, batch_size=args.batch_size)
 
             net = MLP(input_dim=args.nbits, dropout=args.dropout)
             net = net.to(device)
@@ -102,10 +96,15 @@ def main(args):
                 print('\rfold %d epoch %4d batch %4d/%4d' % (fold, epoch, index, len(train_dataloader)), end='')
                 print(' train_loss %5.3f %5.3fsec' % (train_loss / index, timeit.default_timer() - epoch_start), end='')
 
+            test_x = torch.FloatTensor(X[test]).to(device)
+            test_y = torch.LongTensor(y[test]).to(device)
+            test = torch.utils.data.TensorDataset(test_x, test_y)
+            test_dataloader = torch.utils.data.DataLoader(test, batch_size=args.batch_size)
+
             net.eval()
+
             test_loss = 0
             y_score, y_true = [], []
-
             for index, (data, label) in enumerate(test_dataloader, 1):
                 with torch.no_grad():
                     output = net(data)
@@ -138,6 +137,8 @@ def main(args):
 
         print('MLP %d-fold CV mean AUC %5.3f %5.3fsec' % (args.n_splits, mean_auc, elapsed))
 
+    df.loc['MeanAUC', :] = df.mean(axis=0)
+    df.loc[:, 'AUC_1':] = df.loc[:, 'AUC_1':].round(4)
     df.to_csv('%s/%d_%d_results.tsv.gz' % (args.log_dir, args.diameter, args.nbits), sep='\t')
     print(df.loc[df['MeanAUC'].notnull(), :])
 
