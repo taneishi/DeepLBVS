@@ -29,6 +29,23 @@ def pcba_matrix(args):
     df = df.iloc[:args.limit, :]
     return df
 
+def create_smiles(aid, args):
+    dirname = 'smi'
+    filename = '%s/%s.tsv.gz' % (dirname, aid)
+
+    os.makedirs(dirname, exist_ok=True)
+    if os.path.exists(filename):
+        return
+
+    matrix_file = '%s/%s' % (args.data_dir, args.dataset)
+    df = pd.read_csv(matrix_file, sep=',').set_index(['mol_id', 'smiles'])
+
+    start_time = timeit.default_timer()
+
+    df = df.loc[df[aid].notnull(), aid]
+    df.to_csv(filename, sep='\t', index=True)
+    print('\nNumber of compounds %6d in smiles saved %5.3fsec' % (df.shape[0], timeit.default_timer() - start_time))
+
 def create_ecfp(aid, args):
     dirname = 'ecfp/%d_%d' % (args.diameter, args.nbits)
     filename = '%s/%s.tsv.gz' % (dirname, aid)
@@ -103,6 +120,7 @@ def main(args):
 
     # create ECFP fingerprints
     for aid in df.index:
+        create_smiles(aid, args)
         create_ecfp(aid, args)
 
     show_results(args)
