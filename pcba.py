@@ -134,7 +134,7 @@ if __name__ == '__main__':
     parser.add_argument('--n_splits', default=5, type=int)
     parser.add_argument('--sort', default=True, action='store_true', help='Sort by positive percenrage and count of compounds')
     parser.add_argument('--limit', default=10, type=int, help='Number of AIDs to process')
-    parser.add_argument('--log_dir', default='mlp', type=str)
+    parser.add_argument('--log_dir', default='log/mlp', type=str)
     parser.add_argument('--random_seed', default=123, type=int)
     args = parser.parse_args()
     print(vars(args))
