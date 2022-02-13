@@ -100,39 +100,11 @@ def main(args):
     df = pcba_matrix(args)
     print(df)
 
-    show_results(args)
-
     # create ECFP fingerprints
     for aid in df.index:
         create_ecfp(aid, args)
 
-    cls = RandomForestClassifier(n_estimators=200)
-
-    for aid in df.index:
-        print('\nAID %6s (%3d/%3d)' % (aid, df.index.get_loc(aid) + 1, args.limit))
-        print(df.loc[df.index == aid, :'percentage'])
-
-        X, y = load_ecfp(aid, args)
-
-        start_time = timeit.default_timer()
-
-        skf = StratifiedKFold(n_splits=args.n_splits)
-        for fold, (train, test) in enumerate(skf.split(X, y), 1):
-            cls.fit(X[train], y[train])
-            y_pred = cls.predict(X[test])
-            auc = roc_auc_score(y[test], y_pred)
-
-            df.loc[df.index == aid, 'AUC_%d' % (fold)] = auc
-
-        elapsed = timeit.default_timer() - start_time
-
-        mean_auc = df.loc[df.index == aid, 'AUC_1':'AUC_%d' % (args.n_splits)].mean(axis=1)
-        df.loc[df.index == aid, 'MeanAUC'] = mean_auc
-
-        print('%s %d-fold CV mean AUC %5.3f %5.3fsec' % (cls, args.n_splits, mean_auc, elapsed))
-
-    df.to_csv('%s/%d_%d_results.tsv.gz' % (args.log_dir, args.diameter, args.nbits), sep='\t')
-    print(df.loc[df['MeanAUC'].notnull(), :])
+    show_results(args)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
