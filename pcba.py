@@ -92,27 +92,17 @@ def load_ecfp(aid, args):
 def show_results(args):
     results = dict()
 
-    diameter_list, nbits_list = [], []
-    for filename in os.listdir(args.log_dir):
-        diameter, nbits, basename = filename.split('_')
-        diameter_list.append(int(diameter))
-        nbits_list.append(int(nbits))
+    for method in ['rf', 'xgb', 'mlp']:
+        filename = '%s/%s/%d_%d_results.tsv.gz' % (args.log_dir, method, args.diameter, args.nbits)
+        if os.path.exists(filename):
+            df = pd.read_csv(filename, sep='\t', index_col=0)
+            results.update({ method: df['MeanAUC'] })
 
-    for diameter in sorted(diameter_list):
-        for nbits in sorted(nbits_list):
-            filename = '%s/%d_%d_results.tsv.gz' % (args.log_dir, diameter, nbits)
-            if os.path.exists(filename):
-                df = pd.read_csv(filename, sep='\t', index_col=0)
-                results.update({'%d_%d' % (diameter, nbits): df['MeanAUC']})
-        
     df = pd.DataFrame.from_dict(results)
-    df.loc['MeanAUC', :] = df.mean(axis=0)
-    print('\nResluts in %s' % (args.log_dir))
-    print(df)
+    print('\nResluts of ecfp_%d_%d\n' % (args.diameter, args.nbits), df)
 
 def main(args):
     np.random.seed(123)
-    os.makedirs(args.log_dir, exist_ok=True)
 
     # dataset is provided in (aid x compounds) matrix
     df = pcba_matrix(args)
@@ -134,7 +124,7 @@ if __name__ == '__main__':
     parser.add_argument('--n_splits', default=5, type=int)
     parser.add_argument('--sort', default=True, action='store_true', help='Sort by positive percenrage and count of compounds')
     parser.add_argument('--limit', default=10, type=int, help='Number of AIDs to process')
-    parser.add_argument('--log_dir', default='log/mlp', type=str)
+    parser.add_argument('--log_dir', default='log', type=str)
     parser.add_argument('--random_seed', default=123, type=int)
     args = parser.parse_args()
     print(vars(args))

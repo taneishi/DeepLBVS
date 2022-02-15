@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 from rdkit import Chem
 from rdkit.Chem import rdMolDescriptors
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import roc_auc_score
 import xgboost as xgb
@@ -10,7 +9,7 @@ import argparse
 import timeit
 import os
 
-from pcba import pcba_matrix, show_results, create_ecfp, load_ecfp
+from pcba import pcba_matrix, create_ecfp, load_ecfp
 
 def main(args):
     np.random.seed(123)
@@ -19,8 +18,6 @@ def main(args):
     # dataset is provided in (aid x compounds) matrix
     df = pcba_matrix(args)
     print(df)
-
-    show_results(args)
 
     # create ECFP fingerprints
     for aid in df.index:

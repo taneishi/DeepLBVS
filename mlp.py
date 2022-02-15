@@ -12,7 +12,7 @@ import argparse
 import timeit
 import os
 
-from pcba import pcba_matrix, show_results, create_ecfp, load_ecfp
+from pcba import pcba_matrix, create_ecfp, load_ecfp
 
 class MLP(nn.Module):
     def __init__(self, input_dim=1974, dropout=0.1):
@@ -39,14 +39,11 @@ def main(args):
     os.makedirs(args.model_dir, exist_ok=True)
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    #device = ipex.DEVICE
     print('Using %s device.' % device)
 
     # dataset is provided in (aid x compounds) matrix
     df = pcba_matrix(args)
     print(df)
-
-    show_results(args)
 
     # create ECFP fingerprints
     for aid in df.index:
