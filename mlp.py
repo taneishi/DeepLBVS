@@ -39,7 +39,7 @@ def main(args):
     os.makedirs(args.model_dir, exist_ok=True)
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    print('Using %s device.' % device)
+    print('Using %s device.' % (device))
 
     # dataset is provided in (aid x compounds) matrix
     df = pcba_matrix(args)
